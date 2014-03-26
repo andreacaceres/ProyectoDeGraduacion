@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">classfinder</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="exit">Salir</string>
+    <string name="begin">Iniciar</string>
+    <string name="connected">--</string>
+    <string name="bssid">BSSID</string>
+    <string name="bssidvalue">--</string>
+    <string name="rssid">RSSID</string>
+    <string name="rssidvalue">--</string>
+    <string name="ssid">SSID</string>
+    <string name="ssidvalue">--</string>
+    <string name="refresh">Actualizar</string>
+
+</resources>
