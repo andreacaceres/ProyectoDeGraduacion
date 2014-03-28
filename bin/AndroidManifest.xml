@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="ec.cacehure.classfinder.MainActivity"
+            android:screenOrientation="landscape"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +31,7 @@
         <!-- ToGo Activity -->
         <activity
           android:name=".pantalla_haciaDondeIr"
+          android:screenOrientation="landscape"
           android:label="ToGo" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
