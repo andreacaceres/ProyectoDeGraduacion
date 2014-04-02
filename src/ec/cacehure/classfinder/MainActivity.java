@@ -17,32 +17,33 @@ public class MainActivity extends Activity {
     ConnectionDetector cd;
     public int flag = 0;
     Button btn_salir;
+    Button btnStatus;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//Ejemplo para ver si esta o no conectado
-        Button btnStatus = (Button)findViewById(R.id.begin);
-        
         cd = new ConnectionDetector(getApplicationContext());
+        
+		btnStatus = (Button)findViewById(R.id.begin);
         btnStatus.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				isInternetPresent = cd.isConnectingToInternet();
 				if (isInternetPresent) {
-                    // Internet Connection is Present
-                    // make HTTP requests
-					flag = 1;
-                    showAlertDialog(MainActivity.this, "Internet Connection", "You have internet connection", true);
+                    // La conexión a internet esta presente
+                    // hace un HTTP Request
+					//flag = 1;
+					Intent intent = new Intent(MainActivity.this, pantalla_haciaDondeIr.class);
+                    startActivity(intent);
+                    //showAlertDialog(MainActivity.this, "Conexión a Internet", "Usted esta conectado a la red", true);
                 } else {
-                    // Internet connection is not present
-                    // Ask user to connect to Internet
-                	flag = 0;
-                    showAlertDialog(MainActivity.this, "No Internet Connection", "You don't have internet connection.", false);
+                    // La conexión a internet no esta presente
+                    // Se le solicita al usuario que se conecte por medio Wi-Fi al Internet
+                	//flag = 0;
+                    showAlertDialog(MainActivity.this, "No conexión a Internet", "Usted no está conectado a Internet.", false);
                 }
 			}
 		});
@@ -55,31 +56,30 @@ public class MainActivity extends Activity {
 				finish();
 			}
 		});
-        //END
 	}
 	
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
  
-        // Setting Dialog Title
+        // Titulo del mensaje
         alertDialog.setTitle(title);
  
-        // Setting Dialog Message
+        // Descripcion del mensaje
         alertDialog.setMessage(message);
           
-        // Setting OK Button
+        // Boton OK
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            	if(flag == 1){
-            		//Go to another activity
+            	/*if(flag == 1){
+            		//Si es true, se va a otra pantalla
                     Intent intent = new Intent(MainActivity.this, pantalla_haciaDondeIr.class);
                     startActivity(intent);
             	}else{
             		finish();
-            	}
+            	}*/
             }
         });
-        // Showing Alert Message
+        // Mostrando mensaje de alerta
         alertDialog.show();
     }
 

@@ -52,7 +52,6 @@ public class pantalla_haciaDondeIr extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.v("============= Android", "EXITING APLICACTION ");
 				finish();
 			}
 		});
@@ -64,13 +63,10 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//Actualizar los datos
-				Log.v("============= Android", "UPDATING DATA ");
 				DisplayWifiState();
 				allwifi.startScan();
 			}
 		});
-		
-		
 	}
 	
 	@Override

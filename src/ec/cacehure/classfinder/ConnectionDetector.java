@@ -11,6 +11,14 @@ public class ConnectionDetector {
 		this._context = context;
 	}
 	
+	/*
+	 * Descripción: Esta función de tipo boolean
+	 * 				me devuelve un valor de True
+	 * 				si es que el dispositivo esta conectado
+	 * 				a una red Wi-Fi.
+	 * 				Devolverá falso en caso de no estar conectado
+	 * 				a una red Wi-Fi.
+	 * */
 	public boolean isConnectingToInternet(){
 		ConnectivityManager connectivity = (ConnectivityManager)_context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if(connectivity != null){
