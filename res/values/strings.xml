@@ -14,5 +14,9 @@
     <string name="ssid">SSID</string>
     <string name="ssidvalue">--</string>
     <string name="refresh">Actualizar</string>
+    <string name="togo">¿A donde ir?</string>
+    <string name="namelist">name</string>
+    <string name="allcourse">Cursos FIEC</string>
+    <string name="description">Description</string>
 
 </resources>

@@ -1,31 +1,57 @@
 package ec.cacehure.classfinder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
+public class pantalla_haciaDondeIr extends ListActivity{
 
-public class pantalla_haciaDondeIr extends Activity{
-
-	Button btn_salir, btn_actualizar;
-	TextView textConnected, textSsid, textBssid, textRssi;
+	Button btn_salir;
+	ListView all_courses;
 	//LOCALIZACION
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
-	String BSSIDValido[];
+	public String BSSIDValido[];
+	//25 de Mayo 2014
+	private static final String url_localizacion = "http://192.168.0.6/WebService/localizacion.php";
+	private static final String TAG_VALUE0 = "value0";
+	private static final String TAG_VALUE1 = "value1";
+	private static final String TAG_VALUE2 = "value2";
+	
+	//Domingo 4 de Mayo 2014
+	private ProgressDialog pDialog;
+	JSONParser JParser = new JSONParser();
+	ArrayList<HashMap<String, String>> courseList;
+	private static String url_all_courses = "http://192.168.0.6/WebService/get_all_course.php";
+	private static final String TAG_SUCCESS = "success";
+	private static final String TAG_COURSES = "courses";
+	private static final String TAG_CODE = "codigo";
+	private static final String TAG_DESCRIPCION = "descripcion";
+	JSONArray courses = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,38 +59,33 @@ public class pantalla_haciaDondeIr extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.togo);
 		
-		//Localizacion
+		//4 de Mayo de 2014
+		//Muestra los cursos de la FIEC
+		courseList = new ArrayList<HashMap<String,String>>();
+		new LoadAllCourses().execute();
+		all_courses = getListView();
+		//END
+		
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 		wifiReciever = new WifiScanReceiver();
 		allwifi.startScan();
-		//END
 		
-		textConnected = (TextView)findViewById(R.id.textconnected);       
-        textSsid = (TextView)findViewById(R.id.textssidvalue);
-        textBssid = (TextView)findViewById(R.id.textbssidvalue);
-        textRssi = (TextView)findViewById(R.id.textrssidvalue);
-        
-        DisplayWifiState();
+		//Ver una forma de obtener el BSSIDValido de la clase anonima
 		
+		
+		
+		
+		
+		//cambios 25 de mayo de 2014
+		new LoadWifiScan().execute();
+		//end
+				
 		btn_salir = (Button)findViewById(R.id.exit);
 		btn_salir.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
-			}
-		});
-		
-		btn_actualizar = (Button)findViewById(R.id.refresh);
-		btn_actualizar.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//Actualizar los datos
-				DisplayWifiState();
-				allwifi.startScan();
 			}
 		});
 	}
@@ -78,24 +99,12 @@ public class pantalla_haciaDondeIr extends Activity{
 		@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-			registerReceiver(wifiReciever, new IntentFilter(
-					WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+		registerReceiver(wifiReciever, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 		super.onResume();
 	}
-
-	//Obtiene los valores del AP
-    private void DisplayWifiState(){
-    	WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-		WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
-		textConnected.setText("--- CONNECTED ---");	        
-		textSsid.setText(myWifiInfo.getSSID());
-		textBssid.setText(myWifiInfo.getBSSID());			
-		textRssi.setText(String.valueOf(myWifiInfo.getRssi()));
-    }
     
     //Clase WifiScanReceiver
     class WifiScanReceiver extends BroadcastReceiver{
-
 		@Override
 		public void onReceive(Context c, Intent intent) {
 			// TODO Auto-generated method stub
@@ -103,19 +112,106 @@ public class pantalla_haciaDondeIr extends Activity{
 			List<ScanResult> wifiScanList = allwifi.getScanResults();
 			final int n = wifiScanList.size(); //El tamaño de la lista
 			BSSIDValido = new String[n];
-			for(int i= 0; i<n; i++){
-				if((wifiScanList.get(i).BSSID).equalsIgnoreCase("C0:F8:DA:AC:BE:0A")){
-	        		 BSSIDValido[i] = ((wifiScanList.get(i)).toString());
-	        		 Log.v("============= Android", "EL BBSID VALIDO ES: "+wifiScanList.get(i).BSSID);
-	        		 Log.v("============= Android", "EL SSID  VALIDO ES: "+wifiScanList.get(i).SSID);
-	        		 Log.v("============= Android", "EL RSSI  VALIDO ES: "+wifiScanList.get(i).level);
-	        	}else{
-	        		 Log.v("============= Android", "EL BBSID NO VALIDO ES: "+wifiScanList.get(i).BSSID);
-	        		 Log.v("============= Android", "EL SSID  NO VALIDO ES: "+wifiScanList.get(i).SSID);
-	        		 Log.v("============= Android", "EL RSSI  NO VALIDO ES: "+wifiScanList.get(i).level);
-	        	}	
+			
+			//Para ver la lista de AP
+			for(int i=0; i<3; i++){
+				Log.v("=============> Android", "AP DISPONIBLES: "+ wifiScanList.get(i).toString());
+				BSSIDValido[i] = wifiScanList.get(i).toString();
+			}	
+		}
+		
+		//Una funcion que me devuelve algo, por ejemplo un arreglo
+    	
+    }
+    
+    //Cargando desde el background todos los cursos
+    //Almacenados en la base de datos
+    
+    class LoadAllCourses extends AsyncTask<String, String, String>{
+
+    	//Antes de que comience el activity
+    	protected void onPreExecute(){
+    		super.onPreExecute();
+    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
+    		pDialog.setMessage("Cargando el listado de cursos. Por favor espere...");
+    		pDialog.setIndeterminate(false);
+    		pDialog.setCancelable(false);
+    		pDialog.show();
+    	}
+    	
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
+			JSONObject json = JParser.makeHttpRequest(url_all_courses, "POST", parametros);
+			//reavisar como regresa el request
+			Log.v("======>Todos los cursos", json.toString());
+			try{
+				int success = json.getInt(TAG_SUCCESS);
+				if(success == 1){
+					courses = json.getJSONArray(TAG_COURSES);
+					for (int i = 0; i< courses.length(); i++){
+						JSONObject c = courses.getJSONObject(i);
+						String codigo = c.getString(TAG_CODE);
+						String descripcion = c.getString(TAG_DESCRIPCION);
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put(TAG_CODE, codigo);
+						map.put(TAG_DESCRIPCION, descripcion);
+						courseList.add(map);
+					}
+				}else{
+					
+				}
+			}catch(JSONException e){
+				e.printStackTrace();
 			}
+			return null;
+		}
+		
+		//Despues..
+		protected void onPostExecute(String file_url){
+			pDialog.dismiss();
+			runOnUiThread(new Runnable(){
+				public void run(){
+					ListAdapter adapter = new SimpleAdapter(pantalla_haciaDondeIr.this, courseList, R.layout.list_course, new String[]{TAG_CODE, TAG_DESCRIPCION}, new int[]{R.id.textCourse, R.id.textdescription});
+					setListAdapter(adapter);
+				}
+			});
 		}
     	
     }
+    
+    class LoadWifiScan extends AsyncTask<String, String, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			//25 de Mayo del 2014
+			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, "SSID: Claro_MOLINA0000029162, BSSID: c0:f8:da:ac:be:0a, capabilities: [WEP][ESS], level: -72, frequency: 2437"));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, "SSID: Claro_MOLINA, BSSID: c0:f8:34:ac:be:0a, capabilities: [WEP][ESS], level: -74, frequency: 2477"));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, "SSID: Claro_MOLINALOPEZ, BSSID: c0:f8:da:87:be:0a, capabilities: [WEP][ESS], level: -40, frequency: 4337"));
+			
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			//reavisar como regresa el request
+			Log.v("======>Lo que paso al otro lado", jsonWifi.toString());
+			for(int i=0; i<3; i++){
+				//Log.v("=============> Android", "PRUEBA: "+ BSSIDValido[i]);
+			}
+			
+			try{
+				int success = jsonWifi.getInt(TAG_SUCCESS);
+				if(success == 1){
+					//Paso todo
+				}else{
+					//Hubo error
+				}
+			}catch(JSONException e){
+				e.printStackTrace();
+			}
+			return null;
+		}
+    	
+    }
+		
 }

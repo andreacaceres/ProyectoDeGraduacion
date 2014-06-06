@@ -4,58 +4,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textconnected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/connected" />
-
-    <TextView
-        android:id="@+id/textbssid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bssid" />
-
-    <TextView
-        android:id="@+id/textbssidvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bssidvalue" />
-
-    <TextView
-        android:id="@+id/textrssid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rssid" />
-
-    <TextView
-        android:id="@+id/textrssidvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rssidvalue" />
-
-    <TextView
-        android:id="@+id/textssid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ssid" />
-
-    <TextView
-        android:id="@+id/textssidvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ssidvalue" />
-
     <Button
         android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:text="@string/exit" />
 
-    <Button
-        android:id="@+id/refresh"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/refresh" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/texttogo"
+        android:layout_toLeftOf="@+id/texttogo" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/all_courses_fiec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/allcourse" />
+
+    <TextView
+        android:id="@+id/texttogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/togo"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>
