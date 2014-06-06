@@ -37,7 +37,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	WifiScanReceiver wifiReciever;
 	public String BSSIDValido[];
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.6/WebService/localizacion.php";
+	private static final String url_localizacion = "http://200.126.19.88/WebService/localizacion.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -46,7 +46,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.6/WebService/get_all_course.php";
+	private static String url_all_courses = "http://200.126.19.88/WebService/get_all_course.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
@@ -69,12 +69,6 @@ public class pantalla_haciaDondeIr extends ListActivity{
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 		wifiReciever = new WifiScanReceiver();
 		allwifi.startScan();
-		
-		//Ver una forma de obtener el BSSIDValido de la clase anonima
-		
-		
-		
-		
 		
 		//cambios 25 de mayo de 2014
 		new LoadWifiScan().execute();
@@ -105,6 +99,9 @@ public class pantalla_haciaDondeIr extends ListActivity{
     
     //Clase WifiScanReceiver
     class WifiScanReceiver extends BroadcastReceiver{
+    	//nuevo 6/junio/2014
+    	public List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
+    	//fin
 		@Override
 		public void onReceive(Context c, Intent intent) {
 			// TODO Auto-generated method stub
@@ -117,11 +114,25 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			for(int i=0; i<3; i++){
 				Log.v("=============> Android", "AP DISPONIBLES: "+ wifiScanList.get(i).toString());
 				BSSIDValido[i] = wifiScanList.get(i).toString();
-			}	
+				//nuevo OJO CAMBIAR EL TAG_VALUE 6/junio/2014
+				parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, BSSIDValido[i]));
+				//fin
+			}
+			//nuevo 6/junio/2014
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado", jsonWifi.toString());
+			try{
+				int success = jsonWifi.getInt(TAG_SUCCESS);
+				if(success == 1){
+					//Paso todo
+				}else{
+					//Hubo error
+				}
+			}catch(JSONException e){
+				e.printStackTrace();
+			}
+			//fin
 		}
-		
-		//Una funcion que me devuelve algo, por ejemplo un arreglo
-    	
     }
     
     //Cargando desde el background todos los cursos
@@ -188,6 +199,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			// TODO Auto-generated method stub
 			//25 de Mayo del 2014
 			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
+			//un for con los datos de arriba...posible solucion
+			//end
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, "SSID: Claro_MOLINA0000029162, BSSID: c0:f8:da:ac:be:0a, capabilities: [WEP][ESS], level: -72, frequency: 2437"));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, "SSID: Claro_MOLINA, BSSID: c0:f8:34:ac:be:0a, capabilities: [WEP][ESS], level: -74, frequency: 2477"));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, "SSID: Claro_MOLINALOPEZ, BSSID: c0:f8:da:87:be:0a, capabilities: [WEP][ESS], level: -40, frequency: 4337"));
