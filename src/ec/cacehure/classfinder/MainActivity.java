@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
     JSONParser jsonParser = new JSONParser();
-    private static final String url_filtro = "http://192.168.0.2/WebService/filtro.php";
+    private static final String url_filtro = "http://192.168.0.11/WebService/filtro.php";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

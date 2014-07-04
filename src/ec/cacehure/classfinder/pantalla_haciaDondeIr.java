@@ -1,6 +1,7 @@
 package ec.cacehure.classfinder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	WifiScanReceiver wifiReciever;
 	public String BSSIDValido[];
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.2/WebService/localizacion.php";
+	private static final String url_localizacion = "http://192.168.0.11/WebService/localizacion.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -46,7 +47,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.2/WebService/get_courses.php";
+	private static String url_all_courses = "http://192.168.0.11/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
@@ -109,15 +110,35 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			//Estan todas las wifi detectadas
 			List<ScanResult> wifiScanList = allwifi.getScanResults();
 			final int n = wifiScanList.size(); //El tamaño de la lista
+			String formato = "SSID: NOSSID, BSSID: 00:00:00:00:00:00, capabilities: [WEP][ESS], level: -0, frequency: 0";
 			BSSIDValido = new String[n];
-			for(int i=0;i<3;i++){
-				BSSIDValido[i] = wifiScanList.get(i).toString();
-				Log.v("=============> Android", "AP DISPONIBLES: "+ wifiScanList.get(i).toString());
+			
+			for(int i=0;i<n;i++){
+				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") ){
+					BSSIDValido[i] = wifiScanList.get(i).toString();
+				}
+				else{
+					//No hagas nada
+					BSSIDValido[i] = formato;
+				}
+				//Log.v("=============> Android", "AP DISPONIBLES: "+ wifiScanList.get(i).toString());
+				//Log.v("=============> Android BSSID", "AP DISPONIBLES: "+ BSSIDValido[i].toString());
 			}
+			
+			Log.v("=============> Android BSSID", "AP DISPONIBLES: "+ Arrays.toString(BSSIDValido));
+		
 			//test
-			LoadWifiScan testing = new LoadWifiScan();
-			testing.prueba(mensaje);
-			testing.execute();
+			//LoadWifiScan testing = new LoadWifiScan();
+			//testing.prueba(mensaje);
+			//27 de Junio
+			/*for(int i = 0; i<3; i++){
+				testing.GetArreglo(BSSIDValido[i].toString(), i);
+			}*/
+			/*testing.GetArreglo(BSSIDValido[0].toString());
+			testing.GetArreglo(BSSIDValido[1].toString());
+			testing.GetArreglo(BSSIDValido[2].toString());*/
+			//End
+			//testing.execute();
 			//end
 		}		
     }
@@ -184,11 +205,11 @@ public class pantalla_haciaDondeIr extends ListActivity{
 		@Override
 		protected String doInBackground(String... params) {
 			//test
-			String mensaje2 = "Chao";
+			//String mensaje2 = "Chao";
 			//end
 			// TODO Auto-generated method stub
 			//test
-			prueba(mensaje2);
+			//prueba(mensaje2);
 			//end
 			//25 de Mayo del 2014
 			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
@@ -223,6 +244,17 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			Log.v("==>android", "Soy una prueba: "+a);
 			return a;
 		}
+		//End
+		//Prueba 27 de Junio
+		public String GetArreglo(String a, int i){
+			String res = a;
+			String [] arreglo = new String[3];
+			Log.v("==>ANDROID STRING SOLO", "STRING SOLO===>: "+res);
+			arreglo[i] = a;
+			Log.v("==>ANDROID ARREGLO", "STRING SOLO===>: "+arreglo[0].toString());
+			return res;
+		}
+		//End
     	
     }
 		
