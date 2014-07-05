@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -36,9 +37,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	//LOCALIZACION
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
-	public String BSSIDValido[];
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.11/WebService/localizacion.php";
+	private static final String url_localizacion = "http://192.168.0.6/WebService/localizacion.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -47,12 +47,19 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.11/WebService/get_courses.php";
+	private static String url_all_courses = "http://192.168.0.6/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
 	private static final String TAG_DESCRIPCION = "descripcion";
 	JSONArray courses = null;
+	
+	//Julio 4 de 2014
+	Vector p = new Vector();
+	private static String url_localizacionOne = "http://192.168.0.6/WebService/localizacion_one.php";
+	private static String url_two = "http://192.168.0.6/WebService/dos.php";
+	private static final String TAG_VALUE = "value";
+	//End
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,49 +110,35 @@ public class pantalla_haciaDondeIr extends ListActivity{
     	
 		@Override
 		public void onReceive(Context c, Intent intent) {
-			//Test
-			String mensaje = "Hola como estas?";
-			//end
 			// TODO Auto-generated method stub
 			//Estan todas las wifi detectadas
 			List<ScanResult> wifiScanList = allwifi.getScanResults();
 			final int n = wifiScanList.size(); //El tamaño de la lista
-			String formato = "SSID: NOSSID, BSSID: 00:00:00:00:00:00, capabilities: [WEP][ESS], level: -0, frequency: 0";
-			BSSIDValido = new String[n];
 			
 			for(int i=0;i<n;i++){
-				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") ){
-					BSSIDValido[i] = wifiScanList.get(i).toString();
+				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("AutoAlvarez") ){
+					p.add(wifiScanList.get(i));
 				}
-				else{
-					//No hagas nada
-					BSSIDValido[i] = formato;
-				}
-				//Log.v("=============> Android", "AP DISPONIBLES: "+ wifiScanList.get(i).toString());
-				//Log.v("=============> Android BSSID", "AP DISPONIBLES: "+ BSSIDValido[i].toString());
 			}
+			Log.v("=============> Android BSSID", "AP DISPONIBLES VECTOR: "+ p.toString());
 			
-			Log.v("=============> Android BSSID", "AP DISPONIBLES: "+ Arrays.toString(BSSIDValido));
-		
-			//test
-			//LoadWifiScan testing = new LoadWifiScan();
-			//testing.prueba(mensaje);
-			//27 de Junio
-			/*for(int i = 0; i<3; i++){
-				testing.GetArreglo(BSSIDValido[i].toString(), i);
-			}*/
-			/*testing.GetArreglo(BSSIDValido[0].toString());
-			testing.GetArreglo(BSSIDValido[1].toString());
-			testing.GetArreglo(BSSIDValido[2].toString());*/
-			//End
-			//testing.execute();
-			//end
+			int tam_vetor = p.size();
+			Log.v("=============> Android BSSID", "TAMAÑO VECTOR: "+ tam_vetor);
+			
+			if(tam_vetor == 2){
+				//Se pasa los TRES primeros valores al servidor
+				LoadWifiScan tres = new LoadWifiScan();
+				//tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()) );
+				tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()) );
+			}else{
+				//Se pasa solo el PRIMER valor al servidor
+				LoadOneWifi one = new LoadOneWifi();
+				one.execute((p.elementAt(0).toString()));
+			}
 		}		
     }
     
-    //Cargando desde el background todos los cursos
-    //Almacenados en la base de datos
-    
+    //Cargando desde el background todos los cursos almacenados en la base de datos
     class LoadAllCourses extends AsyncTask<String, String, String>{
 
     	//Antes de que comience el activity
@@ -204,28 +197,23 @@ public class pantalla_haciaDondeIr extends ListActivity{
 
 		@Override
 		protected String doInBackground(String... params) {
-			//test
-			//String mensaje2 = "Chao";
-			//end
-			// TODO Auto-generated method stub
-			//test
-			//prueba(mensaje2);
-			//end
 			//25 de Mayo del 2014
 			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			//un for con los datos de arriba...posible solucion
-			//end
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, "SSID: Claro_MOLINA0000029162, BSSID: c0:f8:da:ac:be:0a, capabilities: [WEP][ESS], level: -72, frequency: 2437"));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, "SSID: Claro_MOLINA, BSSID: c0:f8:34:ac:be:0a, capabilities: [WEP][ESS], level: -74, frequency: 2477"));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, "SSID: Claro_MOLINALOPEZ, BSSID: c0:f8:da:87:be:0a, capabilities: [WEP][ESS], level: -40, frequency: 4337"));
+			String uno = (String)params[0];
+			String dos = (String)params[1];
+			Log.v("======>UNO", uno);
+			Log.v("======>DOS", dos);
+			//String tres = (String)params[2];
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, uno ));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, dos ));
+			//parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, tres ));
 			
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			//JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_two, "POST", parametrosWifi);
 			//reavisar como regresa el request
-			Log.v("======>Lo que paso al otro lado", jsonWifi.toString());
-			for(int i=0; i<3; i++){
-				//Log.v("=============> Android", "PRUEBA: "+ BSSIDValido[i]);
-			}
-			
+			//Log.v("======>Lo que paso al otro lado TRES", jsonWifi.toString());
+			Log.v("======>Lo que paso al otro lado DOS", jsonWifi.toString());
+						
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -238,24 +226,33 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			}
 			return null;
 		}
-		
-		//Test
-		public String prueba(String a){
-			Log.v("==>android", "Soy una prueba: "+a);
-			return a;
-		}
-		//End
-		//Prueba 27 de Junio
-		public String GetArreglo(String a, int i){
-			String res = a;
-			String [] arreglo = new String[3];
-			Log.v("==>ANDROID STRING SOLO", "STRING SOLO===>: "+res);
-			arreglo[i] = a;
-			Log.v("==>ANDROID ARREGLO", "STRING SOLO===>: "+arreglo[0].toString());
-			return res;
-		}
-		//End
     	
+    }
+    
+    //Testing the async
+    class LoadOneWifi extends AsyncTask<String, String, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			Log.v("======>PARAMS_TO_STRING", Arrays.toString(params));
+			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE, Arrays.toString(params) ));
+			
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacionOne, "POST", parametrosWifi);
+			//reavisar como regresa el request
+			Log.v("======>Lo que paso al otro lado ONE", jsonWifi.toString());
+			try{
+				int success = jsonWifi.getInt(TAG_SUCCESS);
+				if(success == 1){
+					//Paso todo
+				}else{
+					//Hubo error
+				}
+			}catch(JSONException e){
+				e.printStackTrace();
+			}
+			return null;
+		}
     }
 		
 }
