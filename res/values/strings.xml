@@ -18,5 +18,7 @@
     <string name="namelist">name</string>
     <string name="allcourse">Cursos FIEC</string>
     <string name="description">Description</string>
+    <string name="lugar">Lugar del Sitio</string>
+    <string name="place">--</string>
 
 </resources>

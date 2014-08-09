@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -14,12 +14,11 @@
 
     <ListView
         android:id="@android:id/list"
-        android:layout_width="wrap_content"
+        android:layout_width="489dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/texttogo"
         android:layout_toLeftOf="@+id/texttogo" >
-
     </ListView>
 
     <TextView
@@ -39,4 +38,29 @@
         android:text="@string/togo"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="245dp"
+        android:layout_height="245dp"
+        android:layout_alignTop="@android:id/list"
+        android:layout_toRightOf="@android:id/list"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_imagen" />
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lugar" />
+
+    <TextView
+        android:id="@+id/textplace"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textDescription"
+        android:layout_below="@+id/textDescription"
+        android:text="TextView" />
+
+</RelativeLayout>
