@@ -20,5 +20,6 @@
     <string name="description">Description</string>
     <string name="lugar">Lugar del Sitio</string>
     <string name="place">--</string>
+    <string name="btnNext">Mapa</string>
 
 </resources>

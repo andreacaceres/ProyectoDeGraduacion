@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/exit" />
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="489dp"
@@ -40,8 +32,8 @@
 
     <ImageView
         android:id="@+id/image1"
-        android:layout_width="245dp"
-        android:layout_height="245dp"
+        android:layout_width="345dp"
+        android:layout_height="345dp"
         android:layout_alignTop="@android:id/list"
         android:layout_toRightOf="@android:id/list"
         android:contentDescription="TODO"
@@ -62,5 +54,22 @@
         android:layout_alignLeft="@+id/textDescription"
         android:layout_below="@+id/textDescription"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textplace"
+        android:layout_alignParentBottom="true"
+        android:text="@string/exit" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/image1"
+        android:text="@string/btnNext"
+        android:visibility="invisible" />
 
 </RelativeLayout>

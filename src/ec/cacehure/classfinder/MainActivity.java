@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
     JSONParser jsonParser = new JSONParser();
-    private static final String url_filtro = "http://192.168.0.8/WebService/filtro.php";
+    private static final String url_filtro = "http://192.168.0.13/WebService/filtro.php";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
 		 
 		 btnStatus.setOnClickListener(new OnClickListener() {
 			
+			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				isInternetPresent = cd.isConnectingToInternet();
@@ -85,7 +86,8 @@ public class MainActivity extends Activity {
           
         // Boton OK
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {}
+            @Override
+			public void onClick(DialogInterface dialog, int which) {}
         });
         // Mostrando mensaje de alerta
         alertDialog.show();
@@ -94,7 +96,8 @@ public class MainActivity extends Activity {
     class validate extends AsyncTask<String, String, String>{
     	
     	//Antes de comenzar el hilo background le muestra un mensajito =P
-    	protected void onPreExecute(){
+    	@Override
+		protected void onPreExecute(){
     		super.onPreExecute();
     		pDialog = new ProgressDialog(MainActivity.this);
     		pDialog.setMessage("Validando el dominio...");
@@ -136,7 +139,8 @@ public class MainActivity extends Activity {
 		}   	
 
 		//Cierra el pDialog
-        protected void onPostExecute(String file_url) {
+        @Override
+		protected void onPostExecute(String file_url) {
             pDialog.dismiss();
         }
     }

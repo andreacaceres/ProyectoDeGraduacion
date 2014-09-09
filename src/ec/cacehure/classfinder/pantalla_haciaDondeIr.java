@@ -1,14 +1,11 @@
 package ec.cacehure.classfinder;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -47,7 +44,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.8/WebService/localizacion.php";
+	private static final String url_localizacion = "http://192.168.0.13/WebService/localizacion_three.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -56,7 +53,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.8/WebService/get_courses.php";
+	private static String url_all_courses = "http://192.168.0.13/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
@@ -65,7 +62,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	
 	//Julio 4 de 2014
 	Vector p = new Vector();
-	private static String url_localizacionOne = "http://192.168.0.8/WebService/localizacion_one.php";
+	private static String url_localizacionOne = "http://192.168.0.13/WebService/localizacion_one.php";
 	private static String url_two = "http://192.168.0.6/WebService/dos.php";
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
@@ -81,21 +78,20 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	private String descripcion;
 	private String path_imagen_one;
 	
+	//test maps
+	Button btnNext;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.togo);
 		
-		//4 de Mayo de 2014
 		//Muestra los cursos de la FIEC
 		courseList = new ArrayList<HashMap<String,String>>();
 		new LoadAllCourses().execute();
 		all_courses = getListView();
-		//END
-		//9 de agosto
 		all_courses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
@@ -105,16 +101,15 @@ public class pantalla_haciaDondeIr extends ListActivity{
 				Log.v("Codigo","es:"+code);
 				Log.v("Descripcion","es:"+description);
 				Log.v("Descripcion Lugar","es:"+descripcion);
+				Intent intent = new Intent(pantalla_haciaDondeIr.this, Mapa.class);
+				intent.putExtra("codigo", code);
+				startActivity(intent);
 			}
 		});
 		
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 		wifiReciever = new WifiScanReceiver();
 		allwifi.startScan();
-		
-		//cambios 25 de mayo de 2014
-		//new LoadWifiScan().execute();
-		//end
 						
 		btn_salir = (Button)findViewById(R.id.exit);
 		btn_salir.setOnClickListener(new OnClickListener() {
@@ -124,28 +119,18 @@ public class pantalla_haciaDondeIr extends ListActivity{
 				finish();
 			}
 		});
-		//3 de agosto
-		/*imagen_one = (ImageView)findViewById(R.id.image1);
-		Uri imgUri = Uri.parse("http://192.168.0.4/imagenes/imagen1.jpg");
-		imagen_one.setImageURI(imgUri);*/
-	}
-	
-	//Image
-	public Bitmap getBitmapFromURL(String src){
-		try {
-			URL url = new URL(src);
-			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-			connection.setDoInput(true);
-			connection.connect();
-			InputStream input = connection.getInputStream();
-			Bitmap mybitmap = BitmapFactory.decodeStream(input);
-			return mybitmap;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
-		//return null;
+		
+		//Maps
+		/*btnNext = (Button)findViewById(R.id.btnNext);
+		btnNext.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(pantalla_haciaDondeIr.this, Mapa.class);
+				startActivity(intent);
+			}
+		});*/
 	}
 	
 	@Override
@@ -184,8 +169,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			if(tam_vetor == 3){
 				//Se pasa los TRES primeros valores al servidor
 				LoadWifiScan tres = new LoadWifiScan();
-				//tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()) );
-				tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()) );
+				tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()) );
+				//tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()) );
 			}else{
 				//Se pasa solo el PRIMER valor al servidor
 				LoadOneWifi one = new LoadOneWifi();
@@ -198,7 +183,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
     class LoadAllCourses extends AsyncTask<String, String, String>{
 
     	//Antes de que comience el activity
-    	protected void onPreExecute(){
+    	@Override
+		protected void onPreExecute(){
     		super.onPreExecute();
     		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
     		pDialog.setMessage("Cargando el listado de cursos. Por favor espere...");
@@ -237,9 +223,11 @@ public class pantalla_haciaDondeIr extends ListActivity{
 		}
 		
 		//Despues..
+		@Override
 		protected void onPostExecute(String file_url){
 			pDialog.dismiss();
 			runOnUiThread(new Runnable(){
+				@Override
 				public void run(){
 					ListAdapter adapter = new SimpleAdapter(pantalla_haciaDondeIr.this, courseList, R.layout.list_course, new String[]{TAG_CODE, TAG_DESCRIPCION}, new int[]{R.id.textCourse, R.id.textdescription});
 					setListAdapter(adapter);
@@ -255,20 +243,20 @@ public class pantalla_haciaDondeIr extends ListActivity{
 		protected String doInBackground(String... params) {
 			//25 de Mayo del 2014
 			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			String uno = (String)params[0];
-			String dos = (String)params[1];
+			String uno = params[0];
+			String dos = params[1];
+			String tres = params[2];
 			Log.v("======>UNO", uno);
 			Log.v("======>DOS", dos);
-			//String tres = (String)params[2];
+			Log.v("======>TRES", tres);
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, uno ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, dos ));
-			//parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, tres ));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, tres ));
 			
-			//JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_two, "POST", parametrosWifi);
-			//reavisar como regresa el request
-			//Log.v("======>Lo que paso al otro lado TRES", jsonWifi.toString());
-			Log.v("======>Lo que paso al otro lado DOS", jsonWifi.toString());
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			//JSONObject jsonWifi = JParser.makeHttpRequest(url_two, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado TRES", jsonWifi.toString());
+			//Log.v("======>Lo que paso al otro lado DOS", jsonWifi.toString());
 						
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
@@ -289,7 +277,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
     class LoadOneWifi extends AsyncTask<String, String, String>{
     	
     	//Antes de comenzar el hilo background le muestra un mensajito =P
-    	protected void onPreExecute(){
+    	@Override
+		protected void onPreExecute(){
     		super.onPreExecute();
     		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
     		pDialog.setMessage("Calculando coordenadas...");
@@ -314,8 +303,6 @@ public class pantalla_haciaDondeIr extends ListActivity{
 					for (int i = 0; i< ap.length(); i++){
 						JSONObject c = ap.getJSONObject(i);
 						lugar = (TextView)findViewById(R.id.textplace);
-						//String descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						//String path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
 						descripcion = c.getString(TAG_DESCRIPCION_ONE);
 						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
 						Log.v("=====>Dentro del for",descripcion);
@@ -338,6 +325,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			return null;
 		}
 		//Despues
+		@Override
 		protected void onPostExecute(String file_url){
 			pDialog.dismiss();
 			lugar = (TextView)findViewById(R.id.textplace);

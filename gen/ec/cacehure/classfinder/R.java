@@ -11,26 +11,32 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_imagen=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int pantallaprincipal=0x7f020002;
+        public static final int cry=0x7f020000;
+        public static final int ic_imagen=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int ic_mapa_ubicacion=0x7f020003;
+        public static final int pantallaprincipal=0x7f020004;
     }
     public static final class id {
-        public static final int all_courses_fiec=0x7f070005;
+        public static final int all_courses_fiec=0x7f070007;
         public static final int begin=0x7f070001;
+        public static final int btnNext=0x7f07000b;
         public static final int exit=0x7f070000;
-        public static final int image1=0x7f070006;
-        public static final int menu_settings=0x7f070009;
+        public static final int image1=0x7f070008;
+        public static final int image2=0x7f070005;
+        public static final int imageCry=0x7f070004;
+        public static final int menu_settings=0x7f07000c;
         public static final int textCourse=0x7f070002;
-        public static final int textDescription=0x7f070007;
+        public static final int textDescription=0x7f070009;
         public static final int textdescription=0x7f070003;
-        public static final int textplace=0x7f070008;
-        public static final int texttogo=0x7f070004;
+        public static final int textplace=0x7f07000a;
+        public static final int texttogo=0x7f070006;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int list_course=0x7f030001;
-        public static final int togo=0x7f030002;
+        public static final int mapa=0x7f030002;
+        public static final int togo=0x7f030003;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -41,6 +47,7 @@ public final class R {
         public static final int begin=0x7f040004;
         public static final int bssid=0x7f040006;
         public static final int bssidvalue=0x7f040007;
+        public static final int btnNext=0x7f040013;
         public static final int connected=0x7f040005;
         public static final int description=0x7f040010;
         public static final int exit=0x7f040003;
