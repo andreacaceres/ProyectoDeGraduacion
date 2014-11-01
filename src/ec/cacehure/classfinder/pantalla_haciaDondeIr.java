@@ -3,6 +3,8 @@ package ec.cacehure.classfinder;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -44,16 +46,17 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.13/WebService/localizacion_three.php";
+	private static final String url_localizacion = "http://192.168.0.5/WebService/localizacion_three.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
+	private static final String TAG_VALUE3 = "value3";
 	
 	//Domingo 4 de Mayo 2014
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.13/WebService/get_courses.php";
+	private static String url_all_courses = "http://192.168.0.5/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
@@ -62,8 +65,8 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	
 	//Julio 4 de 2014
 	Vector p = new Vector();
-	private static String url_localizacionOne = "http://192.168.0.13/WebService/localizacion_one.php";
-	private static String url_two = "http://192.168.0.6/WebService/dos.php";
+	private static String url_localizacionOne = "http://192.168.0.5/WebService/localizacion_one.php";
+	private static String url_two = "http://192.168.0.5/WebService/dos.php";
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
 	private static final String TAG_DESCRIPCION_ONE = "descripcion_one";
@@ -156,8 +159,23 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			List<ScanResult> wifiScanList = allwifi.getScanResults();
 			final int n = wifiScanList.size(); //El tamaño de la lista
 			
+			//Ordena la lista de menos level a mayor level
+			Comparator<ScanResult> comparator = new Comparator<ScanResult>(){
+				@Override
+				public int compare(ScanResult arg0, ScanResult arg1) {
+					// TODO Auto-generated method stub
+					//return (arg0.level<arg1.level ? -1 : (arg0.level==arg1.level ? 0: 1));
+					return (arg0.level>arg1.level ? -1 : (arg0.level==arg1.level ? 0: 1));
+					//return 0;
+				}
+	        };       
+	        Collections.sort(wifiScanList,comparator);
+	        
+			//Imprime la lista que destecto y ordenada
+			Log.v("=============>DETECTA", "AP's: "+ wifiScanList);
+			
 			for(int i=0;i<n;i++){
-				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") ){
+				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET")){
 					p.add(wifiScanList.get(i));
 				}
 			}
@@ -166,11 +184,13 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			int tam_vetor = p.size();
 			Log.v("=============> Android BSSID", "TAMAÑO VECTOR: "+ tam_vetor);
 			
-			if(tam_vetor == 3){
+			if(tam_vetor > 3){
 				//Se pasa los TRES primeros valores al servidor
 				LoadWifiScan tres = new LoadWifiScan();
-				tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()) );
+				//tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()) );
 				//tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()) );
+				//Le voy a pasar 4 señales.
+				tres.execute( (p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()) );
 			}else{
 				//Se pasa solo el PRIMER valor al servidor
 				LoadOneWifi one = new LoadOneWifi();
@@ -246,12 +266,15 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			String uno = params[0];
 			String dos = params[1];
 			String tres = params[2];
+			String cuatro = params[3];
 			Log.v("======>UNO", uno);
 			Log.v("======>DOS", dos);
 			Log.v("======>TRES", tres);
+			Log.v("======>CUADRO", cuatro);
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE0, uno ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, dos ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, tres ));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, cuatro ));
 			
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
 			//JSONObject jsonWifi = JParser.makeHttpRequest(url_two, "POST", parametrosWifi);

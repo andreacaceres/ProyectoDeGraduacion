@@ -23,7 +23,7 @@ import android.widget.ImageView;
 public class Mapa extends Activity{
 	
 	private ProgressDialog pDialog;
-	private static final String url_path_imagen = "http://192.168.0.13/WebService/imagen_right.php";
+	private static final String url_path_imagen = "http://192.168.185.47/WebService/imagen_right.php";
 	private static final String TAG_VALUE = "value";
 	JSONParser JParser = new JSONParser();
 	private ImageView img2;
