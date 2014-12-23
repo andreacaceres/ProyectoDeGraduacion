@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,23 +29,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class pantalla_haciaDondeIr extends ListActivity{
+public class pantalla_haciaDondeIr extends Activity{
 
-	Button btn_salir;
-	ListView all_courses;
+	Button btn_Yes, btn_No;
 	//LOCALIZACION
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://192.168.0.5/WebService/localizacion_three.php";
+	private static final String url_localizacion = "http://200.126.19.79/WebService/localizacion_three.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -55,17 +49,12 @@ public class pantalla_haciaDondeIr extends ListActivity{
 	//Domingo 4 de Mayo 2014
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
-	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://192.168.0.5/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
-	private static final String TAG_COURSES = "courses";
-	private static final String TAG_CODE = "codigo";
-	private static final String TAG_DESCRIPCION = "descripcion";
 	JSONArray courses = null;
 	
 	//Julio 4 de 2014
 	Vector p = new Vector();
-	private static String url_localizacionOne = "http://192.168.0.5/WebService/localizacion_one.php";
+	private static String url_localizacionOne = "http://200.126.19.79/WebService/localizacion_one.php";
 	private static String url_two = "http://192.168.0.5/WebService/dos.php";
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
@@ -89,51 +78,29 @@ public class pantalla_haciaDondeIr extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.togo);
-		
-		//Muestra los cursos de la FIEC
-		courseList = new ArrayList<HashMap<String,String>>();
-		new LoadAllCourses().execute();
-		all_courses = getListView();
-		all_courses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// TODO Auto-generated method stub
-				HashMap<String, String>map =(HashMap<String, String>)all_courses.getItemAtPosition(position);
-				String code = map.get(TAG_CODE);
-				String description = map.get(TAG_DESCRIPCION);
-				Log.v("Codigo","es:"+code);
-				Log.v("Descripcion","es:"+description);
-				Log.v("Descripcion Lugar","es:"+descripcion);
-				Intent intent = new Intent(pantalla_haciaDondeIr.this, Mapa.class);
-				intent.putExtra("codigo", code);
-				startActivity(intent);
-			}
-		});
-		
+				
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 		wifiReciever = new WifiScanReceiver();
 		allwifi.startScan();
+		
+		btn_Yes = (Button)findViewById(R.id.btnYes);
+		btn_Yes.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
+				startActivity(intent);
+			}
+		});
 						
-		btn_salir = (Button)findViewById(R.id.exit);
-		btn_salir.setOnClickListener(new OnClickListener() {
+		btn_No = (Button)findViewById(R.id.btnNo);
+		btn_No.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
 			}
 		});
-		
-		//Maps
-		/*btnNext = (Button)findViewById(R.id.btnNext);
-		btnNext.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(pantalla_haciaDondeIr.this, Mapa.class);
-				startActivity(intent);
-			}
-		});*/
 	}
 	
 	@Override
@@ -175,7 +142,7 @@ public class pantalla_haciaDondeIr extends ListActivity{
 			Log.v("=============>DETECTA", "AP's: "+ wifiScanList);
 			
 			for(int i=0;i<n;i++){
-				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET")){
+				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Cidis_Lab")){
 					p.add(wifiScanList.get(i));
 				}
 			}
@@ -197,64 +164,6 @@ public class pantalla_haciaDondeIr extends ListActivity{
 				one.execute((p.elementAt(0).toString()));
 			}
 		}		
-    }
-    
-    //Cargando desde el background todos los cursos almacenados en la base de datos
-    class LoadAllCourses extends AsyncTask<String, String, String>{
-
-    	//Antes de que comience el activity
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
-    		pDialog.setMessage("Cargando el listado de cursos. Por favor espere...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(false);
-    		pDialog.show();
-    	}
-    	
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-			JSONObject json = JParser.makeHttpRequest(url_all_courses, "POST", parametros);
-			//reavisar como regresa el request
-			Log.v("======>Todos los cursos", json.toString());
-			try{
-				int success = json.getInt(TAG_SUCCESS);
-				if(success == 1){
-					courses = json.getJSONArray(TAG_COURSES);
-					for (int i = 0; i< courses.length(); i++){
-						JSONObject c = courses.getJSONObject(i);
-						String codigo = c.getString(TAG_CODE);
-						String descripcion = c.getString(TAG_DESCRIPCION);
-						HashMap<String, String> map = new HashMap<String, String>();
-						map.put(TAG_CODE, codigo);
-						map.put(TAG_DESCRIPCION, descripcion);
-						courseList.add(map);
-					}
-				}else{
-					//Hubo error
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
-			}
-			return null;
-		}
-		
-		//Despues..
-		@Override
-		protected void onPostExecute(String file_url){
-			pDialog.dismiss();
-			runOnUiThread(new Runnable(){
-				@Override
-				public void run(){
-					ListAdapter adapter = new SimpleAdapter(pantalla_haciaDondeIr.this, courseList, R.layout.list_course, new String[]{TAG_CODE, TAG_DESCRIPCION}, new int[]{R.id.textCourse, R.id.textdescription});
-					setListAdapter(adapter);
-				}
-			});
-		}
-    	
     }
     
     class LoadWifiScan extends AsyncTask<String, String, String>{

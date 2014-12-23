@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
     JSONParser jsonParser = new JSONParser();
-    private static final String url_filtro = "http://192.168.0.5/WebService/filtro.php";
+    private static final String url_filtro = "http://200.126.19.79/WebService/filtro.php";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		 
-		 btn_salir = (Button)findViewById(R.id.exit);
+		 btn_salir = (Button)findViewById(R.id.btnNo);
 		 btn_salir.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -128,6 +128,7 @@ public class MainActivity extends Activity {
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
 					Intent intent = new Intent(MainActivity.this, pantalla_haciaDondeIr.class);
+//					Intent intent = new Intent(MainActivity.this, test_image_map.class);
 					startActivity(intent);
 				}else{
 					showAlertDialog(MainActivity.this, "No correcto Wifi", "Usted no está conectado con la red de la FIEC.", false);

@@ -51,6 +51,30 @@
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
+      	
+        <!-- Test Activity -->
+        <activity
+          android:name=".test_image_map"
+          android:screenOrientation="landscape"
+          android:label="Test Map" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
+     	
+     	<!-- Courses Activity -->
+        <activity
+          android:name=".cursos"
+          android:screenOrientation="landscape"
+          android:label="Lista de Cursos" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
     </application>
 
 </manifest>

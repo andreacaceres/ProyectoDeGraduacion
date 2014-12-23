@@ -4,41 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="489dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/texttogo"
-        android:layout_toLeftOf="@+id/texttogo" >
-    </ListView>
-
-    <TextView
-        android:id="@+id/all_courses_fiec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/allcourse" />
-
-    <TextView
-        android:id="@+id/texttogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/togo"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="345dp"
-        android:layout_height="345dp"
-        android:layout_alignTop="@android:id/list"
-        android:layout_toRightOf="@android:id/list"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_imagen" />
-
     <TextView
         android:id="@+id/textDescription"
         android:layout_width="wrap_content"
@@ -56,14 +21,6 @@
         android:text="TextView" />
 
     <Button
-        android:id="@+id/exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textplace"
-        android:layout_alignParentBottom="true"
-        android:text="@string/exit" />
-
-    <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,5 +28,32 @@
         android:layout_alignRight="@+id/image1"
         android:text="@string/btnNext"
         android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="345dp"
+        android:layout_height="345dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_imagen" />
+
+    <Button
+        android:id="@+id/btnYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textDescription"
+        android:layout_marginRight="42dp"
+        android:text="@string/si" />
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnNext"
+        android:text="@string/no" />
 
 </RelativeLayout>

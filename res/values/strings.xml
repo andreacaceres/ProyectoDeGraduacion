@@ -21,5 +21,8 @@
     <string name="lugar">Lugar del Sitio</string>
     <string name="place">--</string>
     <string name="btnNext">Mapa</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="option">Escoja por favor a que curso desea ir.</string>
 
 </resources>
