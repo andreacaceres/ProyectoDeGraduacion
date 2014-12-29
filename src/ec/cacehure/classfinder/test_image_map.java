@@ -17,7 +17,7 @@ public class test_image_map extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_image_map);
-		final ImageView image = (ImageView)findViewById(R.id.imageView1);
+		final ImageView image = (ImageView)findViewById(R.id.thumbImage);
 		Display display = getWindowManager().getDefaultDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
@@ -43,18 +43,6 @@ public class test_image_map extends Activity{
 		p.setColor(Color.BLUE);
 		canvas.drawCircle(242, 296, 20, p);
 		image.setImageBitmap(imageBitmap);
-		
-//		image.setOnTouchListener(new OnTouchListener() {
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				if(event.getAction() == MotionEvent.ACTION_DOWN){
-//					float x = event.getX();
-//					float y = event.getY();
-//				}
-//				return false;
-//			}
-//		});
 	}
 	
 	// Function to resize the final image

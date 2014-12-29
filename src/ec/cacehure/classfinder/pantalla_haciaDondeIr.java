@@ -40,7 +40,7 @@ public class pantalla_haciaDondeIr extends Activity{
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
 	//25 de Mayo 2014
-	private static final String url_localizacion = "http://200.126.19.79/WebService/localizacion_three.php";
+	private static final String url_localizacion = "http://192.168.0.6/WebService/localizacion_three.php";
 	private static final String TAG_VALUE0 = "value0";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -54,8 +54,8 @@ public class pantalla_haciaDondeIr extends Activity{
 	
 	//Julio 4 de 2014
 	Vector p = new Vector();
-	private static String url_localizacionOne = "http://200.126.19.79/WebService/localizacion_one.php";
-	private static String url_two = "http://192.168.0.5/WebService/dos.php";
+	private static String url_localizacionOne = "http://192.168.0.6/WebService/localizacion_one.php";
+	private static String url_two = "http://192.168.0.6/WebService/dos.php";
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
 	private static final String TAG_DESCRIPCION_ONE = "descripcion_one";
@@ -98,7 +98,8 @@ public class pantalla_haciaDondeIr extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				finish();
+				Intent intent = new Intent(pantalla_haciaDondeIr.this, lugares_conocidos.class);
+				startActivity(intent);
 			}
 		});
 	}

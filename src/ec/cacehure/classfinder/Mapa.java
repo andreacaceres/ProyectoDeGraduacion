@@ -48,37 +48,7 @@ public class Mapa extends Activity{
 		Log.v("Codigo","Escogido: "+codigo_aula);
 		
 		LoadImagen receive = new LoadImagen();
-		receive.execute(codigo_aula);
-		
-		/*img1.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					float x = event.getX();
-					float y = event.getY();
-		            Log.v("Position en X", "Imagen1: " +x);
-		            Log.v("Position en Y", "Imagen1: " +y);
-				}
-				return false;
-			}
-		});
-		
-		img2.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					float x = event.getX();
-					float y = event.getY();
-		            Log.v("Position en X", "Imagen2: " +x);
-		            Log.v("Position en Y", "Imagen2: " +y);
-				}
-				return false;
-			}
-		});	*/	
+		receive.execute(codigo_aula);	
 	}
 	
 	//Cargando la imagen de la derecha
@@ -101,17 +71,13 @@ public class Mapa extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE, Arrays.toString(params) ));
 			
 			Log.v("======>PATH_IMAGEN_CODE", Arrays.toString(params));
-			
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_path_imagen, "POST", parametrosWifi);
-			
 			Log.v("======>Lo que paso al otro lado PATH_IMAGEN", jsonWifi.toString());
-			
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
 					path_receive = jsonWifi.getJSONArray(TAG_AULA_IMAGEN_RIGHT);
 					Log.v("======>Lo que paso al otro lado PATH_IMAGEN","molestoso"+path_receive);
-					
 					for (int i = 0; i< path_receive.length(); i++){
 						JSONObject c = path_receive.getJSONObject(i);
 						path_imagen = c.getString(TAG_PATH_IMAGEN);
@@ -132,7 +98,6 @@ public class Mapa extends Activity{
 				e.printStackTrace();
 			}
 			return null;
-			
 		}
 		//Despues
 		@Override

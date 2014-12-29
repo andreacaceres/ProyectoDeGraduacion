@@ -25,7 +25,7 @@ public class cursos extends ListActivity{
 	JSONParser JParser = new JSONParser();
 	ListView all_courses;
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://200.126.19.79/WebService/get_courses.php";
+	private static String url_all_courses = "http://192.168.0.6/WebService/get_courses.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";

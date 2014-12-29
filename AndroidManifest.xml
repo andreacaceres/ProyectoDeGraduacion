@@ -25,7 +25,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,7 +35,6 @@
           android:label="ToGo" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
-
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
@@ -47,7 +45,6 @@
           android:label="Mapa" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
-
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
@@ -59,7 +56,6 @@
           android:label="Test Map" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
-
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
@@ -71,7 +67,17 @@
           android:label="Lista de Cursos" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
-
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
+      	
+      	<!-- Lugares Conocidos Activity -->
+        <activity
+          android:name=".lugares_conocidos"
+          android:screenOrientation="landscape"
+          android:label="Lugares Conocidos" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
