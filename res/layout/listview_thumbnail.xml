@@ -15,16 +15,16 @@
         android:id="@+id/descripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageThumbnail"
+        android:layout_below="@+id/textId"
+        android:layout_toRightOf="@+id/imageThumbnail"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/texturl"
+        android:id="@+id/textId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/descripcion"
+        android:layout_alignLeft="@+id/descripcion"
+        android:layout_alignParentTop="true"
         android:text="TextView" />
 
 </RelativeLayout>

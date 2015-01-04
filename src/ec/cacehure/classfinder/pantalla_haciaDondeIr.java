@@ -260,9 +260,9 @@ public class pantalla_haciaDondeIr extends Activity{
 		//Despues
 		@Override
 		protected void onPostExecute(String file_url){
-			pDialog.dismiss();
 			lugar = (TextView)findViewById(R.id.textplace);
 			lugar.setText(descripcion);
+			pDialog.dismiss();
 		}
     }
 		
