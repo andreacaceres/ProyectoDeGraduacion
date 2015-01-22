@@ -5,14 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 //public class lugares_conocidos extends ListActivity{
@@ -22,12 +27,14 @@ public class lugares_conocidos extends Activity{
 	JSONParser JParser = new JSONParser();
 	ListView lugares_conocidos;
 	ArrayList<HashMap<String, String>> lugaresconocidos_List;
-	static String url_lugares_conocidos = "http://192.168.0.6/WebService/lugares_conocidos.php";
+	static String url_lugares_conocidos = "http://200.126.19.93/WebService/lugares_conocidos.php";
+//	static String url_lugares_conocidos = "http://192.168.0.6/WebService/lugares_conocidos.php";
 	static String TAG_SUCCESS = "success";
 	static String TAG_ID = "id";
 	static String TAG_PLACES = "places";
 	static String TAG_DESCRIPCION = "descripcion";
 	static String TAG_RUTA = "ruta";
+	static String TAG_BBSID_VALUE = "bssid_value";
 	JSONArray places = null;
 	ListViewAdapter adapter;
 	
@@ -54,8 +61,16 @@ public class lugares_conocidos extends Activity{
 		@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
+			//Getting the SSID
+			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
+			String bssid_send = myWifiInfo.getBSSID();
+			Log.v("========> Android", "BSSID: "+ bssid_send);
+			
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
+			parametros.add(new BasicNameValuePair(TAG_BBSID_VALUE, bssid_send));
 			JSONObject json = JParser.makeHttpRequest(url_lugares_conocidos, "POST", parametros);
+			Log.v("======>Retorno", json.toString());
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -69,6 +84,7 @@ public class lugares_conocidos extends Activity{
 						lugaresconocidos_List.add(map);
 					}
 				}else{
+					Log.v("========> ERROR", "BSSID: ");
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
