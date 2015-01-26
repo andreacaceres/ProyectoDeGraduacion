@@ -45,7 +45,7 @@ public class SingleLugaresConocidos extends Activity{
 		setContentView(R.layout.singlelugares);
 		
 		Bundle bundle = getIntent().getExtras();
-		String id_imagen = bundle.getString("id");
+		final String id_imagen = bundle.getString("id");
 		String text_receive = bundle.getString("descripcion");
 		
 		LoadImagen receive = new LoadImagen();
@@ -61,6 +61,7 @@ public class SingleLugaresConocidos extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(SingleLugaresConocidos.this, cursos.class);
+				intent.putExtra("id_image_single", id_imagen);
 				startActivity(intent);
 			}
 		});

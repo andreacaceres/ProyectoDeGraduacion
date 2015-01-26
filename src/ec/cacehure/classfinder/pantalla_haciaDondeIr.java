@@ -35,11 +35,8 @@ import android.widget.TextView;
 public class pantalla_haciaDondeIr extends Activity{
 
 	Button btn_Yes, btn_No;
-	//LOCALIZACION
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
-	//25 de Mayo 2014
-	// URL WEBSERVICE
 	private static String url_localizacion_1_2 = "http://200.126.19.93/WebService/localizacion_1_2.php";
 	private static String url_localizacion_3 = "http://200.126.19.93/WebService/localizacion_3.php";
 	private static String url_localizacion_4 = "http://200.126.19.93/WebService/localizacion_4.php";
@@ -52,32 +49,28 @@ public class pantalla_haciaDondeIr extends Activity{
 	private static final String TAG_VALUE4 = "value4";
 	private static final String TAG_VALUE5 = "value5";
 	private static final String TAG_VALUE6 = "value6";
-	
-	//Domingo 4 de Mayo 2014
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	private static final String TAG_SUCCESS = "success";
 	JSONArray courses = null;
 	
-	//Julio 4 de 2014
 	Vector p = new Vector();
-	
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
 	private static final String TAG_DESCRIPCION_ONE = "descripcion_one";
 	private static final String TAG_PATH_IMAGEN_ONE = "path_imagen_one";
 	JSONArray ap = null;
-	//End
 	
 	//Mostrar imagen
 	ImageView imagen_one;
-	//Mostrar el Sitio
 	private TextView lugar;
 	private String descripcion;
 	private String path_imagen_one;
 	
 	//test maps
 	Button btnNext;
+	
+	public String bssid= "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +88,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
+				intent.putExtra("bssid", bssid);
 				startActivity(intent);
 			}
 		});
@@ -153,18 +147,23 @@ public class pantalla_haciaDondeIr extends Activity{
 			Log.v("=============> Android BSSID", "TAMAÑO VECTOR: "+ tam_vetor);
 			if(tam_vetor > 6){
 				LoadWifiScan_6 six = new LoadWifiScan_6();
+				bssid = wifiScanList.get(0).BSSID;
 				six.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()), (p.elementAt(5).toString()));
 			}else if(tam_vetor == 5){
 				LoadWifiScan_5 five = new LoadWifiScan_5();
+				bssid = wifiScanList.get(0).BSSID;
 				five.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()));
 			}else if(tam_vetor == 4){
 				LoadWifiScan_4 four = new LoadWifiScan_4();
+				bssid = wifiScanList.get(0).BSSID;
 				four.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()));
 			}else if(tam_vetor == 3){
 				LoadWifiScan_3 three = new LoadWifiScan_3();
+				bssid = wifiScanList.get(0).BSSID;
 				three.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()));
 			}else {
 				LoadWifiScan_1_2 one_two = new LoadWifiScan_1_2();
+				bssid = wifiScanList.get(0).BSSID;
 				one_two.execute((p.elementAt(0).toString()));
 			}
 		}		
@@ -189,7 +188,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE, params[0] ));
 			
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_1_2, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado ONE_TWO", jsonWifi.toString());
+//			Log.v("======>Lo que paso al otro lado ONE_TWO", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -199,8 +198,8 @@ public class pantalla_haciaDondeIr extends Activity{
 						lugar = (TextView)findViewById(R.id.textplace);
 						descripcion = c.getString(TAG_DESCRIPCION_ONE);
 						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						Log.v("=====>Dentro del for",descripcion);
-						Log.v("=====>Dentro del for",path_imagen_one);
+//						Log.v("=====>Dentro del for",descripcion);
+//						Log.v("=====>Dentro del for",path_imagen_one);
 						try{
 							imagen_one = (ImageView)findViewById(R.id.image1);
 							URL url = new URL(path_imagen_one);

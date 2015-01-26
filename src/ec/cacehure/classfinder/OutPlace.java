@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.Display;
 import android.widget.ImageView;
 
-public class test_image_map extends Activity{
+public class OutPlace extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -39,9 +39,9 @@ public class test_image_map extends Activity{
 		
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
-		Paint p = new Paint();
-		p.setColor(Color.BLUE);
-		canvas.drawCircle(242, 296, 20, p);
+//		Paint p = new Paint();
+//		p.setColor(Color.BLUE);
+//		canvas.drawCircle(242, 296, 20, p);
 		image.setImageBitmap(imageBitmap);
 	}
 	

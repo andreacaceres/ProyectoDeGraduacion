@@ -20,10 +20,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
-public class Mapa extends Activity{
+public class InPlace extends Activity{
 	
 	private ProgressDialog pDialog;
-	private static final String url_path_imagen = "http://200.126.19.79/WebService/imagen_right.php";
+	private static final String url_path_imagen = "http://200.126.19.93/WebService/imagen_right.php";
 	private static final String TAG_VALUE = "value";
 	JSONParser JParser = new JSONParser();
 	private ImageView img2;
@@ -58,7 +58,7 @@ public class Mapa extends Activity{
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
-    		pDialog = new ProgressDialog(Mapa.this);
+    		pDialog = new ProgressDialog(InPlace.this);
     		pDialog.setMessage("Dando direcciones");
     		pDialog.setIndeterminate(false);
     		pDialog.setCancelable(true);

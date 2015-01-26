@@ -41,7 +41,7 @@
       	</activity>
       	<!-- Mapa Activity -->
         <activity
-          android:name=".Mapa"
+          android:name=".InPlace"
           android:screenOrientation="landscape"
           android:label="Mapa" >
           <intent-filter>
@@ -52,7 +52,7 @@
       	
         <!-- Test Activity -->
         <activity
-          android:name=".test_image_map"
+          android:name=".OutPlace"
           android:screenOrientation="landscape"
           android:label="Test Map" >
           <intent-filter>
