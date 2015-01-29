@@ -24,20 +24,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-	
+	public static String url = new String ("http://192.168.176.219/");
 	Boolean isInternetPresent = false;
     ConnectionDetector cd;
     public int flag = 0;
     Button btn_salir;
     Button btnStatus;
-    
-    //Agregado el 3 de Mayo
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
     JSONParser jsonParser = new JSONParser();
-    private static final String url_filtro = "http://200.126.19.93/WebService/filtro.php";
-//    private static final String url_filtro = "http://192.168.0.6/WebService/filtro.php";
+    private static final String url_filtro =  url+"WebService/filtro.php";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +110,8 @@ public class MainActivity extends Activity {
 			//Getting the SSID
 			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
-			Log.v("========> Android", "SSID de la que estoy conectada: "+ myWifiInfo.getSSID());
+			Log.v("CLASE MAINACTIVITY", "SSID de la que estoy conectada: "+ myWifiInfo.getSSID());
+			Log.v("CLASE MAINACTIVITY", "BSSID de la que estoy conectada: "+ myWifiInfo.getBSSID());
 			String ssid_send = myWifiInfo.getSSID();
 			
 			//Building parameters

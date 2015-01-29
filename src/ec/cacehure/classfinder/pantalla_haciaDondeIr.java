@@ -22,6 +22,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,16 +34,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class pantalla_haciaDondeIr extends Activity{
-
+	
+	public static String url = new String ("http://192.168.176.219/");
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
-	private static String url_localizacion_1_2 = "http://200.126.19.93/WebService/localizacion_1_2.php";
-	private static String url_localizacion_3 = "http://200.126.19.93/WebService/localizacion_3.php";
-	private static String url_localizacion_4 = "http://200.126.19.93/WebService/localizacion_4.php";
-	private static String url_localizacion_5 = "http://200.126.19.93/WebService/localizacion_5.php";
-	private static String url_localizacion_6 = "http://200.126.19.93/WebService/localizacion_6.php";
-	
+	private static String url_localizacion_1_2 = url+"WebService/localizacion_1_2.php";
+	private static String url_localizacion_3 = url+"WebService/localizacion_3.php";
+	private static String url_localizacion_4 = url+"WebService/localizacion_4.php";
+	private static String url_localizacion_5 = url+"WebService/localizacion_5.php";
+	private static String url_localizacion_6 = url+"WebService/localizacion_6.php";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
 	private static final String TAG_VALUE3 = "value3";
@@ -71,6 +72,7 @@ public class pantalla_haciaDondeIr extends Activity{
 	Button btnNext;
 	
 	public String bssid= "";
+	public String bssid_connected = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
-				intent.putExtra("bssid", bssid);
+				intent.putExtra("bssid", bssid_connected);
 				startActivity(intent);
 			}
 		});
@@ -99,6 +101,8 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, lugares_conocidos.class);
+				intent.putExtra("bssid_connected", bssid_connected);
+				intent.putExtra("bssid_low", bssid);
 				startActivity(intent);
 			}
 		});
@@ -123,6 +127,12 @@ public class pantalla_haciaDondeIr extends Activity{
 		@Override
 		public void onReceive(Context c, Intent intent) {
 			// TODO Auto-generated method stub
+			//Getting the BSSID that is connected
+			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
+			String bssid_send = myWifiInfo.getBSSID();
+			bssid_connected = bssid_send;
+			
 			//Estan todas las wifi detectadas
 			List<ScanResult> wifiScanList = allwifi.getScanResults();
 			final int n = wifiScanList.size(); //El tamaño de la lista
@@ -142,9 +152,9 @@ public class pantalla_haciaDondeIr extends Activity{
 					p.add(wifiScanList.get(i));
 				}
 			}
-			Log.v("=============> Android BSSID", "AP DISPONIBLES VECTOR: "+ p.toString());
+			Log.v("CLASE HACIADONDEIR", "AP FILTRADOS: "+ p.toString());
 			int tam_vetor = p.size();
-			Log.v("=============> Android BSSID", "TAMAÑO VECTOR: "+ tam_vetor);
+			Log.v("CLASE HACIADONDEIR", "AP TAMAÑO: "+ tam_vetor);
 			if(tam_vetor > 6){
 				LoadWifiScan_6 six = new LoadWifiScan_6();
 				bssid = wifiScanList.get(0).BSSID;
@@ -188,7 +198,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE, params[0] ));
 			
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_1_2, "POST", parametrosWifi);
-//			Log.v("======>Lo que paso al otro lado ONE_TWO", jsonWifi.toString());
+			Log.v("======>Lo que paso al otro lado ONE_TWO", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -198,8 +208,6 @@ public class pantalla_haciaDondeIr extends Activity{
 						lugar = (TextView)findViewById(R.id.textplace);
 						descripcion = c.getString(TAG_DESCRIPCION_ONE);
 						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-//						Log.v("=====>Dentro del for",descripcion);
-//						Log.v("=====>Dentro del for",path_imagen_one);
 						try{
 							imagen_one = (ImageView)findViewById(R.id.image1);
 							URL url = new URL(path_imagen_one);
@@ -245,6 +253,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_3, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado THREE", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
@@ -325,6 +334,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4, params[3] ));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_4, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado FOUR", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
@@ -405,6 +415,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4, params[3] ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE5, params[4] ));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_5, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado FIVE", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
@@ -486,6 +497,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE5, params[4] ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE6, params[5] ));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_6, "POST", parametrosWifi);
+			Log.v("======>Lo que paso al otro lado SIX", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				ap = jsonWifi.getJSONArray(TAG_AP_ONE);

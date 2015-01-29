@@ -15,7 +15,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -23,15 +22,15 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class cursos extends ListActivity{
+	public static String url = new String ("http://192.168.176.219/");
+	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ListView all_courses;
 	ArrayList<HashMap<String, String>> courseList;
-	private static String url_all_courses = "http://200.126.19.93/WebService/get_courses.php";
-	private static String url_validate = "http://200.126.19.93/WebService/validate.php";
-	private static String url_validate_2 = "http://200.126.19.93/WebService/validate_single.php";
-//	private static String url_all_courses = "http://192.168.0.6/WebService/get_courses.php";
-//	private static String url_validate = "http://192.168.0.6/WebService/validate.php";
+	private static String url_all_courses = url+"WebService/get_courses.php";
+	private static String url_validate = url+"WebService/validate.php";
+	private static String url_validate_2 = url+"WebService/validate_single.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
@@ -49,11 +48,12 @@ public class cursos extends ListActivity{
 		courseList = new ArrayList<HashMap<String,String>>();
 		// BSSID de la otra clase
 		Bundle bundle = getIntent().getExtras();
-		final String bssid = bundle.getString("bssid");
+		final String bssid_connected = bundle.getString("bssid");
 		
 		//ID_IMAGEN de la otra clase
 		Bundle bundle_2 = getIntent().getExtras();
 		final String id_imagen = bundle_2.getString("id_image_single");
+		final String bssid_low = bundle_2.getString("bssid_final");
 		
 		new LoadAllCourses().execute();
 		all_courses = getListView();
@@ -64,10 +64,10 @@ public class cursos extends ListActivity{
 				HashMap<String, String>map =(HashMap<String, String>)all_courses.getItemAtPosition(position);
 				final String code = map.get(TAG_CODE);
 				final String description = map.get(TAG_DESCRIPCION);
-				if(bssid==null){
-					new Validate_2().execute(id_imagen, code, description);
+				if(bssid_connected==null){
+					new Validate_2().execute(id_imagen, code, description, bssid_low);
 				}else{
-					new Validate().execute(bssid, code, description);
+					new Validate().execute(bssid_connected, code, description);
 				}
 			}
 		});
@@ -126,7 +126,7 @@ public class cursos extends ListActivity{
     
     // Validando si el curso pertence al lugar que se realizo la localizacion
     class Validate extends AsyncTask<String, String, String>{
-    	
+//    	new Validate().execute(bssid, code, description);
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
@@ -150,15 +150,17 @@ public class cursos extends ListActivity{
 				int success = json.getInt(TAG_SUCCESS);
 				if (success == 1){
 					// solo figuras ya que esta en la misma facultad
-					Log.v("Muestra figuras",".");
+					Intent intent = new Intent(cursos.this, InPlace.class);
+					intent.putExtra("bssid", params[0]);
+					intent.putExtra("code", params[1]);
+					intent.putExtra("descripcion", params[2]);
+					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-					Log.v("Muestra mapa completo",".");
 					Intent outPlace = new Intent(cursos.this, OutPlace.class);
 					startActivity(outPlace);
 				}else{
 					// No hay datos encontrados
-					Log.v("Error",".");
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -174,7 +176,7 @@ public class cursos extends ListActivity{
     
  // Validando si el curso pertence al lugar que se realizo la localizacion
     class Validate_2 extends AsyncTask<String, String, String>{
-    	
+//    	new Validate_2().execute(id_imagen, code, description);
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
@@ -198,10 +200,13 @@ public class cursos extends ListActivity{
 				int success = json.getInt(TAG_SUCCESS);
 				if (success == 1){
 					// solo figuras ya que esta en la misma facultad
-					Log.v("En validate 2 solo figuras",".");
+					Intent intent = new Intent(cursos.this, InPlace.class);
+					intent.putExtra("bssid", params[3]);
+					intent.putExtra("code", params[1]);
+					intent.putExtra("descripcion", params[2]);
+					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-					Log.v("En validate 2 solo mapa",".");
 					Intent outPlace = new Intent(cursos.this, OutPlace.class);
 					startActivity(outPlace);
 				}else{

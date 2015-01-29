@@ -83,6 +83,7 @@ public class ListViewAdapter extends BaseAdapter {
 				Intent intent = new Intent(context, SingleLugaresConocidos.class);
 				intent.putExtra("id", resultp.get(lugares_conocidos.TAG_ID));
 				intent.putExtra("descripcion", resultp.get(lugares_conocidos.TAG_DESCRIPCION));
+				intent.putExtra("bssid_final", resultp.get(lugares_conocidos.TAG_BSSID_FINAL));
 				// Start SingleItemView Class
 				context.startActivity(intent);
 			}

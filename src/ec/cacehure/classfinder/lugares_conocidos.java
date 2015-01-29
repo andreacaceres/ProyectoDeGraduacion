@@ -12,31 +12,34 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 //public class lugares_conocidos extends ListActivity{
 public class lugares_conocidos extends Activity{
 
+	public static String url = new String ("http://192.168.176.219/");
+	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ListView lugares_conocidos;
 	ArrayList<HashMap<String, String>> lugaresconocidos_List;
-	static String url_lugares_conocidos = "http://200.126.19.93/WebService/lugares_conocidos.php";
-//	static String url_lugares_conocidos = "http://192.168.0.6/WebService/lugares_conocidos.php";
+	static String url_lugares_conocidos = url+"WebService/lugares_conocidos.php";
 	static String TAG_SUCCESS = "success";
 	static String TAG_ID = "id";
 	static String TAG_PLACES = "places";
 	static String TAG_DESCRIPCION = "descripcion";
 	static String TAG_RUTA = "ruta";
 	static String TAG_BBSID_VALUE = "bssid_value";
+	static String TAG_BSSID_FINAL = "";
 	JSONArray places = null;
 	ListViewAdapter adapter;
+	Button refresh;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,23 @@ public class lugares_conocidos extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lugares_conocidos);
 		lugaresconocidos_List = new ArrayList<HashMap<String,String>>();
-		new load_lugares_conocidos().execute();
+		
+		Bundle bundle = getIntent().getExtras();
+		final String bssid_connected = bundle.getString("bssid_connected");
+		final String bssid_low = bundle.getString("bssid_low");
+		
+		new load_lugares_conocidos().execute(bssid_connected);
+		
+		refresh = (Button)findViewById(R.id.buttonRefresh);
+		refresh.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				lugaresconocidos_List.clear();
+				new load_lugares_conocidos().execute(bssid_low);
+			}
+		});
 	}
 	
 	class load_lugares_conocidos extends AsyncTask<String, String, String>{
@@ -61,16 +80,16 @@ public class lugares_conocidos extends Activity{
 		@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			//Getting the SSID
-			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
-			String bssid_send = myWifiInfo.getBSSID();
-			Log.v("========> Android", "BSSID: "+ bssid_send);
+			//Getting the BSSID that is connected
+//			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+//			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
+//			String bssid_send = myWifiInfo.getBSSID();
 			
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-			parametros.add(new BasicNameValuePair(TAG_BBSID_VALUE, bssid_send));
+			parametros.add(new BasicNameValuePair(TAG_BBSID_VALUE, params[0]));
 			JSONObject json = JParser.makeHttpRequest(url_lugares_conocidos, "POST", parametros);
-			Log.v("======>Retorno", json.toString());
+			Log.v("======>CLASE LUGARESCONOCIDOS", json.toString());
+			TAG_BSSID_FINAL = params[0];
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){

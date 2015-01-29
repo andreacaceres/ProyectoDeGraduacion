@@ -25,29 +25,31 @@ public final class R {
     }
     public static final class id {
         public static final int begin=0x7f070001;
-        public static final int btnNext=0x7f070015;
+        public static final int btnNext=0x7f070017;
         public static final int btnNo=0x7f070000;
-        public static final int btnNoSingle=0x7f07000f;
-        public static final int btnYes=0x7f070016;
-        public static final int btnYesSingle=0x7f07000e;
+        public static final int btnNoSingle=0x7f070011;
+        public static final int btnYes=0x7f070018;
+        public static final int btnYesSingle=0x7f070010;
+        public static final int buttonRefresh=0x7f07000c;
         public static final int descripcion=0x7f070007;
-        public static final int image1=0x7f070013;
-        public static final int image2=0x7f07000c;
-        public static final int imageCry=0x7f07000b;
+        public static final int image1=0x7f070015;
+        public static final int image2=0x7f07000e;
+        public static final int imageCry=0x7f07000d;
         public static final int imageThumbnail=0x7f070006;
-        public static final int imageViewSingle=0x7f070010;
+        public static final int imageViewSingle=0x7f070012;
         public static final int listview=0x7f07000a;
-        public static final int menu_settings=0x7f070017;
+        public static final int menu_settings=0x7f070019;
         public static final int textCourse=0x7f070004;
         public static final int textCursos=0x7f070002;
-        public static final int textDescription=0x7f070012;
+        public static final int textDescription=0x7f070014;
         public static final int textId=0x7f070008;
         public static final int textLugaresConocidos=0x7f070009;
         public static final int textOpcion=0x7f070003;
-        public static final int textViewDescripcion=0x7f07000d;
+        public static final int textView1=0x7f07000b;
+        public static final int textViewDescripcion=0x7f07000f;
         public static final int textdescription=0x7f070005;
-        public static final int textplace=0x7f070014;
-        public static final int thumbImage=0x7f070011;
+        public static final int textplace=0x7f070016;
+        public static final int thumbImage=0x7f070013;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -76,6 +78,7 @@ public final class R {
         public static final int hello_world=0x7f040001;
         public static final int lugar=0x7f040011;
         public static final int lugares_conocidos=0x7f040017;
+        public static final int mensaje=0x7f040018;
         public static final int menu_settings=0x7f040002;
         public static final int namelist=0x7f04000e;
         public static final int no=0x7f040015;

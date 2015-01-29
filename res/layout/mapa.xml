@@ -10,7 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
-        android:src="@drawable/cry" />
+        android:src="@drawable/ic_imagen" />
 
     <ImageView
         android:id="@+id/image2"

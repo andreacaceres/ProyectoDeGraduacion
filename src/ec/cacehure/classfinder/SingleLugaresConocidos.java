@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,10 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SingleLugaresConocidos extends Activity{
+	public static String url = new String ("http://192.168.176.219/");
+	
 	private ProgressDialog pDialog;
 	Button yes,no;
-	private static final String url_imagen_single = "http://200.126.19.93/WebService/lugares_conocidos_single.php";
-//	private static final String url_imagen_single = "http://192.168.0.6/WebService/lugares_conocidos_single.php";
+	private static final String url_imagen_single = url+"WebService/lugares_conocidos_single.php";
 	private static final String TAG_ID_IMAGEN = "id_imagen";
 	private static final String TAG_IMAGEN = "imagen";
 	JSONParser JParser = new JSONParser();
@@ -46,7 +48,8 @@ public class SingleLugaresConocidos extends Activity{
 		
 		Bundle bundle = getIntent().getExtras();
 		final String id_imagen = bundle.getString("id");
-		String text_receive = bundle.getString("descripcion");
+		final String text_receive = bundle.getString("descripcion");
+		final String bssid_final = bundle.getString("bssid_final");
 		
 		LoadImagen receive = new LoadImagen();
 		receive.execute(id_imagen);
@@ -62,6 +65,7 @@ public class SingleLugaresConocidos extends Activity{
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(SingleLugaresConocidos.this, cursos.class);
 				intent.putExtra("id_image_single", id_imagen);
+				intent.putExtra("bssid_final", bssid_final);
 				startActivity(intent);
 			}
 		});
@@ -97,6 +101,7 @@ public class SingleLugaresConocidos extends Activity{
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
 			parametros.add(new BasicNameValuePair(TAG_ID_IMAGEN, valor_imagen_id));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_imagen_single, "POST", parametros);
+			Log.v("CLASE LUGARESCONOCIDOSSINGLE", jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
