@@ -93,6 +93,17 @@
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
+      	
+      	<!-- Destiny Activity -->
+        <activity
+          android:name=".InPlace_2"
+          android:screenOrientation="landscape"
+          android:label="Imagen Aula de Clases" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
     </application>
 
 </manifest>

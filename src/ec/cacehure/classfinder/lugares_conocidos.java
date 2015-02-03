@@ -23,7 +23,7 @@ import android.widget.ListView;
 //public class lugares_conocidos extends ListActivity{
 public class lugares_conocidos extends Activity{
 
-	public static String url = new String ("http://192.168.176.219/");
+	public static String url = new String ("http://192.168.0.6/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
@@ -51,6 +51,9 @@ public class lugares_conocidos extends Activity{
 		Bundle bundle = getIntent().getExtras();
 		final String bssid_connected = bundle.getString("bssid_connected");
 		final String bssid_low = bundle.getString("bssid_low");
+		
+		Log.v("Bssid conectado CLASE LUGARESCONOCIDOS", bssid_connected);
+		Log.v("Bssid de menor potencia CLASE LUGARES CONOCIDOS: ", bssid_low);
 		
 		new load_lugares_conocidos().execute(bssid_connected);
 		

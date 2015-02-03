@@ -4,21 +4,23 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/imageCry"
+        android:id="@+id/imageDestiny"
         android:layout_width="345dp"
         android:layout_height="345dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="18dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="113dp"
+        android:layout_marginTop="47dp"
         android:src="@drawable/ic_imagen" />
 
-    <ImageView
-        android:id="@+id/image2"
-        android:layout_width="345dp"
-        android:layout_height="345dp"
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageDestiny"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/imageCry"
-        android:layout_marginRight="13dp"
-        android:src="@drawable/ic_imagen" />
+        android:layout_marginBottom="22dp"
+        android:layout_marginRight="185dp"
+        android:text="@string/next" />
 
 </RelativeLayout>

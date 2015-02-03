@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class cursos extends ListActivity{
-	public static String url = new String ("http://192.168.176.219/");
+	public static String url = new String ("http://192.168.0.6/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
@@ -157,8 +157,16 @@ public class cursos extends ListActivity{
 					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-					Intent outPlace = new Intent(cursos.this, OutPlace.class);
-					startActivity(outPlace);
+//					Intent outPlace = new Intent(cursos.this, OutPlace.class);
+//					startActivity(outPlace);
+					
+					//BORRAR
+					Intent intent = new Intent(cursos.this, InPlace.class);
+					intent.putExtra("bssid", params[0]);
+					intent.putExtra("code", params[1]);
+					intent.putExtra("descripcion", params[2]);
+					startActivity(intent);
+					//END
 				}else{
 					// No hay datos encontrados
 				}
@@ -207,8 +215,16 @@ public class cursos extends ListActivity{
 					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-					Intent outPlace = new Intent(cursos.this, OutPlace.class);
-					startActivity(outPlace);
+//					Intent outPlace = new Intent(cursos.this, OutPlace.class);
+//					startActivity(outPlace);
+//					
+					//BORRAR
+					Intent intent = new Intent(cursos.this, InPlace.class);
+					intent.putExtra("bssid", params[0]);
+					intent.putExtra("code", params[1]);
+					intent.putExtra("descripcion", params[2]);
+					startActivity(intent);
+					//END
 				}else{
 					// No hay datos encontrados
 				}

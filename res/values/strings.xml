@@ -26,5 +26,6 @@
     <string name="option">Escoja por favor a que curso desea ir.</string>
     <string name="lugares_conocidos">Lugares Conocidos</string>
     <string name="mensaje">Si estos no son los lugares que están a su alrededor, por favor dar clic en el siguiente botón.</string>
+    <string name="next">--&gt;</string>
 
 </resources>

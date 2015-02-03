@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 public class pantalla_haciaDondeIr extends Activity{
 	
-	public static String url = new String ("http://192.168.176.219/");
+	public static String url = new String ("http://192.168.0.6/");
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
@@ -56,6 +56,7 @@ public class pantalla_haciaDondeIr extends Activity{
 	JSONArray courses = null;
 	
 	Vector p = new Vector();
+	Vector indice = new Vector();
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
 	private static final String TAG_DESCRIPCION_ONE = "descripcion_one";
@@ -147,33 +148,38 @@ public class pantalla_haciaDondeIr extends Activity{
 	        Collections.sort(wifiScanList,comparator);
 			//Imprime la lista que destecto y ordenada
 			Log.v("=============>DETECTA", "AP's: "+ wifiScanList);
+			
+			
 			for(int i=0;i<n;i++){
-				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Cidis_Lab")){
+				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Cidis_Lab")){
 					p.add(wifiScanList.get(i));
+					indice.add(i);
 				}
 			}
+			bssid = wifiScanList.get((Integer) indice.get(0)).BSSID;
+			
 			Log.v("CLASE HACIADONDEIR", "AP FILTRADOS: "+ p.toString());
 			int tam_vetor = p.size();
 			Log.v("CLASE HACIADONDEIR", "AP TAMAÑO: "+ tam_vetor);
 			if(tam_vetor > 6){
 				LoadWifiScan_6 six = new LoadWifiScan_6();
-				bssid = wifiScanList.get(0).BSSID;
+				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
 				six.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()), (p.elementAt(5).toString()));
 			}else if(tam_vetor == 5){
 				LoadWifiScan_5 five = new LoadWifiScan_5();
-				bssid = wifiScanList.get(0).BSSID;
+				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
 				five.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()));
 			}else if(tam_vetor == 4){
 				LoadWifiScan_4 four = new LoadWifiScan_4();
-				bssid = wifiScanList.get(0).BSSID;
+				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
 				four.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()));
 			}else if(tam_vetor == 3){
 				LoadWifiScan_3 three = new LoadWifiScan_3();
-				bssid = wifiScanList.get(0).BSSID;
+				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
 				three.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()));
 			}else {
 				LoadWifiScan_1_2 one_two = new LoadWifiScan_1_2();
-				bssid = wifiScanList.get(0).BSSID;
+				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
 				one_two.execute((p.elementAt(0).toString()));
 			}
 		}		
