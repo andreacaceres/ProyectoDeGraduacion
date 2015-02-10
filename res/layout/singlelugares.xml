@@ -37,6 +37,6 @@
         android:layout_below="@+id/textViewDescripcion"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_imagen" />
+        android:src="@drawable/no_disponible" />
 
 </RelativeLayout>

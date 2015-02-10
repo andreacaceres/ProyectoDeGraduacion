@@ -1,5 +1,6 @@
 package ec.cacehure.classfinder;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,18 +33,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class pantalla_haciaDondeIr extends Activity{
 	
-	public static String url = new String ("http://192.168.0.6/");
+	public static String url = new String ("http://192.168.0.5/");
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
-	private static String url_localizacion_1_2 = url+"WebService/localizacion_1_2.php";
-	private static String url_localizacion_3 = url+"WebService/localizacion_3.php";
-	private static String url_localizacion_4 = url+"WebService/localizacion_4.php";
-	private static String url_localizacion_5 = url+"WebService/localizacion_5.php";
-	private static String url_localizacion_6 = url+"WebService/localizacion_6.php";
+	private static String url_localizacion = url+"WebService/localizacion.php";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
 	private static final String TAG_VALUE3 = "value3";
@@ -57,7 +55,6 @@ public class pantalla_haciaDondeIr extends Activity{
 	
 	Vector p = new Vector();
 	Vector indice = new Vector();
-	private static final String TAG_VALUE = "value";
 	private static final String TAG_AP_ONE = "ap";
 	private static final String TAG_DESCRIPCION_ONE = "descripcion_one";
 	private static final String TAG_PATH_IMAGEN_ONE = "path_imagen_one";
@@ -75,12 +72,17 @@ public class pantalla_haciaDondeIr extends Activity{
 	public String bssid= "";
 	public String bssid_connected = "";
 	
+	ImageView imagen_inicial;
+	Bitmap bitmap_inicial;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.togo);
-				
+		
+		imagen_inicial = (ImageView)findViewById(R.id.image1);
+		
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 		wifiReciever = new WifiScanReceiver();
 		allwifi.startScan();
@@ -91,7 +93,8 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
-				intent.putExtra("bssid", bssid_connected);
+				intent.putExtra("id_image_single", "0");
+				intent.putExtra("bssid_final", bssid_connected);
 				startActivity(intent);
 			}
 		});
@@ -102,8 +105,7 @@ public class pantalla_haciaDondeIr extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, lugares_conocidos.class);
-				intent.putExtra("bssid_connected", bssid_connected);
-				intent.putExtra("bssid_low", bssid);
+				intent.putExtra("bssid_final", bssid);
 				startActivity(intent);
 			}
 		});
@@ -145,11 +147,7 @@ public class pantalla_haciaDondeIr extends Activity{
 					return (arg0.level>arg1.level ? -1 : (arg0.level==arg1.level ? 0: 1));
 				}
 	        };       
-	        Collections.sort(wifiScanList,comparator);
-			//Imprime la lista que destecto y ordenada
-			Log.v("=============>DETECTA", "AP's: "+ wifiScanList);
-			
-			
+	        Collections.sort(wifiScanList,comparator);			
 			for(int i=0;i<n;i++){
 				if( (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-WIFI") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Claro_MOLINA0000029162") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-EVENTOS") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC-CONSEJO") || (wifiScanList.get(i).SSID).equalsIgnoreCase("FIEC_MET") || (wifiScanList.get(i).SSID).equalsIgnoreCase("Cidis_Lab")){
 					p.add(wifiScanList.get(i));
@@ -157,408 +155,93 @@ public class pantalla_haciaDondeIr extends Activity{
 				}
 			}
 			bssid = wifiScanList.get((Integer) indice.get(0)).BSSID;
-			
-			Log.v("CLASE HACIADONDEIR", "AP FILTRADOS: "+ p.toString());
 			int tam_vetor = p.size();
-			Log.v("CLASE HACIADONDEIR", "AP TAMAÑO: "+ tam_vetor);
+			Log.v("Vector p:", p.toString());
 			if(tam_vetor > 6){
-				LoadWifiScan_6 six = new LoadWifiScan_6();
-				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
-				six.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()), (p.elementAt(5).toString()));
+				new LoadWifiScan().execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()), (p.elementAt(5).toString()));
 			}else if(tam_vetor == 5){
-				LoadWifiScan_5 five = new LoadWifiScan_5();
-				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
-				five.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()));
+				new LoadWifiScan().execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), (p.elementAt(4).toString()), "null");
 			}else if(tam_vetor == 4){
-				LoadWifiScan_4 four = new LoadWifiScan_4();
-				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
-				four.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()));
+				new LoadWifiScan().execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), (p.elementAt(3).toString()), "null", "null");
 			}else if(tam_vetor == 3){
-				LoadWifiScan_3 three = new LoadWifiScan_3();
-				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
-				three.execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()));
+				new LoadWifiScan().execute((p.elementAt(0).toString()), (p.elementAt(1).toString()), (p.elementAt(2).toString()), "null", "null", "null");
 			}else {
-				LoadWifiScan_1_2 one_two = new LoadWifiScan_1_2();
-				Log.v("BSSID menor potencia, clase pantallahacidadondeir", bssid);
-				one_two.execute((p.elementAt(0).toString()));
+				new LoadWifiScan().execute((p.elementAt(0).toString()), "null", "null", "null", "null", "null");
 			}
 		}		
     }
     
-    // Clases anónimas
-    class LoadWifiScan_1_2 extends AsyncTask<String, String, String>{
+    class LoadWifiScan extends AsyncTask<String, String, Bitmap>{
 
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
     		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
     		pDialog.setMessage("Calculando coordenadas...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
     		pDialog.show();
     	}
     	
 		@Override
-		protected String doInBackground(String... params) {
+		protected Bitmap doInBackground(String... params) {
 			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE, params[0] ));
-			
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_1_2, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado ONE_TWO", jsonWifi.toString());
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1,params[0]));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2,params[1]));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3,params[2]));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4,params[3]));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE5,params[4]));
+			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE6,params[5]));
+			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion, "POST", parametrosWifi);
+			Log.v("Valor del success: ",jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
-					ap = jsonWifi.getJSONArray(TAG_AP_ONE);
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
+					ap = jsonWifi.getJSONArray(TAG_AP_ONE);		
+					JSONObject c = ap.getJSONObject(0);
+					lugar = (TextView)findViewById(R.id.textplace);
+					descripcion = c.getString(TAG_DESCRIPCION_ONE);
+					path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
+					try{
+						bitmap_inicial = BitmapFactory.decodeStream((InputStream)new URL(path_imagen_one).getContent());
 						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
+						lugar.setText(descripcion);
+					}catch(Exception e){
+						e.printStackTrace();
 					}
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
-			}
-			return null;
-		}
-		//Despues
-		@Override
-		protected void onPostExecute(String file_url){
-			lugar = (TextView)findViewById(R.id.textplace);
-			lugar.setText(descripcion);
-			pDialog.dismiss();
-		}
-    	
-    }
-    
-    class LoadWifiScan_3 extends AsyncTask<String, String, String>{
-
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
-    		pDialog.setMessage("Calculando coordenadas...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
-    		pDialog.show();
-    	}
-    	
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, params[0] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_3, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado THREE", jsonWifi.toString());
-			try{
-				int success = jsonWifi.getInt(TAG_SUCCESS);
-				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
-				if(success == 0){
-					//Error
-				}else if(success == 1){
-					//Paso todo sin problemas
-				}else if(success == 2){
-					//Realizar segunda toma de datos porq capto un level=0
+				}else if (success == 2) {
+					Toast.makeText(pantalla_haciaDondeIr.this, "Error del lado del servidor.", Toast.LENGTH_SHORT).show();
+				}else if(success == 4){
 					p.clear();
 					allwifi.startScan();
-				}else if(success == 3){
-					// Hay un ap de los que se envio que no esta en el mismo piso
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
+				}else if(success == 8){
+					ap = jsonWifi.getJSONArray(TAG_AP_ONE);				
+					JSONObject c = ap.getJSONObject(0);
+					lugar = (TextView)findViewById(R.id.textplace);
+					descripcion = c.getString(TAG_DESCRIPCION_ONE);
+					path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
+					try{
+						bitmap_inicial = BitmapFactory.decodeStream((InputStream)new URL(path_imagen_one).getContent());
 						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
+						lugar.setText(descripcion);
+					}catch(Exception e){
+						e.printStackTrace();
 					}
 				}else{
-					// No hay tres ap para la localizacion
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
+					Toast.makeText(pantalla_haciaDondeIr.this, "Error del lado del servidor.", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
 			}
-			return null;
+			return bitmap_inicial;
 		}
-		
 		@Override
-		protected void onPostExecute(String file_url){
-			lugar = (TextView)findViewById(R.id.textplace);
-			lugar.setText(descripcion);
-			pDialog.dismiss();
-		}
-    	
-    }
-    
-    class LoadWifiScan_4 extends AsyncTask<String, String, String>{
-
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
-    		pDialog.setMessage("Calculando coordenadas...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
-    		pDialog.show();
-    	}
-    	
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, params[0] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4, params[3] ));
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_4, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado FOUR", jsonWifi.toString());
-			try{
-				int success = jsonWifi.getInt(TAG_SUCCESS);
-				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
-				if(success == 0){
-					//Error
-				}else if(success == 1){
-					//Paso todo sin problemas
-				}else if(success == 2){
-					//Realizar segunda toma de datos porq capto un level=0
-					p.clear();
-					allwifi.startScan();
-				}else if(success == 3){
-					// Hay un ap de los que se envio que no esta en el mismo piso
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}else{
-					// No hay tres ap para la localizacion
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
+		protected void onPostExecute(Bitmap image){
+			if(image != null){
+				imagen_inicial.setImageBitmap(image);
+				pDialog.dismiss();
+			}else{
+				pDialog.dismiss();
+				Toast.makeText(pantalla_haciaDondeIr.this, "Error en la url", Toast.LENGTH_SHORT).show();
 			}
-			return null;
-		}
-    	
-		@Override
-		protected void onPostExecute(String file_url){
-			lugar = (TextView)findViewById(R.id.textplace);
-			lugar.setText(descripcion);
-			pDialog.dismiss();
-		}
-    }
-    
-    class LoadWifiScan_5 extends AsyncTask<String, String, String>{
-
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
-    		pDialog.setMessage("Calculando coordenadas...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
-    		pDialog.show();
-    	}
-    	
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, params[0] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4, params[3] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE5, params[4] ));
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_5, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado FIVE", jsonWifi.toString());
-			try{
-				int success = jsonWifi.getInt(TAG_SUCCESS);
-				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
-				if(success == 0){
-					//Error
-				}else if(success == 1){
-					//Paso todo sin problemas
-				}else if(success == 2){
-					//Realizar segunda toma de datos porq capto un level=0
-					p.clear();
-					allwifi.startScan();
-				}else if(success == 3){
-					// Hay un ap de los que se envio que no esta en el mismo piso
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}else{
-					// No hay tres ap para la localizacion
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
-			}
-			return null;
-		}
-    	
-		@Override
-		protected void onPostExecute(String file_url){
-			lugar = (TextView)findViewById(R.id.textplace);
-			lugar.setText(descripcion);
-			pDialog.dismiss();
-		}
-    }
-    
-    class LoadWifiScan_6 extends AsyncTask<String, String, String>{
-
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(pantalla_haciaDondeIr.this);
-    		pDialog.setMessage("Calculando coordenadas...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
-    		pDialog.show();
-    	}
-    	
-		@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			List<NameValuePair> parametrosWifi = new ArrayList<NameValuePair>();
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, params[0] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE3, params[2] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE4, params[3] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE5, params[4] ));
-			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE6, params[5] ));
-			JSONObject jsonWifi = JParser.makeHttpRequest(url_localizacion_6, "POST", parametrosWifi);
-			Log.v("======>Lo que paso al otro lado SIX", jsonWifi.toString());
-			try{
-				int success = jsonWifi.getInt(TAG_SUCCESS);
-				ap = jsonWifi.getJSONArray(TAG_AP_ONE);
-				if(success == 0){
-					//Error
-				}else if(success == 1){
-					//Paso todo sin problemas
-				}else if(success == 2){
-					//Realizar segunda toma de datos porq capto un level=0
-					p.clear();
-					allwifi.startScan();
-				}else if(success == 3){
-					// Hay un ap de los que se envio que no esta en el mismo piso
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}else{
-					// No hay tres ap para la localizacion
-					for (int i = 0; i< ap.length(); i++){
-						JSONObject c = ap.getJSONObject(i);
-						lugar = (TextView)findViewById(R.id.textplace);
-						descripcion = c.getString(TAG_DESCRIPCION_ONE);
-						path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
-						try{
-							imagen_one = (ImageView)findViewById(R.id.image1);
-							URL url = new URL(path_imagen_one);
-							Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-							imagen_one.setImageBitmap(bitmap);
-						}catch(Exception e){
-							
-						}
-					}
-				}
-			}catch(JSONException e){
-				e.printStackTrace();
-			}
-			return null;
-		}
-    	
-		@Override
-		protected void onPostExecute(String file_url){
-			lugar = (TextView)findViewById(R.id.textplace);
-			lugar.setText(descripcion);
-			pDialog.dismiss();
 		}
     }
 }

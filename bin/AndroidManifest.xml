@@ -33,7 +33,7 @@
         <activity
           android:name=".pantalla_haciaDondeIr"
           android:screenOrientation="landscape"
-          android:label="ToGo" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -43,7 +43,7 @@
         <activity
           android:name=".InPlace"
           android:screenOrientation="landscape"
-          android:label="Mapa" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -54,7 +54,7 @@
         <activity
           android:name=".OutPlace"
           android:screenOrientation="landscape"
-          android:label="Test Map" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -65,7 +65,7 @@
         <activity
           android:name=".cursos"
           android:screenOrientation="landscape"
-          android:label="Lista de Cursos" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -76,7 +76,7 @@
         <activity
           android:name=".lugares_conocidos"
           android:screenOrientation="landscape"
-          android:label="Lugares Conocidos" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -87,7 +87,7 @@
         <activity
           android:name=".SingleLugaresConocidos"
           android:screenOrientation="landscape"
-          android:label="Lugares Conocidos" >
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />
@@ -98,7 +98,18 @@
         <activity
           android:name=".InPlace_2"
           android:screenOrientation="landscape"
-          android:label="Imagen Aula de Clases" >
+          android:label="ClassFinder" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
+      	
+        <!-- Opciones Activity -->
+        <activity
+          android:name=".Opciones"
+          android:screenOrientation="landscape"
+          android:label="ClassFinder" >
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
               <category android:name="android.intent.category.DEFAULT" />

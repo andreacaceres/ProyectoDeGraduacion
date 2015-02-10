@@ -80,6 +80,7 @@ public class ListViewAdapter extends BaseAdapter {
 				// Get the position
 				resultp = data.get(position);
 				Log.v("Id","Enviada: "+resultp.get(lugares_conocidos.TAG_ID));
+				Log.v("BSSID ADAPTER","Enviada: "+resultp.get(lugares_conocidos.TAG_BSSID_FINAL));
 				Intent intent = new Intent(context, SingleLugaresConocidos.class);
 				intent.putExtra("id", resultp.get(lugares_conocidos.TAG_ID));
 				intent.putExtra("descripcion", resultp.get(lugares_conocidos.TAG_DESCRIPCION));

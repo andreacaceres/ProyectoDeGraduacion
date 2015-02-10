@@ -18,13 +18,12 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-	public static String url = new String ("http://192.168.0.6/");
+	public static String url = new String ("http://192.168.0.5/");
 	Boolean isInternetPresent = false;
     ConnectionDetector cd;
     public int flag = 0;
@@ -99,8 +98,6 @@ public class MainActivity extends Activity {
     		super.onPreExecute();
     		pDialog = new ProgressDialog(MainActivity.this);
     		pDialog.setMessage("Validando el dominio...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
     		pDialog.show();
     	}
 
@@ -110,24 +107,17 @@ public class MainActivity extends Activity {
 			//Getting the SSID
 			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
-			Log.v("CLASE MAINACTIVITY", "SSID de la que estoy conectada: "+ myWifiInfo.getSSID());
-			Log.v("CLASE MAINACTIVITY", "BSSID de la que estoy conectada: "+ myWifiInfo.getBSSID());
 			String ssid_send = myWifiInfo.getSSID();
-			
 			//Building parameters
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-			parametros.add(new BasicNameValuePair(TAG_SSID,ssid_send));
-			
+			parametros.add(new BasicNameValuePair(TAG_SSID,ssid_send));		
 			//Sending data, POST
 			JSONObject json = jsonParser.makeHttpRequest(url_filtro, "POST", parametros);
-			//Esto es lo que me envia el servidor
-			Log.v("=>Lo que me envia el servidor", json.toString());
 			
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
 					Intent intent = new Intent(MainActivity.this, pantalla_haciaDondeIr.class);
-//					Intent intent = new Intent(MainActivity.this, test_image_map.class);
 					startActivity(intent);
 				}else{
 					showAlertDialog(MainActivity.this, "No correcto Wifi", "Usted no está conectado con la red de la FIEC.", false);

@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -22,7 +23,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class cursos extends ListActivity{
-	public static String url = new String ("http://192.168.0.6/");
+	public static String url = new String ("http://192.168.0.5/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
@@ -30,15 +31,23 @@ public class cursos extends ListActivity{
 	ArrayList<HashMap<String, String>> courseList;
 	private static String url_all_courses = url+"WebService/get_courses.php";
 	private static String url_validate = url+"WebService/validate.php";
-	private static String url_validate_2 = url+"WebService/validate_single.php";
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_COURSES = "courses";
 	private static final String TAG_CODE = "codigo";
 	private static final String TAG_DESCRIPCION = "descripcion";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
-	private static final String TAG_VALUE3= "value3";
+	private static final String TAG_VALUE3 = "value3";
+	private static final String TAG_VALUE4 = "value4";
 	JSONArray courses = null;
+	JSONArray coordenadas = null;
+	private static final String TAG_COORDENADAS = "coordenadas";
+	private static final String TAG_X_1 = "coord_x_1";
+	private static final String TAG_Y_1 = "coord_y_1";
+	JSONArray coordenadas_aulas = null;
+	private static final String TAG_AULAS = "coordenadas_aula";
+	private static final String TAG_X_2 = "coord_x_2";
+	private static final String TAG_Y_2 = "coord_y_2";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +55,9 @@ public class cursos extends ListActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_cusos);
 		courseList = new ArrayList<HashMap<String,String>>();
-		// BSSID de la otra clase
 		Bundle bundle = getIntent().getExtras();
-		final String bssid_connected = bundle.getString("bssid");
-		
-		//ID_IMAGEN de la otra clase
-		Bundle bundle_2 = getIntent().getExtras();
-		final String id_imagen = bundle_2.getString("id_image_single");
-		final String bssid_low = bundle_2.getString("bssid_final");
+		final String id_imagen = bundle.getString("id_image_single");
+		final String bssid_final = bundle.getString("bssid_final");
 		
 		new LoadAllCourses().execute();
 		all_courses = getListView();
@@ -64,11 +68,7 @@ public class cursos extends ListActivity{
 				HashMap<String, String>map =(HashMap<String, String>)all_courses.getItemAtPosition(position);
 				final String code = map.get(TAG_CODE);
 				final String description = map.get(TAG_DESCRIPCION);
-				if(bssid_connected==null){
-					new Validate_2().execute(id_imagen, code, description, bssid_low);
-				}else{
-					new Validate().execute(bssid_connected, code, description);
-				}
+				new Validate().execute(bssid_final, id_imagen, code, description);
 			}
 		});
 	}
@@ -80,8 +80,6 @@ public class cursos extends ListActivity{
     		super.onPreExecute();
     		pDialog = new ProgressDialog(cursos.this);
     		pDialog.setMessage("Cargando el listado de cursos. Por favor espere...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(false);
     		pDialog.show();
     	}    	
 		@Override
@@ -126,25 +124,23 @@ public class cursos extends ListActivity{
     
     // Validando si el curso pertence al lugar que se realizo la localizacion
     class Validate extends AsyncTask<String, String, String>{
-//    	new Validate().execute(bssid, code, description);
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
     		pDialog = new ProgressDialog(cursos.this);
     		pDialog.setMessage("Por favor espere...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
     		pDialog.show();
     	} 
 		
     	@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
-    		// BSSID, CODE, DESCRIPTION
+    		// BSSID, ID_IMAGEN, CODE, DESCRIPTION
     		List<NameValuePair> parametros = new ArrayList<NameValuePair>();
     		parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0]));
     		parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1]));
     		parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2]));
+    		parametros.add(new BasicNameValuePair(TAG_VALUE4, params[3]));
     		JSONObject json = JParser.makeHttpRequest(url_validate, "POST", parametros);
     		try {
 				int success = json.getInt(TAG_SUCCESS);
@@ -152,79 +148,30 @@ public class cursos extends ListActivity{
 					// solo figuras ya que esta en la misma facultad
 					Intent intent = new Intent(cursos.this, InPlace.class);
 					intent.putExtra("bssid", params[0]);
-					intent.putExtra("code", params[1]);
-					intent.putExtra("descripcion", params[2]);
+					intent.putExtra("code", params[2]);
+					intent.putExtra("descripcion", params[3]);
 					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-//					Intent outPlace = new Intent(cursos.this, OutPlace.class);
-//					startActivity(outPlace);
-					
-					//BORRAR
-					Intent intent = new Intent(cursos.this, InPlace.class);
-					intent.putExtra("bssid", params[0]);
-					intent.putExtra("code", params[1]);
-					intent.putExtra("descripcion", params[2]);
-					startActivity(intent);
-					//END
-				}else{
-					// No hay datos encontrados
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			return null;
-		}
-    	
-    	@Override
-		protected void onPostExecute(String file_url){
-			pDialog.dismiss();
-		}
-    }
-    
- // Validando si el curso pertence al lugar que se realizo la localizacion
-    class Validate_2 extends AsyncTask<String, String, String>{
-//    	new Validate_2().execute(id_imagen, code, description);
-    	@Override
-		protected void onPreExecute(){
-    		super.onPreExecute();
-    		pDialog = new ProgressDialog(cursos.this);
-    		pDialog.setMessage("Por favor espere...");
-    		pDialog.setIndeterminate(false);
-    		pDialog.setCancelable(true);
-    		pDialog.show();
-    	} 
-		
-    	@Override
-		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-    		// KNOW PLACE, CODE, DESCRIPTION
-    		List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-    		parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0]));
-    		parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1]));
-    		parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2]));
-    		JSONObject json = JParser.makeHttpRequest(url_validate_2, "POST", parametros);
-    		try {
-				int success = json.getInt(TAG_SUCCESS);
-				if (success == 1){
-					// solo figuras ya que esta en la misma facultad
-					Intent intent = new Intent(cursos.this, InPlace.class);
-					intent.putExtra("bssid", params[3]);
-					intent.putExtra("code", params[1]);
-					intent.putExtra("descripcion", params[2]);
-					startActivity(intent);
-				}else if(success == 2){
-					// Mapa completo
-//					Intent outPlace = new Intent(cursos.this, OutPlace.class);
-//					startActivity(outPlace);
-//					
-					//BORRAR
-					Intent intent = new Intent(cursos.this, InPlace.class);
-					intent.putExtra("bssid", params[0]);
-					intent.putExtra("code", params[1]);
-					intent.putExtra("descripcion", params[2]);
-					startActivity(intent);
-					//END
+					Intent opciones = new Intent(cursos.this, Opciones.class);
+					coordenadas = json.getJSONArray(TAG_COORDENADAS);
+					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
+					for (int i = 0; i< coordenadas.length(); i++){
+						JSONObject coord = coordenadas.getJSONObject(i);
+						int x1 = coord.getInt(TAG_X_1);
+						int y1 = coord.getInt(TAG_Y_1);
+						opciones.putExtra("x1", x1);
+						opciones.putExtra("y1", y1);
+						
+					}
+					for (int i = 0; i< coordenadas_aulas.length(); i++){
+						JSONObject coord_aulas = coordenadas_aulas.getJSONObject(i);
+						int x2 = coord_aulas.getInt(TAG_X_2);
+						int y2 = coord_aulas.getInt(TAG_Y_2);
+						opciones.putExtra("x2", x2);
+						opciones.putExtra("y2", y2);
+					}
+					startActivity(opciones);
 				}else{
 					// No hay datos encontrados
 				}
