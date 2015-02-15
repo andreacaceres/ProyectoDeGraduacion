@@ -115,6 +115,28 @@
               <category android:name="android.intent.category.DEFAULT" />
           </intent-filter>
       	</activity>
+      	
+        <!-- imagen_triangulada Activity -->
+        <activity
+          android:name=".imagen_triangulada"
+          android:screenOrientation="landscape"
+          android:label="ClassFinder" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
+      	
+        <!-- lugares especificos Activity -->
+        <activity
+          android:name=".lugares_especificos"
+          android:screenOrientation="landscape"
+          android:label="ClassFinder" >
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
+      	</activity>
     </application>
 
 </manifest>

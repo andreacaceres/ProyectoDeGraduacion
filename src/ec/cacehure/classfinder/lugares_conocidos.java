@@ -21,7 +21,7 @@ import android.widget.ListView;
 //public class lugares_conocidos extends ListActivity{
 public class lugares_conocidos extends Activity{
 
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.3/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();

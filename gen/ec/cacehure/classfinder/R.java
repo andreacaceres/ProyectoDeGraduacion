@@ -11,58 +11,71 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int cry=0x7f020000;
-        public static final int ic_imagen=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int ic_mapa_ubicacion=0x7f020003;
-        public static final int mapa=0x7f020004;
-        public static final int no_disponible=0x7f020005;
-        public static final int pantallaprincipal=0x7f020006;
-        public static final int temp_img=0x7f020007;
-        public static final int triangulacion=0x7f020008;
+        public static final int aproximado=0x7f020000;
+        public static final int cry=0x7f020001;
+        public static final int fiec=0x7f020002;
+        public static final int ic_imagen=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int ic_mapa_ubicacion=0x7f020005;
+        public static final int mapa=0x7f020006;
+        public static final int marcador=0x7f020007;
+        public static final int no_disponible=0x7f020008;
+        public static final int pantallaprincipal=0x7f020009;
+        public static final int solo=0x7f02000a;
+        public static final int temp_img=0x7f02000b;
+        public static final int triangulacion=0x7f02000c;
+        public static final int triangulacion_big=0x7f02000d;
     }
     public static final class id {
         public static final int begin=0x7f070001;
-        public static final int btnNext=0x7f070019;
+        public static final int btnNext=0x7f07001c;
         public static final int btnNo=0x7f070000;
-        public static final int btnNoSingle=0x7f070013;
-        public static final int btnYes=0x7f07001a;
-        public static final int btnYesSingle=0x7f070012;
-        public static final int buttonEspecifico=0x7f070010;
-        public static final int buttonGeneral=0x7f07000f;
-        public static final int button_next=0x7f07000d;
+        public static final int btnNoSingle=0x7f070016;
+        public static final int btnYes=0x7f07001d;
+        public static final int btnYesSingle=0x7f070015;
+        public static final int buttonEspecifico=0x7f070013;
+        public static final int buttonGeneral=0x7f070012;
+        public static final int button_next=0x7f070010;
         public static final int descripcion=0x7f070009;
-        public static final int image1=0x7f070017;
-        public static final int imageOrigin=0x7f070002;
+        public static final int image1=0x7f07001a;
+        public static final int imageOrigin=0x7f070003;
+        public static final int imageThumbEspe=0x7f07000f;
         public static final int imageThumbnail=0x7f070008;
-        public static final int imageViewSingle=0x7f070014;
+        public static final int imageTriangulada=0x7f07001e;
+        public static final int imageViewSingle=0x7f070017;
+        public static final int listView1=0x7f07000e;
         public static final int listview=0x7f07000c;
-        public static final int menu_settings=0x7f07001b;
+        public static final int menu_settings=0x7f07001f;
         public static final int textCourse=0x7f070006;
         public static final int textCursos=0x7f070004;
-        public static final int textDescription=0x7f070016;
+        public static final int textDescripcionThum=0x7f07000d;
+        public static final int textDescription=0x7f070019;
         public static final int textId=0x7f07000a;
         public static final int textLugaresConocidos=0x7f07000b;
         public static final int textOpcion=0x7f070005;
-        public static final int textViewDescripcion=0x7f070011;
-        public static final int textView_descr=0x7f07000e;
-        public static final int text_desc=0x7f070003;
+        public static final int textViewDescripcion=0x7f070014;
+        public static final int textView_descr=0x7f070011;
+        public static final int text_desc=0x7f070002;
         public static final int textdescription=0x7f070007;
-        public static final int textplace=0x7f070018;
-        public static final int thumbImage=0x7f070015;
+        public static final int textplace=0x7f07001b;
+        public static final int thumbImage=0x7f070018;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int destiny=0x7f030001;
-        public static final int layout_cusos=0x7f030002;
-        public static final int list_course=0x7f030003;
-        public static final int listview_thumbnail=0x7f030004;
-        public static final int lugares_conocidos=0x7f030005;
-        public static final int mapa=0x7f030006;
-        public static final int opciones=0x7f030007;
-        public static final int singlelugares=0x7f030008;
-        public static final int test_image_map=0x7f030009;
-        public static final int togo=0x7f03000a;
+        public static final int galeria=0x7f030002;
+        public static final int layout_cusos=0x7f030003;
+        public static final int list_course=0x7f030004;
+        public static final int listview_thumbnail=0x7f030005;
+        public static final int lugares_conocidos=0x7f030006;
+        public static final int lugares_especificos=0x7f030007;
+        public static final int lugares_especificos_thumbnail=0x7f030008;
+        public static final int mapa=0x7f030009;
+        public static final int opciones=0x7f03000a;
+        public static final int singlelugares=0x7f03000b;
+        public static final int test_image_map=0x7f03000c;
+        public static final int togo=0x7f03000d;
+        public static final int triangulacion_imagen=0x7f03000e;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -92,6 +105,7 @@ public final class R {
         public static final int refresh=0x7f04000c;
         public static final int rssid=0x7f040008;
         public static final int rssidvalue=0x7f040009;
+        public static final int ruta=0x7f04001c;
         public static final int si=0x7f040014;
         public static final int ssid=0x7f04000a;
         public static final int ssidvalue=0x7f04000b;

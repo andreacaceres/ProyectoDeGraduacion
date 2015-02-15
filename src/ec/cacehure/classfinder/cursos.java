@@ -21,9 +21,10 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class cursos extends ListActivity{
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.4/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
@@ -48,6 +49,10 @@ public class cursos extends ListActivity{
 	private static final String TAG_AULAS = "coordenadas_aula";
 	private static final String TAG_X_2 = "coord_x_2";
 	private static final String TAG_Y_2 = "coord_y_2";
+	JSONArray ubicacion = null;
+	private static final String TAG_UBICACION = "ubicacion";
+	private static final String TAG_UBICACION_INICIAL = "inicial";
+	private static final String TAG_UBICACION_FINAL = "final";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,13 @@ public class cursos extends ListActivity{
 		Bundle bundle = getIntent().getExtras();
 		final String id_imagen = bundle.getString("id_image_single");
 		final String bssid_final = bundle.getString("bssid_final");
+		final String bandera = String.valueOf(bundle.getInt("bandera"));
+		final String coord_x = String.valueOf(bundle.getInt("x_coord"));
+		final String coord_y = String.valueOf(bundle.getInt("y_coord"));
+		
+		Log.v("Bandera: ",""+bandera);
+		Log.v("X: ",""+coord_x);
+		Log.v("Y: ",""+coord_y);
 		
 		new LoadAllCourses().execute();
 		all_courses = getListView();
@@ -68,7 +80,7 @@ public class cursos extends ListActivity{
 				HashMap<String, String>map =(HashMap<String, String>)all_courses.getItemAtPosition(position);
 				final String code = map.get(TAG_CODE);
 				final String description = map.get(TAG_DESCRIPCION);
-				new Validate().execute(bssid_final, id_imagen, code, description);
+				new Validate().execute(bssid_final, id_imagen, code, description, bandera, coord_x, coord_y);
 			}
 		});
 	}
@@ -146,16 +158,25 @@ public class cursos extends ListActivity{
 				int success = json.getInt(TAG_SUCCESS);
 				if (success == 1){
 					// solo figuras ya que esta en la misma facultad
-					Intent intent = new Intent(cursos.this, InPlace.class);
-					intent.putExtra("bssid", params[0]);
-					intent.putExtra("code", params[2]);
-					intent.putExtra("descripcion", params[3]);
-					startActivity(intent);
+					if(params[4]=="1"){
+						Intent solo_fiec = new Intent(cursos.this, imagen_triangulada.class);
+						solo_fiec.putExtra("coord_x", params[5]);
+						solo_fiec.putExtra("coord_y", params[6]);
+						startActivity(solo_fiec);
+					}else{
+						Intent intent = new Intent(cursos.this, InPlace.class);
+						intent.putExtra("bssid", params[0]);
+						intent.putExtra("code", params[2]);
+						intent.putExtra("descripcion", params[3]);
+						startActivity(intent);
+					}
 				}else if(success == 2){
 					// Mapa completo
 					Intent opciones = new Intent(cursos.this, Opciones.class);
 					coordenadas = json.getJSONArray(TAG_COORDENADAS);
 					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
+					ubicacion = json.getJSONArray(TAG_UBICACION);
+					
 					for (int i = 0; i< coordenadas.length(); i++){
 						JSONObject coord = coordenadas.getJSONObject(i);
 						int x1 = coord.getInt(TAG_X_1);
@@ -171,9 +192,22 @@ public class cursos extends ListActivity{
 						opciones.putExtra("x2", x2);
 						opciones.putExtra("y2", y2);
 					}
+					
+					for (int i = 0; i< ubicacion.length(); i++){
+						JSONObject ubicaciones = ubicacion.getJSONObject(i);
+						int ub_inicial = ubicaciones.getInt(TAG_UBICACION_INICIAL);
+						int ub_final = ubicaciones.getInt(TAG_UBICACION_FINAL);
+						opciones.putExtra("ubicacion_inicial", ub_inicial);
+						opciones.putExtra("ubicacion_final", ub_final);
+					}
 					startActivity(opciones);
+					
+//					Intent solo = new Intent(cursos.this, imagen_triangulada.class);
+//					solo.putExtra("coord_x", "50");
+//					solo.putExtra("coord_y", "187");
+//					startActivity(solo);
 				}else{
-					// No hay datos encontrados
+					Toast.makeText(cursos.this, "No se encotró registros.", Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
 				// TODO: handle exception

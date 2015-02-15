@@ -3,11 +3,9 @@ package ec.cacehure.classfinder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class Opciones extends Activity{
 	
@@ -24,6 +22,8 @@ public class Opciones extends Activity{
 		final int y1 = bundle.getInt("y1");
 		final int x2 = bundle.getInt("x2");
 		final int y2 = bundle.getInt("y2");
+		final int ubicacion_inicial = bundle.getInt("ubicacion_inicial");
+		final int ubicacion_final = bundle.getInt("ubicacion_final");
 		
 		general = (Button)findViewById(R.id.buttonGeneral);
 		especifico = (Button)findViewById(R.id.buttonEspecifico);
@@ -45,7 +45,10 @@ public class Opciones extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(Opciones.this, "Mostrar las rutas especificas", Toast.LENGTH_SHORT).show();
+				Intent especifico = new Intent(Opciones.this, lugares_especificos.class);
+				especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
+				especifico.putExtra("ubicacion_final", ubicacion_final);
+				startActivity(especifico);
 			}
 		});
 	}

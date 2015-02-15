@@ -28,7 +28,7 @@ public class OutPlace extends Activity{
 	public int y_final = 0;
 	public int x_final_destino = 0;
 	public int y_final_destino = 0;
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -61,10 +61,6 @@ public class OutPlace extends Activity{
 		y1 = bundle.getInt("y1");
 		x2 = bundle.getInt("x2");
 		y2 = bundle.getInt("y2");
-		Log.v("x1: ","es: "+x1);
-		Log.v("y1: ","es: "+y1);
-		Log.v("x2: ","es: "+x2);
-		Log.v("y2: ","es: "+y2);
 		
 		int x_calculado =  x1;
 		int y_calculado = y1;
@@ -83,13 +79,12 @@ public class OutPlace extends Activity{
 		
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
-		Paint p = new Paint();
-		Paint p2 = new Paint();
-		p.setColor(Color.BLUE);
-		p2.setColor(Color.RED);
-		canvas.drawCircle(x_final, y_final, 20, p);
-		canvas.drawCircle(x_final_destino, y_final_destino, 20, p2);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
+		canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
+		canvas.drawBitmap(bm, (x_final_destino-33), (y_final_destino-98), null);
 		image.setImageBitmap(imageBitmap);
+		
+
 	}
 	
 	// Function to resize the final image

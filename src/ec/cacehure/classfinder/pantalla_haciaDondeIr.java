@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 public class pantalla_haciaDondeIr extends Activity{
 	
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.4/");
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;
@@ -72,6 +72,12 @@ public class pantalla_haciaDondeIr extends Activity{
 	public String bssid= "";
 	public String bssid_connected = "";
 	
+	public int bandera = 0;
+	private static final String TAG_X_FINAL = "x_final";
+	private static final String TAG_Y_FINAL = "y_final";
+	public int x_coord = 0;
+	public int y_coord = 0;
+	
 	ImageView imagen_inicial;
 	Bitmap bitmap_inicial;
 	
@@ -79,8 +85,7 @@ public class pantalla_haciaDondeIr extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.togo);
-		
+		setContentView(R.layout.togo);		
 		imagen_inicial = (ImageView)findViewById(R.id.image1);
 		
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
@@ -95,6 +100,10 @@ public class pantalla_haciaDondeIr extends Activity{
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
 				intent.putExtra("id_image_single", "0");
 				intent.putExtra("bssid_final", bssid_connected);
+				//Mandar aviso de que se detecto las coordenadas
+				intent.putExtra("bandera", bandera);
+				intent.putExtra("x_coord", x_coord);
+				intent.putExtra("y_coord", y_coord);
 				startActivity(intent);
 			}
 		});
@@ -195,11 +204,14 @@ public class pantalla_haciaDondeIr extends Activity{
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
+					bandera = 1;
 					ap = jsonWifi.getJSONArray(TAG_AP_ONE);		
 					JSONObject c = ap.getJSONObject(0);
 					lugar = (TextView)findViewById(R.id.textplace);
 					descripcion = c.getString(TAG_DESCRIPCION_ONE);
 					path_imagen_one = c.getString(TAG_PATH_IMAGEN_ONE);
+					x_coord = c.getInt(TAG_X_FINAL);
+					y_coord = c.getInt(TAG_Y_FINAL);
 					try{
 						bitmap_inicial = BitmapFactory.decodeStream((InputStream)new URL(path_imagen_one).getContent());
 						lugar = (TextView)findViewById(R.id.textplace);

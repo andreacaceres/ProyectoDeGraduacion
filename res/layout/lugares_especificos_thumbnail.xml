@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageThumbEspe"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/no_disponible" />
+
+    <TextView
+        android:id="@+id/textDescripcionThum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageThumbEspe"
+        android:layout_marginBottom="136dp"
+        android:layout_toRightOf="@+id/imageThumbEspe"
+        android:text="TextView" />
+
+</RelativeLayout>

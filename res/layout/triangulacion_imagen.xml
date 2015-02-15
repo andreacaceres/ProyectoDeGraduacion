@@ -3,20 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/text_desc"
+    <ImageView
+        android:id="@+id/imageTriangulada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/imageOrigin"
-        android:layout_width="450dp"
-        android:layout_height="450dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:src="@drawable/no_disponible" />
 
 </RelativeLayout>

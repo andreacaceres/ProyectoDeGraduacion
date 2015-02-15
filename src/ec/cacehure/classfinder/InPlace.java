@@ -18,7 +18,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace extends Activity{
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.3/");
 	
 	private ProgressDialog pDialog;
 	private static final String url_imagen_ubicacion = url+"WebService/imagen_ubicacion.php";
@@ -96,7 +95,6 @@ public class InPlace extends Activity{
 						JSONObject c = path_receive.getJSONObject(i);
 						url_imagen = c.getString(TAG_PATH_IMAGEN_BSSID);
 						des_web = c.getString(TAG_DESCRIPCION);
-						Log.v("Descripcion",des_web);
 						try{
 							bitmap = BitmapFactory.decodeStream((InputStream)new URL(url_imagen).getContent());
 							des.setText(des_web);
@@ -106,7 +104,7 @@ public class InPlace extends Activity{
 					}
 				}else{
 					//Hubo error
-					Log.v("En el else",".");
+					Toast.makeText(InPlace.this, "Error", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();

@@ -17,14 +17,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace_2 extends Activity{
 	private ProgressDialog pDialog;
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.3/");
 	private static final String url_imagen_destino = url+"WebService/imagen_destino.php";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -79,7 +78,6 @@ public class InPlace_2 extends Activity{
 						JSONObject c = path_receive.getJSONObject(i);
 						path_imagen = c.getString(TAG_PATH_IMAGEN_AULA);
 						text_descr = c.getString(TAG_DESCRIPCION);
-						Log.v("Descripcion",text_descr);
 						try{
 							bitmap = BitmapFactory.decodeStream((InputStream)new URL(path_imagen).getContent());
 							descrip.setText(text_descr);
@@ -89,7 +87,7 @@ public class InPlace_2 extends Activity{
 					}
 				}else{
 					//Hubo error
-					Log.v("En el else",".");
+					Toast.makeText(InPlace_2.this, "Error", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();

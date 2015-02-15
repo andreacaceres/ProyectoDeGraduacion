@@ -4,19 +4,20 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/text_desc"
+        android:id="@+id/textDescripcionThum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/ruta"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageView
-        android:id="@+id/imageOrigin"
-        android:layout_width="450dp"
-        android:layout_height="450dp"
-        android:layout_alignParentBottom="true"
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/no_disponible" />
+        android:layout_below="@+id/textDescripcionThum" >
+    </ListView>
 
 </RelativeLayout>

@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingleLugaresConocidos extends Activity{
-	public static String url = new String ("http://192.168.0.5/");
+	public static String url = new String ("http://192.168.0.3/");
 	
 	private ProgressDialog pDialog;
 	Button yes,no;
