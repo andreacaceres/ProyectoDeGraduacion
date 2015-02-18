@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class InPlace_2 extends Activity{
 	private ProgressDialog pDialog;
-	public static String url = new String ("http://192.168.0.3/");
+	public static String url = new String ("http://200.126.19.93/");
 	private static final String url_imagen_destino = url+"WebService/imagen_destino.php";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -87,7 +87,7 @@ public class InPlace_2 extends Activity{
 					}
 				}else{
 					//Hubo error
-					Toast.makeText(InPlace_2.this, "Error", Toast.LENGTH_SHORT).show();
+					Toast.makeText(InPlace_2.this, "Error en la url", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();

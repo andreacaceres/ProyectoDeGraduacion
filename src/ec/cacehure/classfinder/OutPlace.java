@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -17,7 +15,7 @@ public class OutPlace extends Activity{
 	public int Alto_real = 24300;
 	public float Ancho_digital = (float) 71.42;
 	public float Alto_digital = (float)62.53;
-	public int w_digital = 2699;
+	public int w_digital = 2712;//2699;
 	public int h_digital = 2363;
 	public float W_real = (float)997670.1204;
 	public float Y_real = (float)918293.6191;
@@ -40,14 +38,14 @@ public class OutPlace extends Activity{
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.mapa, options);
+		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa, options);
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 //		image.setImageBitmap(scaledBitmap);
 		image.setImageBitmap(prueba);

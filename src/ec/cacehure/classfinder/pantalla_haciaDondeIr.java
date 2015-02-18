@@ -37,7 +37,7 @@ import android.widget.Toast;
 
 public class pantalla_haciaDondeIr extends Activity{
 	
-	public static String url = new String ("http://192.168.0.4/");
+	public static String url = new String ("http://200.126.19.93/");
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;

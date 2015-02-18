@@ -24,7 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class cursos extends ListActivity{
-	public static String url = new String ("http://192.168.0.4/");
+	public static String url = new String ("http://200.126.19.93/");
 	
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
@@ -113,7 +113,7 @@ public class cursos extends ListActivity{
 						courseList.add(map);
 					}
 				}else{
-					//Hubo error
+					Toast.makeText(cursos.this, "Error del lado del servidor.", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();

@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace extends Activity{
-	public static String url = new String ("http://192.168.0.3/");
+	public static String url = new String ("http://200.126.19.93/");
 	
 	private ProgressDialog pDialog;
 	private static final String url_imagen_ubicacion = url+"WebService/imagen_ubicacion.php";
@@ -104,7 +104,7 @@ public class InPlace extends Activity{
 					}
 				}else{
 					//Hubo error
-					Toast.makeText(InPlace.this, "Error", Toast.LENGTH_SHORT).show();
+					Toast.makeText(InPlace.this, "Error en la url", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();

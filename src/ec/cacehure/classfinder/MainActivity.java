@@ -23,7 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-	public static String url = new String ("http://192.168.0.4/");
+	public static String url = new String ("http://200.126.19.93/");
 	Boolean isInternetPresent = false;
     ConnectionDetector cd;
     public int flag = 0;

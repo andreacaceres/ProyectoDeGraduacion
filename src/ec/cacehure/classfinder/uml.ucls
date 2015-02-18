@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="ec.cacehure.classfinder.ImageLoader.PhotoToLoad" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ImageLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3600" y="2158"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ec.cacehure.classfinder.Opciones" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/Opciones.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="134" x="1097" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="ec.cacehure.classfinder.InPlace.LoadImagen" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/InPlace.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="181" x="3263" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="ec.cacehure.classfinder.pantalla_haciaDondeIr.LoadWifiScan" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/pantalla_haciaDondeIr.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="181" x="2242" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="ec.cacehure.classfinder.InPlace" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/InPlace.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="196" x="3399" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="ec.cacehure.classfinder.MainActivity" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/MainActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="278" x="2145" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="ec.cacehure.classfinder.ListViewAdapter" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ListViewAdapter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="329" x="2677" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="ec.cacehure.classfinder.pantalla_haciaDondeIr" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/pantalla_haciaDondeIr.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="747" width="184" x="2463" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="ec.cacehure.classfinder.SingleLugaresConocidos.LoadImagen" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/SingleLugaresConocidos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="181" x="4464" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="ec.cacehure.classfinder.ImageLoader" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ImageLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="228" x="3266" y="1543"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="ec.cacehure.classfinder.pantalla_haciaDondeIr.WifiScanReceiver" 
+    project="classfinder" file="/classfinder/src/ec/cacehure/classfinder/pantalla_haciaDondeIr.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="174" x="2463" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="ec.cacehure.classfinder.InPlace_2.LoadImagen" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/InPlace_2.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="181" x="4685" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="ec.cacehure.classfinder.lugares_conocidos" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/lugares_conocidos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="313" x="3046" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="ec.cacehure.classfinder.InPlace_2" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/InPlace_2.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4355" y="487"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="ec.cacehure.classfinder.MemoryCache" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/MemoryCache.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2889" y="1680"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="ec.cacehure.classfinder.lugares_especificos" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/lugares_especificos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3816" y="660"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="ec.cacehure.classfinder.SingleLugaresConocidos" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/SingleLugaresConocidos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4114" y="615"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="ec.cacehure.classfinder.FileCache" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/FileCache.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3044" y="1793"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="ec.cacehure.classfinder.ListViewAdapter_2" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ListViewAdapter_2.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="341" x="3866" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="ec.cacehure.classfinder.lugares_conocidos.load_lugares_conocidos" 
+    project="classfinder" file="/classfinder/src/ec/cacehure/classfinder/lugares_conocidos.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="3046" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="ec.cacehure.classfinder.ImageLoader.BitmapDisplayer" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ImageLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="208" x="3166" y="1844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="ec.cacehure.classfinder.cursos.Validate" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/cursos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="4906" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ec.cacehure.classfinder.cursos.LoadAllCourses" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/cursos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="5123" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="ec.cacehure.classfinder.JSONParser" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/JSONParser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3491" y="162"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="ec.cacehure.classfinder.OutPlace" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/OutPlace.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="477" width="256" x="1271" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="ec.cacehure.classfinder.cursos" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/cursos.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4797" y="367"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="ec.cacehure.classfinder.lugares_especificos.load_lugares_especificos" 
+    project="classfinder" file="/classfinder/src/ec/cacehure/classfinder/lugares_especificos.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="4247" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="ec.cacehure.classfinder.ConnectionDetector" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ConnectionDetector.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="184" x="1801" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="ec.cacehure.classfinder.Utils" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/Utils.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="242" x="1567" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="ec.cacehure.classfinder.MainActivity.validate" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/MainActivity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="2025" y="1278"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="ec.cacehure.classfinder.ImageLoader.PhotosLoader" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/ImageLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="163" x="3414" y="1844"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="ec.cacehure.classfinder.imagen_triangulada" project="classfinder" 
+    file="/classfinder/src/ec/cacehure/classfinder/imagen_triangulada.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="256" x="1849" y="491"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="33">    
+    <bendpoint x="2590" y="346"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="34" name="jsonParser"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="37" name="imageLoader"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="39">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <association id="40">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="41" name="JParser"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="44" name="photoToLoad"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="47" name="wifiReciever"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="49">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <association id="50">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="51" name="JParser"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="2993" y="492"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="54" name="JParser"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="57" name="adapter"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="59">    
+    <bendpoint x="3607" y="1844"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </nesting>  
+  <nesting id="60">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <nesting id="61">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="23"/>  
+  </nesting>  
+  <nesting id="62">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="30"/>  
+  </nesting>  
+  <association id="63">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="64" name="fileCache"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="66">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="22"/>  
+  </nesting>  
+  <association id="67">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="68" name="cd"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="71" name="photoToLoad"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="73">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <association id="74">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="75" name="JParser"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="77">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <nesting id="78">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <nesting id="79">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <association id="80">    
+    <bendpoint x="3929" y="413"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="81" name="JParser"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="84" name="JParser"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="86">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <association id="87">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="88" name="memoryCache"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="90">    
+    <bendpoint x="4186" y="236"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="91" name="JParser"/>      
+      <multiplicity id="92" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="93">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="94" name="adapter"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="96">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="27"/>  
+  </nesting>  
+  <association id="97">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="98" name="imageLoader"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

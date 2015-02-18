@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingleLugaresConocidos extends Activity{
-	public static String url = new String ("http://192.168.0.3/");
+	public static String url = new String ("http://200.126.19.93/");
 	
 	private ProgressDialog pDialog;
 	Button yes,no;
@@ -42,7 +42,7 @@ public class SingleLugaresConocidos extends Activity{
 	private String path_imagen;
 	TextView Text;
 	String variable_null = "null";
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

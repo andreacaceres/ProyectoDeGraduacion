@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class lugares_especificos extends Activity{
-	public static String url = new String("http://192.168.0.3/");
+	public static String url = new String("http://200.126.19.93/");
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ListView lugares_especificos;
