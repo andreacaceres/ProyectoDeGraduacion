@@ -172,40 +172,40 @@ public class cursos extends ListActivity{
 					}
 				}else if(success == 2){
 					// Mapa completo
-//					Intent opciones = new Intent(cursos.this, Opciones.class);
-//					coordenadas = json.getJSONArray(TAG_COORDENADAS);
-//					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
-//					ubicacion = json.getJSONArray(TAG_UBICACION);
-//					
-//					for (int i = 0; i< coordenadas.length(); i++){
-//						JSONObject coord = coordenadas.getJSONObject(i);
-//						int x1 = coord.getInt(TAG_X_1);
-//						int y1 = coord.getInt(TAG_Y_1);
-//						opciones.putExtra("x1", x1);
-//						opciones.putExtra("y1", y1);
-//						
-//					}
-//					for (int i = 0; i< coordenadas_aulas.length(); i++){
-//						JSONObject coord_aulas = coordenadas_aulas.getJSONObject(i);
-//						int x2 = coord_aulas.getInt(TAG_X_2);
-//						int y2 = coord_aulas.getInt(TAG_Y_2);
-//						opciones.putExtra("x2", x2);
-//						opciones.putExtra("y2", y2);
-//					}
-//					
-//					for (int i = 0; i< ubicacion.length(); i++){
-//						JSONObject ubicaciones = ubicacion.getJSONObject(i);
-//						int ub_inicial = ubicaciones.getInt(TAG_UBICACION_INICIAL);
-//						int ub_final = ubicaciones.getInt(TAG_UBICACION_FINAL);
-//						opciones.putExtra("ubicacion_inicial", ub_inicial);
-//						opciones.putExtra("ubicacion_final", ub_final);
-//					}
-//					startActivity(opciones);
+					Intent opciones = new Intent(cursos.this, Opciones.class);
+					coordenadas = json.getJSONArray(TAG_COORDENADAS);
+					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
+					ubicacion = json.getJSONArray(TAG_UBICACION);
 					
-					Intent solo = new Intent(cursos.this, imagen_triangulada.class);
-					solo.putExtra("coord_x", "50");
-					solo.putExtra("coord_y", "152");
-					startActivity(solo);
+					for (int i = 0; i< coordenadas.length(); i++){
+						JSONObject coord = coordenadas.getJSONObject(i);
+						int x1 = coord.getInt(TAG_X_1);
+						int y1 = coord.getInt(TAG_Y_1);
+						opciones.putExtra("x1", x1);
+						opciones.putExtra("y1", y1);
+						
+					}
+					for (int i = 0; i< coordenadas_aulas.length(); i++){
+						JSONObject coord_aulas = coordenadas_aulas.getJSONObject(i);
+						int x2 = coord_aulas.getInt(TAG_X_2);
+						int y2 = coord_aulas.getInt(TAG_Y_2);
+						opciones.putExtra("x2", x2);
+						opciones.putExtra("y2", y2);
+					}
+					
+					for (int i = 0; i< ubicacion.length(); i++){
+						JSONObject ubicaciones = ubicacion.getJSONObject(i);
+						int ub_inicial = ubicaciones.getInt(TAG_UBICACION_INICIAL);
+						int ub_final = ubicaciones.getInt(TAG_UBICACION_FINAL);
+						opciones.putExtra("ubicacion_inicial", ub_inicial);
+						opciones.putExtra("ubicacion_final", ub_final);
+					}
+					startActivity(opciones);
+					
+//					Intent solo = new Intent(cursos.this, imagen_triangulada.class);
+//					solo.putExtra("coord_x", "55");
+//					solo.putExtra("coord_y", "145");
+//					startActivity(solo);
 				}else{
 					Toast.makeText(cursos.this, "No se encotró registros.", Toast.LENGTH_SHORT).show();
 				}

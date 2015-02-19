@@ -21,9 +21,10 @@ public final class R {
         public static final int imagen_triangulada_horizontal=0x7f020007;
         public static final int mapa_completo=0x7f020008;
         public static final int marcador=0x7f020009;
-        public static final int no_disponible=0x7f02000a;
-        public static final int pantallaprincipal=0x7f02000b;
-        public static final int temp_img=0x7f02000c;
+        public static final int mod=0x7f02000a;
+        public static final int no_disponible=0x7f02000b;
+        public static final int pantallaprincipal=0x7f02000c;
+        public static final int temp_img=0x7f02000d;
     }
     public static final class id {
         public static final int begin=0x7f070001;

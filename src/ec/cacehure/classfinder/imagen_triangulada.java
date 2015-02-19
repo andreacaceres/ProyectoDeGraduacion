@@ -65,16 +65,19 @@ public class imagen_triangulada extends Activity{
 		int y_1 = (91-x_calculado);
 				
 		x_resultado = convertidor_x(x_1, w, W, Wpx, width_imagen);
-		xfinal = x_resultado-125;
+//		xfinal = x_resultado-125;
+		xfinal = x_resultado-32;
 		
 		y_resultado = convertidor_y(y_1, h, H, Hpx, height_imagen);
-		yfinal = y_resultado-90;
+//		yfinal = y_resultado-90;
+		yfinal = y_resultado-23;
 		
 		Log.v("X final en pixeles: ",""+x_resultado);
 		Log.v("Y final en pixeles: ",""+y_resultado);
 		
 		//Marcador
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.aproximado);
+//		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.aproximado);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.mod);
 		canvas.drawBitmap(bm, xfinal, yfinal, null);
 		image.setImageBitmap(imageBitmap);
 	}
