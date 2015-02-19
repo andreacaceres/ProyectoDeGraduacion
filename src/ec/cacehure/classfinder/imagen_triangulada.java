@@ -11,12 +11,12 @@ import android.widget.ImageView;
 
 public class imagen_triangulada extends Activity{
 	
-	public int H = 98;
-	public int W = 91;
-	public float h = (float)62.45;
-	public float w = (float)57.58;
-	public int Hpx = 2360;
-	public int Wpx = 2176;
+	public int H = 91;
+	public int W = 98;
+	public float h = (float)57.58;
+	public float w = (float)62.45;
+	public int Hpx = 2176;
+	public int Wpx = 2360;
 	public int width_imagen = 0;
 	public int height_imagen = 0;
 	public int w_marcador = 250;
@@ -43,14 +43,14 @@ public class imagen_triangulada extends Activity{
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.imagen_triangulada, options);
+		BitmapFactory.decodeResource(getResources(), R.drawable.imagen_triangulada_horizontal, options);
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.imagen_triangulada, options);
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.imagen_triangulada_horizontal, options);
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 		image.setImageBitmap(prueba);
 		width_imagen = prueba.getWidth();
@@ -61,9 +61,9 @@ public class imagen_triangulada extends Activity{
 		Canvas canvas = new Canvas(imageBitmap);
 		
 		//calculado para poner el marcador:
-		int x_1 = x_calculado;
-		int y_1 = ((243-y_calculado)-36);
-		
+		int x_1 = ((243-y_calculado)-36);
+		int y_1 = (91-x_calculado);
+				
 		x_resultado = convertidor_x(x_1, w, W, Wpx, width_imagen);
 		xfinal = x_resultado-125;
 		
