@@ -56,4 +56,14 @@
         android:layout_toLeftOf="@+id/btnNext"
         android:text="@string/no" />
 
+    <Button
+        android:id="@+id/buttonTrian"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/especi"
+        android:visibility="invisible" />
+
 </RelativeLayout>

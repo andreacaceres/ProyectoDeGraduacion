@@ -5,22 +5,23 @@
     android:background="@drawable/pantallaprincipal"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/btnNo"
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginLeft="139dp"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:src="@drawable/btn_salir" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="21dp"
-        android:layout_marginLeft="111dp"
-        android:text="@string/exit" />
-
-    <Button
-        android:id="@+id/begin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnNo"
-        android:layout_centerHorizontal="true"
-        android:text="@string/begin" />
+        android:layout_marginBottom="82dp"
+        android:layout_marginLeft="148dp"
+        android:src="@drawable/btn_iniciar" />
 
 </RelativeLayout>

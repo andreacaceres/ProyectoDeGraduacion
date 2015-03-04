@@ -38,14 +38,14 @@ public class OutPlace extends Activity{
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
+		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo_tags, options);//mapa
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo_tags, options);//mapa
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 //		image.setImageBitmap(scaledBitmap);
 		image.setImageBitmap(prueba);
@@ -79,7 +79,8 @@ public class OutPlace extends Activity{
 		Canvas canvas = new Canvas(imageBitmap);
 		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
 		canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
-		canvas.drawBitmap(bm, (x_final_destino-33), (y_final_destino-98), null);
+		Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_2);
+		canvas.drawBitmap(bm2, (x_final_destino-33), (y_final_destino-98), null);
 		image.setImageBitmap(imageBitmap);
 		
 

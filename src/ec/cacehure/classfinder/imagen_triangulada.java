@@ -24,18 +24,19 @@ public class imagen_triangulada extends Activity{
 	
 	public int x_calculado;
 	public int y_calculado;
+	public String code;
+	public String descripcion;
 	
 	public int x_resultado, y_resultado, xfinal, yfinal = 0;
-
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.triangulacion_imagen);
 		Bundle bundle = getIntent().getExtras();
-		x_calculado = Integer.valueOf(bundle.getString("coord_x"));
-		y_calculado = Integer.valueOf(bundle.getString("coord_y"));
+		x_calculado = bundle.getInt("coord_x");
+		y_calculado = bundle.getInt("coord_y");
 		
 		final ImageView image = (ImageView)findViewById(R.id.imageTriangulada);
 		Display display = getWindowManager().getDefaultDisplay();

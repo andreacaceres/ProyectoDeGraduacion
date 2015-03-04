@@ -33,6 +33,8 @@ public class lugares_especificos extends Activity{
 	static String TAG_RUTAS_IMAGENES = "rutas_imagenes";
 	JSONArray path = null;
 	ListViewAdapter_2 adapter;
+	
+	int bandera = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +66,14 @@ public class lugares_especificos extends Activity{
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
 			parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0]));
 			parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1]));
+			Log.v("Id ubicacion inicial", params[0]);
+			Log.v("Id ubicacion final", params[1]);
 			JSONObject json = JParser.makeHttpRequest(url_ruta_corta, "POST", parametros);
 			Log.v("Descripcion: ", json.toString());
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
+					bandera = 1;
 					path = json.getJSONArray(TAG_RUTAS_IMAGENES);
 					for (int i = 0; i< path.length(); i++){
 						JSONObject c = path.getJSONObject(i);
@@ -78,7 +83,7 @@ public class lugares_especificos extends Activity{
 						lugares_especificos_List.add(map);
 					}
 				}else{
-					Toast.makeText(lugares_especificos.this, "Error del lado del servidor", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(lugares_especificos.this, "Error del lado del servidor", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -92,6 +97,9 @@ public class lugares_especificos extends Activity{
 			adapter = new ListViewAdapter_2(lugares_especificos.this, lugares_especificos_List);
 			lugares_especificos.setAdapter(adapter);
 			pDialog.dismiss();
+			if(bandera == 0){
+				Toast.makeText(lugares_especificos.this, "Error del lado del servidor", Toast.LENGTH_SHORT).show();
+			}
 		}
 		
 	}

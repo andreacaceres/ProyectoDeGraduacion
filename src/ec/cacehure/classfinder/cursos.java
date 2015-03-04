@@ -63,13 +63,6 @@ public class cursos extends ListActivity{
 		Bundle bundle = getIntent().getExtras();
 		final String id_imagen = bundle.getString("id_image_single");
 		final String bssid_final = bundle.getString("bssid_final");
-		final String bandera = String.valueOf(bundle.getInt("bandera"));
-		final String coord_x = String.valueOf(bundle.getInt("x_coord"));
-		final String coord_y = String.valueOf(bundle.getInt("y_coord"));
-		
-		Log.v("Bandera: ",""+bandera);
-		Log.v("X: ",""+coord_x);
-		Log.v("Y: ",""+coord_y);
 		
 		new LoadAllCourses().execute();
 		all_courses = getListView();
@@ -80,7 +73,7 @@ public class cursos extends ListActivity{
 				HashMap<String, String>map =(HashMap<String, String>)all_courses.getItemAtPosition(position);
 				final String code = map.get(TAG_CODE);
 				final String description = map.get(TAG_DESCRIPCION);
-				new Validate().execute(bssid_final, id_imagen, code, description, bandera, coord_x, coord_y);
+				new Validate().execute(bssid_final, id_imagen, code, description);
 			}
 		});
 	}
@@ -149,27 +142,20 @@ public class cursos extends ListActivity{
 			// TODO Auto-generated method stub
     		// BSSID, ID_IMAGEN, CODE, DESCRIPTION
     		List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-    		parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0]));
-    		parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1]));
-    		parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2]));
-    		parametros.add(new BasicNameValuePair(TAG_VALUE4, params[3]));
+    		parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0])); //BSSID
+    		parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1])); //ID_IMAGEN
+    		parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2])); //CODE
+    		parametros.add(new BasicNameValuePair(TAG_VALUE4, params[3])); //DESCRIPCION
     		JSONObject json = JParser.makeHttpRequest(url_validate, "POST", parametros);
     		try {
 				int success = json.getInt(TAG_SUCCESS);
 				if (success == 1){
 					// solo figuras ya que esta en la misma facultad
-					if(params[4]=="1"){
-						Intent solo_fiec = new Intent(cursos.this, imagen_triangulada.class);
-						solo_fiec.putExtra("coord_x", params[5]);
-						solo_fiec.putExtra("coord_y", params[6]);
-						startActivity(solo_fiec);
-					}else{
-						Intent intent = new Intent(cursos.this, InPlace.class);
-						intent.putExtra("bssid", params[0]);
-						intent.putExtra("code", params[2]);
-						intent.putExtra("descripcion", params[3]);
-						startActivity(intent);
-					}
+					Intent intent = new Intent(cursos.this, InPlace.class);
+					intent.putExtra("bssid", params[0]);
+					intent.putExtra("code", params[2]);
+					intent.putExtra("descripcion", params[3]);
+					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
 					Intent opciones = new Intent(cursos.this, Opciones.class);
@@ -200,12 +186,7 @@ public class cursos extends ListActivity{
 						opciones.putExtra("ubicacion_inicial", ub_inicial);
 						opciones.putExtra("ubicacion_final", ub_final);
 					}
-					startActivity(opciones);
-					
-//					Intent solo = new Intent(cursos.this, imagen_triangulada.class);
-//					solo.putExtra("coord_x", "55");
-//					solo.putExtra("coord_y", "145");
-//					startActivity(solo);
+					startActivity(opciones);				
 				}else{
 					Toast.makeText(cursos.this, "No se encotró registros.", Toast.LENGTH_SHORT).show();
 				}

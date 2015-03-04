@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 //public class lugares_conocidos extends ListActivity{
 public class lugares_conocidos extends Activity{
@@ -38,6 +39,8 @@ public class lugares_conocidos extends Activity{
 	JSONArray places = null;
 	ListViewAdapter adapter;
 	Button refresh;
+	
+	int bandera = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class lugares_conocidos extends Activity{
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
 			parametros.add(new BasicNameValuePair(TAG_BBSID_VALUE, params[0]));
 			JSONObject json = JParser.makeHttpRequest(url_lugares_conocidos, "POST", parametros);
+			Log.v("Lugares conocidos", json.toString());
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -79,8 +83,10 @@ public class lugares_conocidos extends Activity{
 						map.put("bssid_final", params[0]);
 						lugaresconocidos_List.add(map);
 					}
+					bandera = 1;
 				}else{
 					Log.v("========> ERROR", "BSSID: ");
+					//Toast.makeText(lugares_conocidos.this, "No se encontraron lugares conocidos al AP que se encuentra usted conectado", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -93,6 +99,9 @@ public class lugares_conocidos extends Activity{
 			adapter = new ListViewAdapter(lugares_conocidos.this, lugaresconocidos_List);
 			lugares_conocidos.setAdapter(adapter);
 			pDialog.dismiss();
+			if(bandera == 0){
+				Toast.makeText(lugares_conocidos.this, "No se encontraron lugares conocidos al AP que se encuentra usted conectado", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 }

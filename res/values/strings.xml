@@ -28,7 +28,8 @@
     <string name="mensaje">Si estos no son los lugares que están a su alrededor, por favor dar clic en el siguiente botón.</string>
     <string name="next">--&gt;</string>
     <string name="general">Ver ruta General</string>
-    <string name="especifico">Ver ruta específica</string>
-    <string name="ruta">Mejor Ruta</string>
+    <string name="especifico">Lugares Referentes</string>
+    <string name="ruta">Lugares Referentes</string>
+    <string name="especi">Ver ubicación específica</string>
 
 </resources>

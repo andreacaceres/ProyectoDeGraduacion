@@ -19,19 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="84dp"
-        android:layout_toLeftOf="@+id/textOpcion"
+        android:layout_centerHorizontal="true"
         android:text="@string/allcourse"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textOpcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@android:id/list"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="318dp"
-        android:text="@string/option"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

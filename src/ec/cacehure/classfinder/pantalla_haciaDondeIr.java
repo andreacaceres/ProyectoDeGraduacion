@@ -68,6 +68,7 @@ public class pantalla_haciaDondeIr extends Activity{
 	
 	//test maps
 	Button btnNext;
+	Button ubi_espec;
 	
 	public String bssid= "";
 	public String bssid_connected = "";
@@ -85,7 +86,10 @@ public class pantalla_haciaDondeIr extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.togo);		
+		setContentView(R.layout.togo);
+		
+		ubi_espec = (Button)findViewById(R.id.buttonTrian);
+		
 		imagen_inicial = (ImageView)findViewById(R.id.image1);
 		
 		allwifi = (WifiManager)getSystemService(Context.WIFI_SERVICE);
@@ -100,10 +104,6 @@ public class pantalla_haciaDondeIr extends Activity{
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, cursos.class);
 				intent.putExtra("id_image_single", "0");
 				intent.putExtra("bssid_final", bssid_connected);
-				//Mandar aviso de que se detecto las coordenadas
-				intent.putExtra("bandera", bandera);
-				intent.putExtra("x_coord", x_coord);
-				intent.putExtra("y_coord", y_coord);
 				startActivity(intent);
 			}
 		});
@@ -116,6 +116,18 @@ public class pantalla_haciaDondeIr extends Activity{
 				Intent intent = new Intent(pantalla_haciaDondeIr.this, lugares_conocidos.class);
 				intent.putExtra("bssid_final", bssid);
 				startActivity(intent);
+			}
+		});
+		
+		ubi_espec.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent solo = new Intent(pantalla_haciaDondeIr.this, imagen_triangulada.class);
+				solo.putExtra("coord_x", x_coord);
+				solo.putExtra("coord_y", y_coord);
+				startActivity(solo);
+				
 			}
 		});
 	}
@@ -225,7 +237,7 @@ public class pantalla_haciaDondeIr extends Activity{
 					p.clear();
 					allwifi.startScan();
 				}else if(success == 8){
-					ap = jsonWifi.getJSONArray(TAG_AP_ONE);				
+					ap = jsonWifi.getJSONArray(TAG_AP_ONE);
 					JSONObject c = ap.getJSONObject(0);
 					lugar = (TextView)findViewById(R.id.textplace);
 					descripcion = c.getString(TAG_DESCRIPCION_ONE);
@@ -250,6 +262,9 @@ public class pantalla_haciaDondeIr extends Activity{
 			if(image != null){
 				imagen_inicial.setImageBitmap(image);
 				pDialog.dismiss();
+				if(bandera == 1){
+					ubi_espec.setVisibility(1);
+				}
 			}else{
 				pDialog.dismiss();
 				Toast.makeText(pantalla_haciaDondeIr.this, "Error en la url", Toast.LENGTH_SHORT).show();

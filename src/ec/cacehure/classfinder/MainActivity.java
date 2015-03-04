@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
 	public static String url = new String ("http://200.126.19.93/");
@@ -29,6 +30,10 @@ public class MainActivity extends Activity {
     public int flag = 0;
     Button btn_salir;
     Button btnStatus;
+    
+    ImageButton btnSalir2;
+    ImageButton btnIniciar2;
+    
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
@@ -41,10 +46,38 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		 cd = new ConnectionDetector(getApplicationContext());
-		 btnStatus = (Button)findViewById(R.id.begin);
+//		 btnStatus = (Button)findViewById(R.id.begin);
+//		 
+//		 btnStatus.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				isInternetPresent = cd.isConnectingToInternet();
+//				if (isInternetPresent) {
+//                    // La conexión a internet esta presente
+//					new validate().execute();
+//                } else {
+//                    // La conexión a internet no esta presente
+//                    // Se le solicita al usuario que se conecte por medio Wi-Fi al Internet
+//                    showAlertDialog(MainActivity.this, "No conexión a Internet", "Usted no está conectado a Internet.", false);
+//                }
+//			}
+//		});
+//		 
+//		 btn_salir = (Button)findViewById(R.id.btnNo);
+//		 btn_salir.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				finish();
+//			}
+//		});
 		 
-		 btnStatus.setOnClickListener(new OnClickListener() {
-			
+		 //Nuvos btones
+		 btnIniciar2 = (ImageButton)findViewById(R.id.imageButton1);	 
+		 btnIniciar2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -60,8 +93,8 @@ public class MainActivity extends Activity {
 			}
 		});
 		 
-		 btn_salir = (Button)findViewById(R.id.btnNo);
-		 btn_salir.setOnClickListener(new OnClickListener() {
+		 btnSalir2 = (ImageButton)findViewById(R.id.imageButton2);
+		 btnSalir2.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

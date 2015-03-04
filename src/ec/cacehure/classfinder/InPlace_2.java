@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,7 @@ public class InPlace_2 extends Activity{
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE1, params[0] ));
 			parametrosWifi.add(new BasicNameValuePair(TAG_VALUE2, params[1] ));
 			JSONObject jsonWifi = JParser.makeHttpRequest(url_imagen_destino, "POST", parametrosWifi);
+			Log.v("Lo que devuelve el servicio web",jsonWifi.toString());
 			try{
 				int success = jsonWifi.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -87,7 +89,7 @@ public class InPlace_2 extends Activity{
 					}
 				}else{
 					//Hubo error
-					Toast.makeText(InPlace_2.this, "Error en la url", Toast.LENGTH_SHORT).show();
+					Toast.makeText(InPlace_2.this, "Error en la url, en el else", Toast.LENGTH_SHORT).show();
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -102,7 +104,7 @@ public class InPlace_2 extends Activity{
 				pDialog.dismiss();
 			}else{
 				pDialog.dismiss();
-				Toast.makeText(InPlace_2.this, "Error en la url", Toast.LENGTH_SHORT).show();
+				Toast.makeText(InPlace_2.this, "Error en la url en el post", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
