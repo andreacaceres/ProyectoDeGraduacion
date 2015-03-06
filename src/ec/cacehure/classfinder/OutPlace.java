@@ -5,9 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class OutPlace extends Activity{
 	// Constantes
@@ -26,10 +33,26 @@ public class OutPlace extends Activity{
 	public int y_final = 0;
 	public int x_final_destino = 0;
 	public int y_final_destino = 0;
-		
+	
+	int x_icono1 = 71;
+	int y_icono1 = 88;
+	int x_icono2 = 83;
+	int y_icono2 = 138;
+	int x_icono3 = 152;
+	int y_icono3 = 125;
+	int x_icono4 = 123;
+	int y_icono4 = 182;
+	int x_icono5 = 235;
+	int y_icono5 = 185;
+	int x_icono6 = 204;
+	int y_icono6 = 124;
+	int x_icono7 = 63;
+	int y_icono7 = 118;
+	int x_icono8 = 115;
+	int y_icono8 = 113;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_image_map);
 		final ImageView image = (ImageView)findViewById(R.id.thumbImage);
@@ -49,10 +72,70 @@ public class OutPlace extends Activity{
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 //		image.setImageBitmap(scaledBitmap);
 		image.setImageBitmap(prueba);
-		Log.v("Ancho de la image: ","es: "+prueba.getWidth());
-		Log.v("Alto de la image: ","es: "+prueba.getHeight());
+//		Log.v("Ancho de la image: ","es: "+prueba.getWidth());
+//		Log.v("Alto de la image: ","es: "+prueba.getHeight());
 		width_device = prueba.getWidth();
 		height_device = prueba.getHeight();
+		
+		//Set on clic listener
+		image.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent ev) {
+				//Toast personalizado
+				LayoutInflater inflater = getLayoutInflater();
+				View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+
+				// set a dummy image
+				ImageView image = (ImageView) layout.findViewById(R.id.imageViewLugares);
+				image.setImageResource(R.drawable.temp_img);
+
+				// set a message
+				TextView text = (TextView) layout.findViewById(R.id.textViewLugares);
+				text.setText("OntouchEvent!");
+
+				// Toast...
+				Toast toast = new Toast(getApplicationContext());
+				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+				toast.setDuration(Toast.LENGTH_SHORT);
+				toast.setView(layout);
+				//toast.show();
+				
+				if((int)ev.getX() >= (x_icono1-33) && (int)ev.getX() < (x_icono1 + 33) && (int)ev.getY() >= (y_icono1-33) && ev.getY() < (y_icono1 + 33)){
+					image.setImageResource(R.drawable.fiec_nueva);
+					text.setText("FIEC NUEVA EDIFICIO 15");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono2-33) && (int)ev.getX() < (x_icono2 + 33) && (int)ev.getY() >= (y_icono2-50) && ev.getY() < (y_icono2 + 33)){
+					image.setImageResource(R.drawable.fiec_vieja);
+					text.setText("FIEC LABORATORIO COMPUTACION EDIFICIO 16C");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono3-43) && (int)ev.getX() < (x_icono3 + 33) && (int)ev.getY() >= (y_icono3-50) && ev.getY() < (y_icono3 + 33)){
+					image.setImageResource(R.drawable.fiec_antiguo_decanato);
+					text.setText("FIEC EDIFICIO 15");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono4-43) && (int)ev.getX() < (x_icono4 + 33) && (int)ev.getY() >= (y_icono4-70) && ev.getY() < (y_icono4)){
+					image.setImageResource(R.drawable.fiec_vieja_lab_electronica);
+					text.setText("FIEC LABORATORIO ELECTRONICA EDIFICIO 16AB");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono5-90) && (int)ev.getX() < (x_icono5) && (int)ev.getY() >= (y_icono5-90) && ev.getY() < (y_icono5 + 33)){
+					image.setImageResource(R.drawable.fiec_vieja);
+					text.setText("FIEC VIEJA EDIFICIO 24AB");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono6-90) && (int)ev.getX() < (x_icono6 + 33) && (int)ev.getY() >= (y_icono6-90) && ev.getY() < (y_icono6 + 33)){
+					image.setImageResource(R.drawable.fiec_comedor);
+					text.setText("COMEDOR DE LA FIEC");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono7-90) && (int)ev.getX() < (x_icono7 + 33) && (int)ev.getY() >= (y_icono7-90) && ev.getY() < (y_icono7 + 33)){
+					image.setImageResource(R.drawable.fiec_parqueadero_profesore);
+					text.setText("FIEC PARQUEADERO H2");
+					toast.show();
+				}else if((int)ev.getX() >= (x_icono8-90) && (int)ev.getX() < (x_icono8 + 33) && (int)ev.getY() >= (y_icono8-90) && ev.getY() < (y_icono8 + 33)){
+					image.setImageResource(R.drawable.fiec_parqueadero_profesores);
+					text.setText("FIEC PARQUEADERO H");
+					toast.show();
+				}
+				return true;
+			}
+		});
 		
 		Bundle bundle = getIntent().getExtras();
 		x1 = bundle.getInt("x1");
@@ -70,10 +153,10 @@ public class OutPlace extends Activity{
 		x_final_destino = convertidor_x(x_destino, W_real, Ancho_real, w_digital, width_device);
 		y_final_destino = convertidor_y(y_destino, Y_real, Alto_real, h_digital, height_device);
 		
-		Log.v("x1 final: ","es: "+x_final);
-		Log.v("y1 final: ","es: "+y_final);
-		Log.v("x2 final destino: ","es: "+x_final_destino);
-		Log.v("y2 final destino: ","es: "+y_final_destino);
+//		Log.v("x1 final: ","es: "+x_final);
+//		Log.v("y1 final: ","es: "+y_final);
+//		Log.v("x2 final destino: ","es: "+x_final_destino);
+//		Log.v("y2 final destino: ","es: "+y_final_destino);
 		
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
@@ -83,9 +166,49 @@ public class OutPlace extends Activity{
 		canvas.drawBitmap(bm2, (x_final_destino-33), (y_final_destino-98), null);
 		image.setImageBitmap(imageBitmap);
 		
-
+		//Iconos de información
+		Bitmap icono_1 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_2 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_3 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_4 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_5 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_6 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_7 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		Bitmap icono_8 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
+		
+		x_icono1 = convertidor_x(x_icono1, W_real, Ancho_real, w_digital, width_device);
+		y_icono1 = convertidor_y(y_icono1, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_1, (x_icono1-16), (y_icono1-16), null);
+		
+		x_icono2 = convertidor_x(x_icono2, W_real, Ancho_real, w_digital, width_device);
+		y_icono2 = convertidor_y(y_icono2, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_2, (x_icono2-16), (y_icono2-16), null);
+		
+		x_icono3 = convertidor_x(x_icono3, W_real, Ancho_real, w_digital, width_device);
+		y_icono3 = convertidor_y(y_icono3, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_3, (x_icono3-16), (y_icono3-16), null);
+		
+		x_icono4 = convertidor_x(x_icono4, W_real, Ancho_real, w_digital, width_device);
+		y_icono4 = convertidor_y(y_icono4, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_4, (x_icono4-16), (y_icono4-16), null);
+		
+		x_icono5 = convertidor_x(x_icono5, W_real, Ancho_real, w_digital, width_device);
+		y_icono5 = convertidor_y(y_icono5, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_5, (x_icono5-16), (y_icono5-16), null);
+		
+		x_icono6 = convertidor_x(x_icono6, W_real, Ancho_real, w_digital, width_device);
+		y_icono6 = convertidor_y(y_icono6, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_6, (x_icono6-16), (y_icono6-16), null);
+		
+		x_icono7 = convertidor_x(x_icono7, W_real, Ancho_real, w_digital, width_device);
+		y_icono7 = convertidor_y(y_icono7, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_7, (x_icono7-16), (y_icono7-16), null);
+		
+		x_icono8 = convertidor_x(x_icono8, W_real, Ancho_real, w_digital, width_device);
+		y_icono8 = convertidor_y(y_icono8, Y_real, Alto_real, h_digital, height_device);
+		canvas.drawBitmap(icono_8, (x_icono8-16), (y_icono8-16), null);
 	}
-	
+
 	// Function to resize the final image
 	public Bitmap scaleToActualAspectRatio(Bitmap bitmap, int deviceWidth, int deviceHeight) {
 		if (bitmap != null) {
@@ -136,5 +259,5 @@ public class OutPlace extends Activity{
 		float conv_y_3 = ((height_device*conv_y_2)/h_digital);
 		int y_final = (int) conv_y_3;
 		return y_final;
-	}
+	}	
 }

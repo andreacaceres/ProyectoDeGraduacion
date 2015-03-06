@@ -31,5 +31,6 @@
     <string name="especifico">Lugares Referentes</string>
     <string name="ruta">Lugares Referentes</string>
     <string name="especi">Ver ubicación específica</string>
+    <string name="pregunta">¿Lugar correcto?</string>
 
 </resources>

@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace extends Activity{
-	public static String url = new String ("http://192.168.189.111/");
+	public static String url = new String ("http://200.126.19.93/");
 	
 	private ProgressDialog pDialog;
 	private static final String url_imagen_ubicacion = url+"WebService/imagen_ubicacion.php";
