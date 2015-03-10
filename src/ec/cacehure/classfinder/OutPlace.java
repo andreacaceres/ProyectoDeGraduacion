@@ -1,6 +1,7 @@
 package ec.cacehure.classfinder;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,8 +11,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,24 +54,27 @@ public class OutPlace extends Activity{
 	int x_icono8 = 115;
 	int y_icono8 = 113;
 	
+	Button especifico;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.test_image_map);
+		especifico = (Button)findViewById(R.id.btn_referente);
 		final ImageView image = (ImageView)findViewById(R.id.thumbImage);
 		Display display = getWindowManager().getDefaultDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo_tags, options);//mapa
+		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_fiec, options);//mapa
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo_tags, options);//mapa
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_fiec, options);//mapa
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 //		image.setImageBitmap(scaledBitmap);
 		image.setImageBitmap(prueba);
@@ -137,11 +143,27 @@ public class OutPlace extends Activity{
 			}
 		});
 		
+		/*
+		 * Bundle bundle = getIntent().getExtras();
+		final int x1 = bundle.getInt("x1");
+		final int y1 = bundle.getInt("y1");
+		final int x2 = bundle.getInt("x2");
+		final int y2 = bundle.getInt("y2");
+		final int ubicacion_inicial = bundle.getInt("ubicacion_inicial");
+		final int ubicacion_final = bundle.getInt("ubicacion_final");
+		 * 
+		 * 
+		 * 
+		 * */
+		
 		Bundle bundle = getIntent().getExtras();
 		x1 = bundle.getInt("x1");
 		y1 = bundle.getInt("y1");
 		x2 = bundle.getInt("x2");
 		y2 = bundle.getInt("y2");
+		
+		final int ubicacion_inicial = bundle.getInt("ubicacion_inicial");
+		final int ubicacion_final = bundle.getInt("ubicacion_final");
 		
 		int x_calculado =  x1;
 		int y_calculado = y1;
@@ -207,6 +229,17 @@ public class OutPlace extends Activity{
 		x_icono8 = convertidor_x(x_icono8, W_real, Ancho_real, w_digital, width_device);
 		y_icono8 = convertidor_y(y_icono8, Y_real, Alto_real, h_digital, height_device);
 		canvas.drawBitmap(icono_8, (x_icono8-16), (y_icono8-16), null);
+		
+		especifico.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent especifico = new Intent(OutPlace.this, lugares_especificos.class);
+				especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
+				especifico.putExtra("ubicacion_final", ubicacion_final);
+				startActivity(especifico);
+			}
+		});
 	}
 
 	// Function to resize the final image

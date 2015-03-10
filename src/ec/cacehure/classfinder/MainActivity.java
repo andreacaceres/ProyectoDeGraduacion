@@ -24,7 +24,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
-	public static String url = new String ("http://200.126.19.93/");
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	Boolean isInternetPresent = false;
     ConnectionDetector cd;
     public int flag = 0;

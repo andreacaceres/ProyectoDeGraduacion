@@ -36,8 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class pantalla_haciaDondeIr extends Activity{
-	
-	public static String url = new String ("http://200.126.19.93/");
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	Button btn_Yes, btn_No;
 	WifiManager allwifi;
 	WifiScanReceiver wifiReciever;

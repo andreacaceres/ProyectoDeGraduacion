@@ -23,8 +23,8 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class cursos extends ListActivity{
-	public static String url = new String ("http://200.126.19.93/");
-	
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	private ProgressDialog pDialog;
 	JSONParser JParser = new JSONParser();
 	ListView all_courses;
@@ -157,7 +157,8 @@ public class cursos extends ListActivity{
 					startActivity(intent);
 				}else if(success == 2){
 					// Mapa completo
-					Intent opciones = new Intent(cursos.this, Opciones.class);
+//					Intent opciones = new Intent(cursos.this, Opciones.class);
+					Intent mapa_fiec = new Intent(cursos.this, OutPlace.class);
 					coordenadas = json.getJSONArray(TAG_COORDENADAS);
 					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
 					ubicacion = json.getJSONArray(TAG_UBICACION);
@@ -166,26 +167,26 @@ public class cursos extends ListActivity{
 						JSONObject coord = coordenadas.getJSONObject(i);
 						int x1 = coord.getInt(TAG_X_1);
 						int y1 = coord.getInt(TAG_Y_1);
-						opciones.putExtra("x1", x1);
-						opciones.putExtra("y1", y1);
+						mapa_fiec.putExtra("x1", x1);
+						mapa_fiec.putExtra("y1", y1);
 						
 					}
 					for (int i = 0; i< coordenadas_aulas.length(); i++){
 						JSONObject coord_aulas = coordenadas_aulas.getJSONObject(i);
 						int x2 = coord_aulas.getInt(TAG_X_2);
 						int y2 = coord_aulas.getInt(TAG_Y_2);
-						opciones.putExtra("x2", x2);
-						opciones.putExtra("y2", y2);
+						mapa_fiec.putExtra("x2", x2);
+						mapa_fiec.putExtra("y2", y2);
 					}
 					
 					for (int i = 0; i< ubicacion.length(); i++){
 						JSONObject ubicaciones = ubicacion.getJSONObject(i);
 						int ub_inicial = ubicaciones.getInt(TAG_UBICACION_INICIAL);
 						int ub_final = ubicaciones.getInt(TAG_UBICACION_FINAL);
-						opciones.putExtra("ubicacion_inicial", ub_inicial);
-						opciones.putExtra("ubicacion_final", ub_final);
+						mapa_fiec.putExtra("ubicacion_inicial", ub_inicial);
+						mapa_fiec.putExtra("ubicacion_final", ub_final);
 					}
-					startActivity(opciones);				
+					startActivity(mapa_fiec);				
 				}else{
 					Toast.makeText(cursos.this, "No se encotró registros.", Toast.LENGTH_SHORT).show();
 				}

@@ -23,8 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace_2 extends Activity{
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	private ProgressDialog pDialog;
-	public static String url = new String ("http://200.126.19.93/");
 	private static final String url_imagen_destino = url+"WebService/imagen_destino.php";
 	private static final String TAG_VALUE1 = "value1";
 	private static final String TAG_VALUE2 = "value2";
@@ -80,6 +81,7 @@ public class InPlace_2 extends Activity{
 						JSONObject c = path_receive.getJSONObject(i);
 						path_imagen = c.getString(TAG_PATH_IMAGEN_AULA);
 						text_descr = c.getString(TAG_DESCRIPCION);
+						Log.v("Descripcion completa 2",text_descr);
 						try{
 							bitmap = BitmapFactory.decodeStream((InputStream)new URL(path_imagen).getContent());
 							descrip.setText(text_descr);

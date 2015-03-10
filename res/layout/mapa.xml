@@ -15,18 +15,27 @@
 
     <TextView
         android:id="@+id/textView_descr"
-        android:layout_width="wrap_content"
+        android:layout_width="1000dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="TextView" />
+        android:layout_below="@+id/imageOrigin"
+        android:text="@string/Nil" />
 
     <ImageView
         android:id="@+id/imageOrigin"
-        android:layout_width="450dp"
-        android:layout_height="450dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/no_disponible" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ubi_usted"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -32,5 +32,8 @@
     <string name="ruta">Lugares Referentes</string>
     <string name="especi">Ver ubicación específica</string>
     <string name="pregunta">¿Lugar correcto?</string>
+    <string name="ubi_usted">Imagen y descripción del lugar que usted se encuentra</string>
+    <string name="ubi_destino">Imagen y descripción del aula seleccionada</string>
+    <string name="Nil"/>
 
 </resources>

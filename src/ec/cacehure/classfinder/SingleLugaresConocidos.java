@@ -26,8 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingleLugaresConocidos extends Activity{
-	public static String url = new String ("http://200.126.19.93/");
-	
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	private ProgressDialog pDialog;
 	Button yes,no;
 	private static final String url_imagen_single = url+"WebService/lugares_conocidos_single.php";

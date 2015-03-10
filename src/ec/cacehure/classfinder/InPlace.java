@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,8 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InPlace extends Activity{
-	public static String url = new String ("http://200.126.19.93/");
-	
+	static IP dir_ip = new IP();
+	static String url = dir_ip.getIp();
 	private ProgressDialog pDialog;
 	private static final String url_imagen_ubicacion = url+"WebService/imagen_ubicacion.php";
 	private static final String TAG_VALUE1 = "value1";
@@ -39,8 +40,7 @@ public class InPlace extends Activity{
 	JSONArray path_receive = null;
 	private String url_imagen;
 	private String des_web;
-	Button siguiente;
-	
+	Button siguiente;	
 	ImageView img;
 	Bitmap bitmap;
 	TextView des;
@@ -95,6 +95,7 @@ public class InPlace extends Activity{
 						JSONObject c = path_receive.getJSONObject(i);
 						url_imagen = c.getString(TAG_PATH_IMAGEN_BSSID);
 						des_web = c.getString(TAG_DESCRIPCION);
+						Log.v("Descripcion completa",des_web);
 						try{
 							bitmap = BitmapFactory.decodeStream((InputStream)new URL(url_imagen).getContent());
 							des.setText(des_web);
