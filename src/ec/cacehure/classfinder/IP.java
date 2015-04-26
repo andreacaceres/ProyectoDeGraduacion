@@ -12,7 +12,7 @@ public class IP {
 	}
 	
 	public IP(){
-		this.ip="http://200.126.19.93/";
+		this.ip="http://192.168.0.5/";
 	}
 	
 	public IP(String ip){

@@ -31,6 +31,7 @@ public class lugares_especificos extends Activity{
 	static String TAG_DESCRIPCION = "descripcion";
 	static String TAG_VALUE1 = "value1";
 	static String TAG_VALUE2 = "value2";
+	static String TAG_VALUE3 = "value3";
 	static String TAG_RUTAS_IMAGENES = "rutas_imagenes";
 	JSONArray path = null;
 	ListViewAdapter_2 adapter;
@@ -39,7 +40,6 @@ public class lugares_especificos extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lugares_especificos);
 		
@@ -49,7 +49,8 @@ public class lugares_especificos extends Activity{
 		final int ubicacion_final = bundle.getInt("ubicacion_final");
 		final String ubi_inicial = Integer.toString(ubicacion_inicial);
 		final String ubi_final = Integer.toString(ubicacion_final);
-		new load_lugares_especificos().execute(ubi_inicial, ubi_final);
+		final String descripcion = bundle.getString("descripcion");
+		new load_lugares_especificos().execute(ubi_inicial, ubi_final, descripcion);
 	}
 	
 	class load_lugares_especificos extends AsyncTask<String, String, String>{
@@ -63,14 +64,12 @@ public class lugares_especificos extends Activity{
 		
 		@Override
 		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
 			parametros.add(new BasicNameValuePair(TAG_VALUE1, params[0]));
 			parametros.add(new BasicNameValuePair(TAG_VALUE2, params[1]));
-			Log.v("Id ubicacion inicial", params[0]);
-			Log.v("Id ubicacion final", params[1]);
+			parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2]));
 			JSONObject json = JParser.makeHttpRequest(url_ruta_corta, "POST", parametros);
-			Log.v("Descripcion: ", json.toString());
+			Log.v("Dijsktra: ", json.toString());
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
@@ -101,9 +100,6 @@ public class lugares_especificos extends Activity{
 			if(bandera == 0){
 				Toast.makeText(lugares_especificos.this, "Error del lado del servidor", Toast.LENGTH_SHORT).show();
 			}
-		}
-		
+		}	
 	}
-
 }
-

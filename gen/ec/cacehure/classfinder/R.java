@@ -31,10 +31,10 @@ public final class R {
         public static final int imagen_triangulada=0x7f020011;
         public static final int imagen_triangulada_horizontal=0x7f020012;
         public static final int mapa_completo=0x7f020013;
-        public static final int mapa_completo_tags=0x7f020014;
-        public static final int mapa_fiec=0x7f020015;
-        public static final int marcador=0x7f020016;
-        public static final int marcador_2=0x7f020017;
+        public static final int mapa_fiec=0x7f020014;
+        public static final int marcador=0x7f020015;
+        public static final int marcador_2=0x7f020016;
+        public static final int marcador_3=0x7f020017;
         public static final int mod=0x7f020018;
         public static final int no_disponible=0x7f020019;
         public static final int pantallaprincipal=0x7f02001a;
@@ -43,20 +43,20 @@ public final class R {
     }
     public static final class id {
         public static final int btnNext=0x7f070020;
-        public static final int btnNo=0x7f070022;
+        public static final int btnNo=0x7f070023;
         public static final int btnNoSingle=0x7f070019;
         public static final int btnYes=0x7f070021;
         public static final int btnYesSingle=0x7f070018;
         public static final int btn_referente=0x7f07001c;
         public static final int buttonEspecifico=0x7f070016;
         public static final int buttonGeneral=0x7f070015;
-        public static final int buttonTrian=0x7f070023;
+        public static final int buttonTrian=0x7f070022;
         public static final int button_next=0x7f070013;
         public static final int custom_toast_layout_id=0x7f070002;
         public static final int descripcion=0x7f07000c;
         public static final int image1=0x7f07001e;
-        public static final int imageButton1=0x7f070001;
-        public static final int imageButton2=0x7f070000;
+        public static final int imageButton1=0x7f070000;
+        public static final int imageButton2=0x7f070001;
         public static final int imageOrigin=0x7f070006;
         public static final int imageThumbEspe=0x7f070012;
         public static final int imageThumbnail=0x7f07000b;

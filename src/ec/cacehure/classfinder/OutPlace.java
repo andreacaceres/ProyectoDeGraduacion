@@ -67,45 +67,32 @@ public class OutPlace extends Activity{
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_fiec, options);//mapa
+		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_fiec, options);//mapa
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
-//		image.setImageBitmap(scaledBitmap);
 		image.setImageBitmap(prueba);
-//		Log.v("Ancho de la image: ","es: "+prueba.getWidth());
-//		Log.v("Alto de la image: ","es: "+prueba.getHeight());
 		width_device = prueba.getWidth();
 		height_device = prueba.getHeight();
 		
-		//Set on clic listener
 		image.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent ev) {
-				//Toast personalizado
 				LayoutInflater inflater = getLayoutInflater();
 				View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-
-				// set a dummy image
 				ImageView image = (ImageView) layout.findViewById(R.id.imageViewLugares);
 				image.setImageResource(R.drawable.temp_img);
-
-				// set a message
 				TextView text = (TextView) layout.findViewById(R.id.textViewLugares);
 				text.setText("OntouchEvent!");
-
-				// Toast...
 				Toast toast = new Toast(getApplicationContext());
 				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 				toast.setDuration(Toast.LENGTH_SHORT);
 				toast.setView(layout);
-				//toast.show();
-				
 				if((int)ev.getX() >= (x_icono1-33) && (int)ev.getX() < (x_icono1 + 33) && (int)ev.getY() >= (y_icono1-33) && ev.getY() < (y_icono1 + 33)){
 					image.setImageResource(R.drawable.fiec_nueva);
 					text.setText("FIEC NUEVA EDIFICIO 15");
@@ -143,19 +130,7 @@ public class OutPlace extends Activity{
 			}
 		});
 		
-		/*
-		 * Bundle bundle = getIntent().getExtras();
-		final int x1 = bundle.getInt("x1");
-		final int y1 = bundle.getInt("y1");
-		final int x2 = bundle.getInt("x2");
-		final int y2 = bundle.getInt("y2");
-		final int ubicacion_inicial = bundle.getInt("ubicacion_inicial");
-		final int ubicacion_final = bundle.getInt("ubicacion_final");
-		 * 
-		 * 
-		 * 
-		 * */
-		
+		//Aqui poner una bandera, la cual me indica que marcador o marcadores van aparecer.
 		Bundle bundle = getIntent().getExtras();
 		x1 = bundle.getInt("x1");
 		y1 = bundle.getInt("y1");
@@ -164,6 +139,8 @@ public class OutPlace extends Activity{
 		
 		final int ubicacion_inicial = bundle.getInt("ubicacion_inicial");
 		final int ubicacion_final = bundle.getInt("ubicacion_final");
+		
+		final String descripcion = bundle.getString("descripcion"); 
 		
 		int x_calculado =  x1;
 		int y_calculado = y1;
@@ -174,11 +151,6 @@ public class OutPlace extends Activity{
 		y_final = convertidor_y(y_calculado, Y_real, Alto_real, h_digital, height_device);
 		x_final_destino = convertidor_x(x_destino, W_real, Ancho_real, w_digital, width_device);
 		y_final_destino = convertidor_y(y_destino, Y_real, Alto_real, h_digital, height_device);
-		
-//		Log.v("x1 final: ","es: "+x_final);
-//		Log.v("y1 final: ","es: "+y_final);
-//		Log.v("x2 final destino: ","es: "+x_final_destino);
-//		Log.v("y2 final destino: ","es: "+y_final_destino);
 		
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
@@ -233,16 +205,15 @@ public class OutPlace extends Activity{
 		especifico.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent especifico = new Intent(OutPlace.this, lugares_especificos.class);
 				especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
 				especifico.putExtra("ubicacion_final", ubicacion_final);
+				especifico.putExtra("descripcion", descripcion);
 				startActivity(especifico);
 			}
 		});
 	}
 
-	// Function to resize the final image
 	public Bitmap scaleToActualAspectRatio(Bitmap bitmap, int deviceWidth, int deviceHeight) {
 		if (bitmap != null) {
 			boolean flag = true;

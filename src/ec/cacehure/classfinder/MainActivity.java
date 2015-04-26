@@ -18,6 +18,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,10 +33,8 @@ public class MainActivity extends Activity {
     public int flag = 0;
     Button btn_salir;
     Button btnStatus;
-    
     ImageButton btnSalir2;
-    ImageButton btnIniciar2;
-    
+    ImageButton btnIniciar2;  
     private ProgressDialog pDialog;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_SSID = "ssid_send";
@@ -44,89 +44,42 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
+		setContentView(R.layout.activity_main);	
 		 cd = new ConnectionDetector(getApplicationContext());
-//		 btnStatus = (Button)findViewById(R.id.begin);
-//		 
-//		 btnStatus.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				isInternetPresent = cd.isConnectingToInternet();
-//				if (isInternetPresent) {
-//                    // La conexión a internet esta presente
-//					new validate().execute();
-//                } else {
-//                    // La conexión a internet no esta presente
-//                    // Se le solicita al usuario que se conecte por medio Wi-Fi al Internet
-//                    showAlertDialog(MainActivity.this, "No conexión a Internet", "Usted no está conectado a Internet.", false);
-//                }
-//			}
-//		});
-//		 
-//		 btn_salir = (Button)findViewById(R.id.btnNo);
-//		 btn_salir.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				finish();
-//			}
-//		});
-		 
-		 //Nuvos btones
 		 btnIniciar2 = (ImageButton)findViewById(R.id.imageButton1);	 
 		 btnIniciar2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				isInternetPresent = cd.isConnectingToInternet();
 				if (isInternetPresent) {
-                    // La conexión a internet esta presente
 					new validate().execute();
                 } else {
-                    // La conexión a internet no esta presente
-                    // Se le solicita al usuario que se conecte por medio Wi-Fi al Internet
                     showAlertDialog(MainActivity.this, "No conexión a Internet", "Usted no está conectado a Internet.", false);
+                	//showAlertDialog(MainActivity.this, "ERROR", "Usted no está conectado con la red de la FIEC.", false);
                 }
 			}
 		});
-		 
 		 btnSalir2 = (ImageButton)findViewById(R.id.imageButton2);
-		 btnSalir2.setOnClickListener(new OnClickListener() {
-			
+		 btnSalir2.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});
 	}
 
-	//Muestra mensaje
     public void showAlertDialog(Context context, String title, String message, Boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
- 
-        // Titulo del mensaje
         alertDialog.setTitle(title);
- 
-        // Descripcion del mensaje
         alertDialog.setMessage(message);
-          
-        // Boton OK
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             @Override
 			public void onClick(DialogInterface dialog, int which) {}
         });
-        // Mostrando mensaje de alerta
         alertDialog.show();
     }
     
     class validate extends AsyncTask<String, String, String>{
-    	
-    	//Antes de comenzar el hilo background le muestra un mensajito =P
     	@Override
 		protected void onPreExecute(){
     		super.onPreExecute();
@@ -137,24 +90,29 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			//Getting the SSID
 			WifiManager myWifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
 			WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
 			String ssid_send = myWifiInfo.getSSID();
-			//Building parameters
+			Log.v("Clase MainActivity SSID:",ssid_send);
+			Log.v("Clase MainActivity BSSID:",myWifiInfo.getBSSID());
 			List<NameValuePair> parametros = new ArrayList<NameValuePair>();
 			parametros.add(new BasicNameValuePair(TAG_SSID,ssid_send));		
-			//Sending data, POST
 			JSONObject json = jsonParser.makeHttpRequest(url_filtro, "POST", parametros);
-			
+			Log.v("Clase MainActivity SUCCESS:",json.toString());
 			try{
 				int success = json.getInt(TAG_SUCCESS);
 				if(success == 1){
 					Intent intent = new Intent(MainActivity.this, pantalla_haciaDondeIr.class);
 					startActivity(intent);
 				}else{
-					showAlertDialog(MainActivity.this, "No correcto Wifi", "Usted no está conectado con la red de la FIEC.", false);
+					//showAlertDialog(MainActivity.this, "ERROR", "Usted no está conectado con la red de la FIEC.", false);
+					Handler handler =  new Handler(MainActivity.this.getMainLooper());
+				    handler.post( new Runnable(){
+				        @Override
+						public void run(){
+				        	showAlertDialog(MainActivity.this, "ERROR", "Usted no está conectado con la red de la FIEC.", false);
+				        }
+				    });
 				}
 			}catch(JSONException e){
 				e.printStackTrace();
@@ -162,11 +120,9 @@ public class MainActivity extends Activity {
 			return null;
 		}   	
 
-		//Cierra el pDialog
         @Override
 		protected void onPostExecute(String file_url) {
             pDialog.dismiss();
         }
     }
 }
-

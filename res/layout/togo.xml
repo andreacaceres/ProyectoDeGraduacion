@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/image1"
-        android:layout_width="345dp"
-        android:layout_height="345dp"
+        android:layout_width="145dp"
+        android:layout_height="145dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
@@ -47,14 +47,6 @@
         android:layout_alignRight="@+id/textDescription"
         android:layout_marginRight="42dp"
         android:text="@string/si" />
-
-    <Button
-        android:id="@+id/btnNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/btnNext"
-        android:text="@string/no" />
 
     <Button
         android:id="@+id/buttonTrian"
@@ -74,5 +66,13 @@
         android:layout_centerHorizontal="true"
         android:text="@string/pregunta"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnNext"
+        android:layout_alignParentBottom="true"
+        android:text="@string/no" />
 
 </RelativeLayout>

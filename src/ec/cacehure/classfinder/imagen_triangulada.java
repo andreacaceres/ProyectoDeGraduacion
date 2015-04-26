@@ -22,8 +22,8 @@ public class imagen_triangulada extends Activity{
 	public int w_marcador = 250;
 	public int h_marcador = 180;
 	
-	public int x_calculado;
-	public int y_calculado;
+	public int x_calculado = 33;
+	public int y_calculado = 162;
 	public String code;
 	public String descripcion;
 	
@@ -34,9 +34,9 @@ public class imagen_triangulada extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.triangulacion_imagen);
-		Bundle bundle = getIntent().getExtras();
-		x_calculado = bundle.getInt("coord_x");
-		y_calculado = bundle.getInt("coord_y");
+		//Bundle bundle = getIntent().getExtras();
+		//x_calculado = bundle.getInt("coord_x");
+		//y_calculado = bundle.getInt("coord_y");
 		
 		final ImageView image = (ImageView)findViewById(R.id.imageTriangulada);
 		Display display = getWindowManager().getDefaultDisplay();
