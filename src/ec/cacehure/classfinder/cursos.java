@@ -140,26 +140,13 @@ public class cursos extends ListActivity{
     		parametros.add(new BasicNameValuePair(TAG_VALUE3, params[2])); //CODE
     		parametros.add(new BasicNameValuePair(TAG_VALUE4, params[3])); //DESCRIPCION
     		JSONObject json = JParser.makeHttpRequest(url_validate, "POST", parametros);
-    		Log.v("Cursos",json.toString());
     		try {
 				int success = json.getInt(TAG_SUCCESS);
 				if (success == 1){
-//					Log.v("Misma facultad",".");
-//					Intent intent = new Intent(cursos.this, InPlace.class);
-//					intent.putExtra("bssid", params[0]);
-//					intent.putExtra("code", params[2]);
-//					intent.putExtra("descripcion", params[3]);
-//					startActivity(intent);
-					/*Intent intent = new Intent(cursos.this, InPlace_2.class);
-					intent.putExtra("code", params[2]);
-					intent.putExtra("descripcion", params[3]);
-					startActivity(intent);*/
-					
-					//Nuevo
-					Log.v("Misma facultad",".");
 					Intent mapa_fiec = new Intent(cursos.this, OutPlace.class);
 					coordenadas = json.getJSONArray(TAG_COORDENADAS);
-					//mapa_fiec.putExtra("bandera",0);
+					mapa_fiec.putExtra("bandera",0);
+					mapa_fiec.putExtra("bssid_menor", params[0]);
 					for (int i = 0; i< coordenadas.length(); i++){
 						JSONObject coord = coordenadas.getJSONObject(i);
 						int x1 = coord.getInt(TAG_X_1);
@@ -167,15 +154,15 @@ public class cursos extends ListActivity{
 						mapa_fiec.putExtra("x1", x1);
 						mapa_fiec.putExtra("y1", y1);
 					}
+					mapa_fiec.putExtra("descripcion", params[3]);
 					startActivity(mapa_fiec);
 				}else if(success == 2){
-					Log.v("No misma facultad",".");
 					Intent mapa_fiec = new Intent(cursos.this, OutPlace.class);
 					coordenadas = json.getJSONArray(TAG_COORDENADAS);
 					coordenadas_aulas = json.getJSONArray(TAG_AULAS);
 					ubicacion = json.getJSONArray(TAG_UBICACION);
 					
-					//mapa_fiec.putExtra("bandera",1);
+					mapa_fiec.putExtra("bandera",1);
 					for (int i = 0; i< coordenadas.length(); i++){
 						JSONObject coord = coordenadas.getJSONObject(i);
 						int x1 = coord.getInt(TAG_X_1);

@@ -1,6 +1,7 @@
 package ec.cacehure.classfinder;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -58,9 +59,9 @@ public class InPlace extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test_image_map);
-		especifico = (Button)findViewById(R.id.btn_referente);
-		final ImageView image = (ImageView)findViewById(R.id.thumbImage);
+		setContentView(R.layout.test_image_map_2);
+		especifico = (Button)findViewById(R.id.button_nuevo);
+		final ImageView image = (ImageView)findViewById(R.id.imageView1);
 		Display display = getWindowManager().getDefaultDisplay();
 		int displayWidth = display.getWidth();
 		int displayHeight = display.getHeight();
@@ -138,9 +139,13 @@ public class InPlace extends Activity{
 		x_final = convertidor_x(x_calculado, W_real, Ancho_real, w_digital, width_device);
 		y_final = convertidor_y(y_calculado, Y_real, Alto_real, h_digital, height_device);
 		
+		final int bandera = bundle.getInt("bandera");
+		final String bssid_menor = bundle.getString("bssid_menor");
+		final String descripcion = bundle.getString("descripcion");
+		
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_3);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
 		canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
 		
 		Bitmap icono_1 = BitmapFactory.decodeResource(getResources(), R.drawable.icono_info);
@@ -187,13 +192,12 @@ public class InPlace extends Activity{
 		
 		especifico.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				//Bandera que indique si es el mismo lugar o dos lugares diferentes.
-				
-				/*Intent especifico = new Intent(OutPlace.this, lugares_especificos.class);
-				especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
-				especifico.putExtra("ubicacion_final", ubicacion_final);
-				startActivity(especifico);*/
+			public void onClick(View v) {			
+				Intent especifico = new Intent(InPlace.this, lugares_especificos.class);
+				especifico.putExtra("bandera", bandera);
+				especifico.putExtra("descripcion", descripcion);
+				especifico.putExtra("bssid_menor", bssid_menor);
+				startActivity(especifico);
 			}
 		});
 	}

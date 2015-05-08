@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ public class OutPlace extends Activity{
 	public int Alto_real = 24300;
 	public float Ancho_digital = (float) 71.42;
 	public float Alto_digital = (float)62.53;
-	public int w_digital = 2712;//2699;
+	public int w_digital = 2712;
 	public int h_digital = 2363;
 	public float W_real = (float)997670.1204;
 	public float Y_real = (float)918293.6191;
@@ -67,18 +68,21 @@ public class OutPlace extends Activity{
 		int displayHeight = display.getHeight();
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
+		BitmapFactory.decodeResource(getResources(), R.drawable.mapa, options);//mapa
 		int width = options.outWidth;
 		if (width > displayWidth){
 			int widthRatio = Math.round((float)width/(float)displayWidth);
 			options.inSampleSize = widthRatio;
 		}
 		options.inJustDecodeBounds = false;
-		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa_completo, options);//mapa
+		final Bitmap scaledBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mapa, options);//mapa
 		final Bitmap prueba = scaleToActualAspectRatio(scaledBitmap, displayWidth, displayHeight);
 		image.setImageBitmap(prueba);
 		width_device = prueba.getWidth();
 		height_device = prueba.getHeight();
+		
+		Log.v("Width despues:",":"+width_device);
+		Log.v("Height despues:",":"+height_device);
 		
 		image.setOnTouchListener(new OnTouchListener() {
 			@Override
@@ -88,7 +92,7 @@ public class OutPlace extends Activity{
 				ImageView image = (ImageView) layout.findViewById(R.id.imageViewLugares);
 				image.setImageResource(R.drawable.temp_img);
 				TextView text = (TextView) layout.findViewById(R.id.textViewLugares);
-				text.setText("OntouchEvent!");
+				text.setText("...");
 				Toast toast = new Toast(getApplicationContext());
 				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 				toast.setDuration(Toast.LENGTH_SHORT);
@@ -98,7 +102,7 @@ public class OutPlace extends Activity{
 					text.setText("FIEC NUEVA EDIFICIO 15");
 					toast.show();
 				}else if((int)ev.getX() >= (x_icono2-33) && (int)ev.getX() < (x_icono2 + 33) && (int)ev.getY() >= (y_icono2-50) && ev.getY() < (y_icono2 + 33)){
-					image.setImageResource(R.drawable.fiec_vieja);
+					image.setImageResource(R.drawable.fiec_vieja_lab_computacion);
 					text.setText("FIEC LABORATORIO COMPUTACION EDIFICIO 16C");
 					toast.show();
 				}else if((int)ev.getX() >= (x_icono3-43) && (int)ev.getX() < (x_icono3 + 33) && (int)ev.getY() >= (y_icono3-50) && ev.getY() < (y_icono3 + 33)){
@@ -141,6 +145,8 @@ public class OutPlace extends Activity{
 		final int ubicacion_final = bundle.getInt("ubicacion_final");
 		
 		final String descripcion = bundle.getString("descripcion"); 
+		final int bandera = bundle.getInt("bandera");
+		final String bssid_menor = bundle.getString("bssid_menor");
 		
 		int x_calculado =  x1;
 		int y_calculado = y1;
@@ -151,13 +157,32 @@ public class OutPlace extends Activity{
 		y_final = convertidor_y(y_calculado, Y_real, Alto_real, h_digital, height_device);
 		x_final_destino = convertidor_x(x_destino, W_real, Ancho_real, w_digital, width_device);
 		y_final_destino = convertidor_y(y_destino, Y_real, Alto_real, h_digital, height_device);
-		
+				
 		Bitmap imageBitmap = prueba.copy(Bitmap.Config.ARGB_8888, true);
 		Canvas canvas = new Canvas(imageBitmap);
-		Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
-		canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
-		Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_2);
-		canvas.drawBitmap(bm2, (x_final_destino-33), (y_final_destino-98), null);
+				
+		if(width_device < 500){
+			Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_2);
+			canvas.drawBitmap(bm2, (x_final_destino-26), (y_final_destino-55), null);
+			if(bandera == 1){
+				Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
+				canvas.drawBitmap(bm, (x_final-23), (y_final-65), null);
+			}else{
+				Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcados);
+				canvas.drawBitmap(bm, (x_final-23), (y_final-50), null);
+			}
+		}else{
+			Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_2);
+			canvas.drawBitmap(bm2, (x_final_destino-26), (y_final_destino-81), null);
+			if(bandera == 1){
+				Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcador);
+				canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
+			}else{
+				Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.marcados);
+				canvas.drawBitmap(bm, (x_final-33), (y_final-98), null);
+			}
+		}
+		
 		image.setImageBitmap(imageBitmap);
 		
 		//Iconos de información
@@ -173,7 +198,7 @@ public class OutPlace extends Activity{
 		x_icono1 = convertidor_x(x_icono1, W_real, Ancho_real, w_digital, width_device);
 		y_icono1 = convertidor_y(y_icono1, Y_real, Alto_real, h_digital, height_device);
 		canvas.drawBitmap(icono_1, (x_icono1-16), (y_icono1-16), null);
-		
+				
 		x_icono2 = convertidor_x(x_icono2, W_real, Ancho_real, w_digital, width_device);
 		y_icono2 = convertidor_y(y_icono2, Y_real, Alto_real, h_digital, height_device);
 		canvas.drawBitmap(icono_2, (x_icono2-16), (y_icono2-16), null);
@@ -206,9 +231,17 @@ public class OutPlace extends Activity{
 			@Override
 			public void onClick(View v) {
 				Intent especifico = new Intent(OutPlace.this, lugares_especificos.class);
-				especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
-				especifico.putExtra("ubicacion_final", ubicacion_final);
-				especifico.putExtra("descripcion", descripcion);
+				if(bandera == 1){
+					especifico.putExtra("bandera", 1);
+					especifico.putExtra("ubicacion_inicial", ubicacion_inicial);
+					especifico.putExtra("ubicacion_final", ubicacion_final);
+					especifico.putExtra("descripcion", descripcion);
+				}else{
+					especifico.putExtra("bandera", 0);
+					especifico.putExtra("descripcion", descripcion);
+					especifico.putExtra("bssid_menor", bssid_menor);
+				}
+				
 				startActivity(especifico);
 			}
 		});
@@ -219,14 +252,23 @@ public class OutPlace extends Activity{
 			boolean flag = true;
 			int bitmapHeight = bitmap.getHeight();
 			int bitmapWidth = bitmap.getWidth(); 
+			Log.v("Bitmap de mapa_completo","Width:"+bitmapWidth);
+			Log.v("Bitmap de mapa_completo","Height:"+bitmapHeight);
 			if (bitmapWidth > deviceWidth) {
 				flag = false;
 				int scaledWidth = deviceWidth;
 				int scaledHeight = (scaledWidth * bitmapHeight) / bitmapWidth;
+				
+				Log.v("scaledWidth",":"+scaledWidth);
+				Log.v("scaledHeight",":"+scaledHeight);
+				
 				try {
 					if (scaledHeight > deviceHeight)
 						scaledHeight = deviceHeight;
 					bitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth,scaledHeight, true);
+					
+					Log.v("scaledWidth transformacion",":"+scaledWidth);
+					Log.v("scaledHeight transformacion",":"+scaledHeight);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -250,18 +292,24 @@ public class OutPlace extends Activity{
 	
 	public int convertidor_x(int x_calculado, float W_real, int Ancho_real, int w_digital, int width_device){
 		x_calculado = x_calculado*100;
-		float conv_x_1 = ((x_calculado*W_real)/Ancho_real);
+		/*float conv_x_1 = ((x_calculado*W_real)/Ancho_real);
 		float conv_x_2 = ((w_digital*conv_x_1)/W_real);
 		float conv_x_3 = ((width_device*conv_x_2)/w_digital);
-		int x_final = (int) conv_x_3;
+		int x_final = (int) conv_x_3;*/
+		float conv_x_1 = ((x_calculado*w_digital)/Ancho_real);
+		float conv_x_2 = ((conv_x_1*width_device)/w_digital);
+		int x_final = (int) conv_x_2;
 		return x_final;
 	}
 	public int convertidor_y(int y_calculado, float Y_real, int Alto_real, int h_digital, int height_device){
 		y_calculado = y_calculado*100;
-		float conv_y_1 = ((y_calculado*Y_real)/Alto_real);
+		/*float conv_y_1 = ((y_calculado*Y_real)/Alto_real);
 		float conv_y_2 = ((h_digital*conv_y_1)/Y_real);
 		float conv_y_3 = ((height_device*conv_y_2)/h_digital);
-		int y_final = (int) conv_y_3;
+		int y_final = (int) conv_y_3;*/
+		float conv_y_1 = ((y_calculado*h_digital)/Alto_real);
+		float conv_y_2 = ((conv_y_1*height_device)/h_digital);
+		int y_final = (int) conv_y_2;
 		return y_final;
-	}	
+	}
 }
